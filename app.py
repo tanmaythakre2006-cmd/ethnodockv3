@@ -92,30 +92,50 @@ st.markdown(
         font-weight: 400;
     }
 
-    /* Stat Bar */
-    .hero-stats-grid {
+    /* 4-Step Scientific Pipeline Grid */
+    .pipeline-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-        max-width: 880px;
+        gap: 14px;
+        max-width: 920px;
         margin: 0 auto;
         padding-top: 24px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .hero-stat-box {
-        text-align: center;
+    .pipeline-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 14px;
+        padding: 16px 14px;
+        text-align: left;
+        transition: all 0.2s ease;
     }
-    .hero-stat-num {
-        font-size: 1.6rem;
+    .pipeline-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+    }
+    .pipeline-step-badge {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: #30D158;
+        margin-bottom: 6px;
+    }
+    .pipeline-step-title {
+        font-size: 0.95rem;
         font-weight: 700;
         color: #FFFFFF;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
-    .hero-stat-lbl {
-        font-size: 0.72rem;
+    .pipeline-step-desc {
+        font-size: 0.78rem;
         color: #86868B;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-top: 2px;
+        line-height: 1.4;
     }
 
     /* Command Search Card */
@@ -416,22 +436,26 @@ with tab_intro:
             EthnoDock is a world-first computational ethnopharmacology suite. We digitize canonical Traditional Chinese Medicine (TCM) pharmacopoeias—from the Han Dynasty's <i>Shennong Bencaojing</i> to the Ming Dynasty's <i>Bencao Gangmu</i>—and systematically validate their active phytochemical mechanisms against verified human macromolecular drug targets using rigorous empirical molecular docking.
         </p>
         
-        <div class="hero-stats-grid">
-            <div class="hero-stat-box">
-                <div class="hero-stat-num" style="color:#30D158;">1,180+</div>
-                <div class="hero-stat-lbl">Curated Formulations</div>
+        <div class="pipeline-grid">
+            <div class="pipeline-card">
+                <div class="pipeline-step-badge">Phase 01</div>
+                <div class="pipeline-step-title">📜 Classical Texts</div>
+                <div class="pipeline-step-desc">Han to Ming dynastic literature mining & Kew botanical taxonomy</div>
             </div>
-            <div class="hero-stat-box">
-                <div class="hero-stat-num" style="color:#64D2FF;">AutoDock Vina</div>
-                <div class="hero-stat-lbl">Empirical Scoring Engine</div>
+            <div class="pipeline-card">
+                <div class="pipeline-step-badge" style="color:#64D2FF;">Phase 02</div>
+                <div class="pipeline-step-title">🎯 Human Targets</div>
+                <div class="pipeline-step-desc">RCSB PDB & UniProt validated disease macromolecules</div>
             </div>
-            <div class="hero-stat-box">
-                <div class="hero-stat-num" style="color:#FFD60A;">3Dmol.js</div>
-                <div class="hero-stat-lbl">WebGL Interaction Studio</div>
+            <div class="pipeline-card">
+                <div class="pipeline-step-badge" style="color:#FFD60A;">Phase 03</div>
+                <div class="pipeline-step-title">⚡ Vina Biosimulation</div>
+                <div class="pipeline-step-desc">3D WebGL binding affinity & non-covalent contact networks</div>
             </div>
-            <div class="hero-stat-box">
-                <div class="hero-stat-num" style="color:#BF5AF2;">Paozhi 炮制</div>
-                <div class="hero-stat-lbl">Detoxification Audit</div>
+            <div class="pipeline-card">
+                <div class="pipeline-step-badge" style="color:#BF5AF2;">Phase 04</div>
+                <div class="pipeline-step-title">🛡️ Paozhi & ADMET</div>
+                <div class="pipeline-step-desc">Thermal processing detoxification & PAINS safety screening</div>
             </div>
         </div>
     </div>

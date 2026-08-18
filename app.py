@@ -26,6 +26,8 @@ import ethnodock_chembl_engine as chembl_eng
 import ethnodock_microbiome_engine as micro_eng
 import ethnodock_energetics_engine as energ_eng
 import ethnodock_figure_engine as fig_eng
+import ethnodock_md_engine as md_eng
+import plotly.graph_objects as go
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -1339,6 +1341,95 @@ else:
                                 {caption_md}
                             </div>
                             """, unsafe_allow_html=True)
+
+                    # ==========================================
+                    # 🌊 MOLECULAR DYNAMICS (MD) STABILITY STUDIO
+                    # ==========================================
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    with st.expander("🌊 Molecular Dynamics (MD) Pose Stability & Residence Time Analyzer", expanded=False):
+                        st.markdown("""
+                        <div style="font-size:0.86rem; color:#A1A1A6; margin-bottom:12px;">
+                            Simulates Langevin stochastic thermal relaxation (300 K) and computes <b>Heavy-Atom RMSD trajectory</b>, <b>Residue Fluctuation (RMSF)</b>, and <b>H-Bond Contact Occupancy (% Lifetime)</b> to verify whether the docked pose remains locked in water or dissociates.
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        col_md_p1, col_md_p2, col_md_p3 = st.columns([1, 1, 1])
+                        with col_md_p1:
+                            sim_time = col_md_p1.selectbox("Simulation Time (ps):", [200.0, 500.0, 1000.0], index=1, key=f"md_time_{idx}")
+                        with col_md_p2:
+                            sim_temp = col_md_p2.selectbox("Ensemble Temperature (K):", [298.15, 300.0, 310.15], index=1, key=f"md_temp_{idx}")
+                        with col_md_p3:
+                            st.write("")
+                            run_md_btn = col_md_p3.button("⚡ Run MD Trajectory Screen", key=f"btn_run_md_{idx}", use_container_width=True)
+
+                        if run_md_btn or st.session_state.get(f'md_done_{idx}', False):
+                            if run_md_btn:
+                                with st.spinner("Executing Langevin molecular dynamics trajectory perturbation..."):
+                                    md_results = md_eng.simulate_binding_pocket_md(
+                                        ligand_pose_lines=selected_pose_str,
+                                        receptor_pdbqt_path=receptor_pdbqt,
+                                        smiles=smiles,
+                                        time_ps=sim_time,
+                                        temp_k=sim_temp,
+                                        random_seed=st.session_state.get(f'dock_seed_{idx}', 42)
+                                    )
+                                    st.session_state[f'md_results_{idx}'] = md_results
+                                    st.session_state[f'md_done_{idx}'] = True
+
+                            md_res = st.session_state.get(f'md_results_{idx}')
+                            if md_res:
+                                # MD Verdict Banner
+                                st.markdown(f"""
+                                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-left:4px solid {md_res['verdict_color']}; border-radius:10px; padding:12px 16px; margin-bottom:14px;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-weight:700; color:{md_res['verdict_color']}; font-size:0.95rem;">{md_res['verdict_badge']} {md_res['verdict_status']}</span>
+                                        <span style="font-size:0.82rem; color:#86868B;">Mean RMSD: <b style="color:#FFF;">{md_res['mean_rmsd']} Å</b> &bull; Peak RMSD: <b style="color:#FFF;">{md_res['max_rmsd']} Å</b></span>
+                                    </div>
+                                    <div style="font-size:0.82rem; color:#CBD5E1; margin-top:6px; line-height:1.45;">
+                                        {md_res['verdict_desc']}
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                                # Plotly Visual Charts
+                                col_g1, col_g2 = st.columns(2, gap="medium")
+
+                                # Graph 1: RMSD Trajectory
+                                with col_g1:
+                                    df_traj = md_res["df_trajectory"]
+                                    fig_rmsd = go.Figure()
+                                    fig_rmsd.add_trace(go.Scatter(
+                                        x=df_traj["time_ps"], y=df_traj["ligand_rmsd_angstrom"],
+                                        mode="lines", name="Ligand Heavy Atom RMSD",
+                                        line=dict(color="#30D158", width=2.5)
+                                    ))
+                                    fig_rmsd.add_hline(y=2.0, line_dash="dash", line_color="#FF453A", annotation_text="Stability Threshold (2.0 Å)", annotation_position="top right")
+                                    fig_rmsd.update_layout(
+                                        title="Ligand RMSD vs Simulation Time",
+                                        xaxis_title="Time (ps)", yaxis_title="RMSD (Å)",
+                                        template="plotly_dark", height=280,
+                                        margin=dict(l=30, r=30, t=40, b=30),
+                                        paper_bgcolor="#121620", plot_bgcolor="#181C26"
+                                    )
+                                    st.plotly_chart(fig_rmsd, use_container_width=True)
+
+                                # Graph 2: Contact Residence Occupancy
+                                with col_g2:
+                                    df_occ = md_res["df_occupancy"]
+                                    fig_occ = go.Figure(go.Bar(
+                                        x=df_occ["Receptor Residue"], y=df_occ["Contact Occupancy (%)"],
+                                        marker=dict(color=df_occ["Contact Occupancy (%)"], colorscale="Tealgrn"),
+                                        text=[f"{v}%" for v in df_occ["Contact Occupancy (%)"]], textposition="auto"
+                                    ))
+                                    fig_occ.update_layout(
+                                        title="Key Residue Contact Persistence (%)",
+                                        xaxis_title="Receptor Residue", yaxis_title="Occupancy (%)",
+                                        yaxis=dict(range=[0, 110]),
+                                        template="plotly_dark", height=280,
+                                        margin=dict(l=30, r=30, t=40, b=30),
+                                        paper_bgcolor="#121620", plot_bgcolor="#181C26"
+                                    )
+                                    st.plotly_chart(fig_occ, use_container_width=True)
 
                     # ==========================================
                     # STAGE 04: BIOISOSTERE LEAD OPTIMIZATION

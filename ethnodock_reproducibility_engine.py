@@ -208,8 +208,18 @@ def create_reproducibility_zip_bundle(
             zf.writestr("publication_figure.pml", pml_script)
         except Exception as e:
             print(f"PyMOL bundle note: {e}")
+            
+        # 6. Molecular Dynamics Simulation Scripts (OpenMM & GROMACS)
+        try:
+            import ethnodock_md_engine as md_eng
+            openmm_script = md_eng.generate_openmm_python_script(f"{pdb_id}.pdb", "active_ligand.pdbqt", target_name, compound_name)
+            zf.writestr("run_openmm_md.py", openmm_script)
+            gromacs_mdp = md_eng.generate_gromacs_mdp()
+            zf.writestr("gromacs_production.mdp", gromacs_mdp)
+        except Exception as e:
+            print(f"MD bundle note: {e}")
         
-        # 6. Comprehensive Scientific Metadata Manifest (JSON)
+        # 7. Comprehensive Scientific Metadata Manifest (JSON)
         manifest = {
             "platform": "EthnoDock Pro",
             "version": "3.0.0-scientific",

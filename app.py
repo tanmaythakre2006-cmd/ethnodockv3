@@ -554,18 +554,14 @@ def load_tcm_master():
 
 df = load_tcm_master()
 
-# ==========================================
-# 🧭 TOP NAVIGATION TABS
-# ==========================================
-tab_intro, tab_workbench = st.tabs([
-    "✨ 01 • Project Vision & Discovery Portal",
-    "🔬 02 • In-Silico Molecular Workbench"
-])
+# --- Initialize View State ---
+if 'current_view' not in st.session_state:
+    st.session_state['current_view'] = 'landing'
 
 # ==========================================
-# 🌟 TAB 1: EYE-CATCHING HERO & DISCOVERY
+# 🌟 VIEW 1: DISCOVERY PORTAL & SEARCH
 # ==========================================
-with tab_intro:
+if st.session_state['current_view'] == 'landing':
     # 1. Radiant Hero Header with Executive Scientific Architecture
     st.markdown(
         """<div class="aurora-hero">
@@ -671,7 +667,7 @@ For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Ben
             "Search Catalog by Filter:",
             ["Common Name", "Protein Target", "Active Phytochemical"],
             on_change=clear_session_docking_state,
-            key="tab1_search_by"
+            key="landing_search_by"
         )
     with col_s2:
         if search_by == "Common Name":
@@ -685,7 +681,7 @@ For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Ben
             f"Select {search_by}:",
             options,
             on_change=clear_session_docking_state,
-            key="tab1_selected_option"
+            key="landing_selected_option"
         )
 
     st.markdown("</div>", unsafe_allow_html=True)
@@ -741,12 +737,21 @@ For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Ben
                     <div style="font-size:16px; font-weight:700; color:#30D158; margin-top:2px;">{row['Protein Target']} ({row['Gene Symbol']})</div>
                     <div style="font-size:12px; color:#A1A1A6; margin-top:4px;"><b>RCSB PDB ID:</b> <span style="color:#64D2FF; font-weight:700;">{row['PDB ID']}</span> &bull; <b>UniProt:</b> {row['UniProt ID']}</div>
                 </div>
-                <div style="margin-top:16px; background:rgba(10, 132, 255, 0.08); border:1px solid rgba(10, 132, 255, 0.2); border-radius:12px; padding:10px 14px;">
-                    <span style="font-size:12px; color:#64D2FF; font-weight:600;">⚡ Ready for Simulation:</span>
-                    <span style="font-size:12px; color:#CBD5E1;"> Switch to the <b>In-Silico Molecular Workbench</b> tab above to run AutoDock Vina and inspect 3D interactions!</span>
-                </div>
             </div>
             """, unsafe_allow_html=True)
+
+        # 🚀 Prominent Workbench Launch Call-To-Action Button Below Spotlight
+        st.markdown("<br>", unsafe_allow_html=True)
+        col_cta1, col_cta2, col_cta3 = st.columns([1, 2.2, 1])
+        with col_cta2:
+            launch_workbench = st.button(
+                f"🚀 Launch In-Silico Molecular Workbench for {row['Common Name']} →",
+                key="btn_launch_workbench_direct",
+                use_container_width=True
+            )
+            if launch_workbench:
+                st.session_state['current_view'] = 'workbench'
+                st.rerun()
 
     # 5. Dual Paradigm Synthesis (Ancient Wisdom vs Modern Biophysics)
     st.markdown("<br>", unsafe_allow_html=True)
@@ -777,11 +782,33 @@ For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Ben
 
 
 # ==========================================
-# 🔬 TAB 2: IN-SILICO MOLECULAR WORKBENCH
+# 🔬 VIEW 2: IN-SILICO MOLECULAR WORKBENCH
 # ==========================================
-with tab_workbench:
+else:
+    # Retrieve current search item
+    search_by = st.session_state.get('landing_search_by', 'Common Name')
+    selected_option = st.session_state.get('landing_selected_option', df['Common Name'].iloc[0])
+    selected_data = df[df[search_by] == selected_option]
+
     if not selected_data.empty:
+        row_active = selected_data.iloc[0]
+        # Top Navigation Header with Return Button
+        col_back, col_title = st.columns([1, 3], vertical_alignment="center")
+        with col_back:
+            if st.button("← Return to Discovery Portal", use_container_width=True):
+                st.session_state['current_view'] = 'landing'
+                st.rerun()
+        with col_title:
+            st.markdown(
+                f"<div style='font-size:1.15rem; font-weight:700; color:#F1F5F9; text-align:right;'>"
+                f"🔬 In-Silico Molecular Workbench &bull; <span style='color:#30D158;'>{row_active['Common Name']}</span> × <span style='color:#64D2FF;'>{row_active['Protein Target']} ({row_active['PDB ID']})</span>"
+                f"</div>",
+                unsafe_allow_html=True
+            )
+        st.markdown("<hr style='border:none; border-top:1px solid rgba(255,255,255,0.08); margin:10px 0 20px 0;'>", unsafe_allow_html=True)
+
         for idx, row in selected_data.iterrows():
+
             # Check Paozhi Availability
             paozhi_key = paozhi_eng.has_paozhi(row['Common Name'])
             active_compound_name = row['Active Phytochemical']

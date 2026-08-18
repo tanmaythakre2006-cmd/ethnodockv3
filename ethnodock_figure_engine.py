@@ -67,6 +67,12 @@ def generate_pymol_pml(
 
     pocket_sel_str = " or ".join(set(pocket_res_selection)) if pocket_res_selection else "byres (receptor within 4.5 of ligand)"
 
+    # Format hbond commands block
+    if hbond_commands:
+        hbond_block = "\n".join(set(hbond_commands))
+    else:
+        hbond_block = "distance hb_contacts, receptor, ligand, 3.6"
+
     pml_script = f"""# ==============================================================================
 # EthnoDock Pro • Publication-Grade PyMOL Visualization Script
 # Target: {target_name} (PDB: {pdb_id}) | Phytochemical: {compound_name} ({species_name})
@@ -123,7 +129,7 @@ set surface_color, white, active_cavity
 set transparency, 0.75, active_cavity
 
 # 7. Non-Covalent Contact Distance Tracing
-{"".join([f"{cmd}\n" for cmd in set(hbond_commands)]) if hbond_commands else "distance hb_contacts, receptor, ligand, 3.6"}
+{hbond_block}
 hide labels, hb_*
 set dash_color, {hbond_color}, hb_*
 

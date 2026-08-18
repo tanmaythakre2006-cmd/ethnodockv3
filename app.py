@@ -977,6 +977,9 @@ else:
                     cy = col_c2.number_input("Center Y", value=float(center[1]), format="%.2f", key=f"cy_tab2_{idx}")
                     cz = col_c3.number_input("Center Z", value=float(center[2]), format="%.2f", key=f"cz_tab2_{idx}")
                     sx = col_s1.number_input("Size X", value=float(dims[0]), format="%.2f", key=f"sx_tab2_{idx}")
+                    sy = col_s2.number_input("Size Y", value=float(dims[1]), format="%.2f", key=f"sy_tab2_{idx}")
+                    sz = col_s3.number_input("Size Z", value=float(dims[2]), format="%.2f", key=f"sz_tab2_{idx}")
+
                     col_exh, col_seed = st.columns([1.5, 1])
                     with col_exh:
                         exhaustiveness = st.slider("Vina Exhaustiveness (Sampling Precision)", min_value=4, max_value=32, value=8, step=4, key=f"exh_tab2_{idx}")

@@ -203,24 +203,105 @@ st.markdown(
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .stepper-label {
-        font-size: 0.88rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        margin-bottom: 2px;
+    /* Executive Scientific Manifesto Card */
+    .executive-manifesto-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 22px;
+        padding: 26px 30px;
+        margin: 20px auto 10px auto;
+        max-width: 940px;
+        text-align: left;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
     }
-    .stepper-sub {
+    .manifesto-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+    }
+    .manifesto-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #30D158;
+        box-shadow: 0 0 10px #30D158;
+        display: inline-block;
+    }
+    .manifesto-tag {
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #FFFFFF;
+        text-transform: uppercase;
+    }
+    .manifesto-id {
+        font-family: 'JetBrains Mono', monospace;
         font-size: 0.72rem;
         color: #86868B;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
     }
-    .stepper-arrow {
-        font-size: 1.2rem;
-        color: rgba(255, 255, 255, 0.2);
+    .manifesto-grid {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 20px;
+        align-items: stretch;
+    }
+    .manifesto-col {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 14px;
+        padding: 16px 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .manifesto-col-title {
+        font-size: 0.95rem;
         font-weight: 700;
-        margin: 0 4px;
+        margin-bottom: 8px;
+    }
+    .manifesto-p {
+        font-size: 0.86rem;
+        color: #94A3B8;
+        line-height: 1.6;
+        margin: 0 0 12px 0;
+    }
+    .manifesto-sub-badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        color: #FFD60A;
+        background: rgba(255, 214, 10, 0.08);
+        border: 1px solid rgba(255, 214, 10, 0.2);
+        padding: 3px 10px;
+        border-radius: 12px;
+        width: fit-content;
+    }
+    .manifesto-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 1.4rem;
+    }
+    .manifesto-footer {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .manifesto-pill {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        color: #CBD5E1;
+        font-weight: 500;
     }
 
     /* Dual Paradigm Synthesis Cards */
@@ -494,19 +575,55 @@ with tab_intro:
             with <span class="hero-gradient-text">Modern Structural Biophysics</span>
         </h1>
         
-        <div style="max-width: 860px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.15rem; color: #E2E8F0; line-height: 1.7; margin-bottom: 16px; font-weight: 400;">
-                For millennia, canonical pharmacopoeias—from the Han Dynasty’s foundational <i>Shennong Bencaojing</i> (神农本草经) to the Ming Dynasty’s monumental <i>Bencao Gangmu</i> (本草纲目)—have codified the therapeutic efficacy of botanical remedies through centuries of clinical observation.
-            </p>
-            <p style="font-size: 1.02rem; color: #94A3B8; line-height: 1.7; margin-bottom: 24px;">
-                <b>EthnoDock Pro</b> bridges this ancient wisdom with Western molecular pharmacology. We systematically digitize classical text indications, verify botanical binomials with Kew Gardens, isolate active phytochemical scaffolds, and deploy <b>empirical AutoDock Vina molecular docking</b> and <b>3D WebGL non-covalent contact mapping (&lt; 4.0 Å)</b> to elucidate exact atomic-level binding energetics (&Delta;G), residue anchor networks, and classical <i>Paozhi</i> (炮制) detoxification mechanisms against validated human therapeutic drug targets.
-            </p>
-            
-            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 12px;">
-                <span class="apple-badge">📜 2,000+ Years Codified Canon</span>
-                <span class="apple-badge apple-badge-blue">🎯 RCSB PDB Macromolecular Pockets</span>
-                <span class="apple-badge apple-badge-gold">⚡ AutoDock Vina Empirical Free Energy (ΔG)</span>
-                <span class="apple-badge apple-badge-purple">⚗️ Classical Paozhi (炮制) Detoxification Alchemy</span>
+        <!-- Executive Scientific Manifesto Card -->
+        <div class="executive-manifesto-card">
+            <div class="manifesto-header">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="manifesto-dot"></span>
+                    <span class="manifesto-tag">Executive Scientific Architecture</span>
+                </div>
+                <span class="manifesto-id">REF: ETHNODOCK-SYS-2026</span>
+            </div>
+
+            <div class="manifesto-grid">
+                <!-- Left: Ancient Empirical Foundation -->
+                <div class="manifesto-col">
+                    <div>
+                        <div class="manifesto-col-title">
+                            <span style="color:#FFD60A;">📜 01. Empirical Dynastic Canon</span>
+                        </div>
+                        <p class="manifesto-p">
+                            For millennia, canonical pharmacopoeias—such as the Han Dynasty's <i>Shennong Bencaojing</i> (神农本草经) and the Ming Dynasty's <i>Bencao Gangmu</i> (本草纲目)—codified the therapeutic efficacy of multi-component botanical remedies through centuries of clinical observation.
+                        </p>
+                    </div>
+                    <div class="manifesto-sub-badge">Kew Taxonomy Verified</div>
+                </div>
+
+                <!-- Center Divider -->
+                <div class="manifesto-divider">
+                    <span>⚛️</span>
+                </div>
+
+                <!-- Right: Western Structural Biophysics -->
+                <div class="manifesto-col">
+                    <div>
+                        <div class="manifesto-col-title">
+                            <span style="color:#30D158;">⚡ 02. In-Silico Molecular Pharmacology</span>
+                        </div>
+                        <p class="manifesto-p">
+                            <b>EthnoDock Pro</b> translates this ancient literature into atomic structural chemistry. We isolate active metabolites, simulate <b>AutoDock Vina free energy (&Delta;G)</b>, map 3D residue anchor contacts (&lt; 4.0 Å), and audit classical <i>Paozhi</i> (炮制) detoxification against validated human disease targets.
+                        </p>
+                    </div>
+                    <div class="manifesto-sub-badge" style="border-color:rgba(48,209,88,0.3); color:#30D158;">AutoDock Vina &bull; RCSB PDB</div>
+                </div>
+            </div>
+
+            <!-- Bottom Standards Ribbon -->
+            <div class="manifesto-footer">
+                <span class="manifesto-pill">📜 2,000+ Yrs Codified Canon</span>
+                <span class="manifesto-pill">🎯 RCSB Macromolecular Pockets</span>
+                <span class="manifesto-pill">⚡ AutoDock Vina Free Energy (ΔG)</span>
+                <span class="manifesto-pill">⚗️ Paozhi Detoxification Alchemy</span>
             </div>
         </div>
     </div>

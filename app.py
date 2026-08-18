@@ -493,9 +493,22 @@ with tab_intro:
             Bridging 2,000 Years of Botanical Canon<br>
             with <span class="hero-gradient-text">Modern Structural Biophysics</span>
         </h1>
-        <p class="hero-main-desc" style="margin-bottom:0;">
-            EthnoDock digitizes classical dynastic pharmacopoeias (<i>Shennong Bencaojing, Bencao Gangmu</i>) to uncover the molecular mechanisms of ancient phytotherapy—validating active phytochemicals against human disease drug targets via empirical AutoDock Vina simulation.
-        </p>
+        
+        <div style="max-width: 860px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.15rem; color: #E2E8F0; line-height: 1.7; margin-bottom: 16px; font-weight: 400;">
+                For millennia, canonical pharmacopoeias—from the Han Dynasty’s foundational <i>Shennong Bencaojing</i> (神农本草经) to the Ming Dynasty’s monumental <i>Bencao Gangmu</i> (本草纲目)—have codified the therapeutic efficacy of botanical remedies through centuries of clinical observation.
+            </p>
+            <p style="font-size: 1.02rem; color: #94A3B8; line-height: 1.7; margin-bottom: 24px;">
+                <b>EthnoDock Pro</b> bridges this ancient wisdom with Western molecular pharmacology. We systematically digitize classical text indications, verify botanical binomials with Kew Gardens, isolate active phytochemical scaffolds, and deploy <b>empirical AutoDock Vina molecular docking</b> and <b>3D WebGL non-covalent contact mapping (&lt; 4.0 Å)</b> to elucidate exact atomic-level binding energetics (&Delta;G), residue anchor networks, and classical <i>Paozhi</i> (炮制) detoxification mechanisms against validated human therapeutic drug targets.
+            </p>
+            
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 12px;">
+                <span class="apple-badge">📜 2,000+ Years Codified Canon</span>
+                <span class="apple-badge apple-badge-blue">🎯 RCSB PDB Macromolecular Pockets</span>
+                <span class="apple-badge apple-badge-gold">⚡ AutoDock Vina Empirical Free Energy (ΔG)</span>
+                <span class="apple-badge apple-badge-purple">⚗️ Classical Paozhi (炮制) Detoxification Alchemy</span>
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 

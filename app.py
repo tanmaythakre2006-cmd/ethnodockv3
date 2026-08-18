@@ -34,7 +34,7 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     /* Base Reset & Apple Typography */
     html, body, [class*="css"], .stApp {
@@ -43,21 +43,79 @@ st.markdown(
         color: #F5F5F7 !important;
         letter-spacing: -0.015em;
     }
+
+    /* Ambient Hero Glow */
+    .hero-container {
+        position: relative;
+        background: radial-gradient(circle at 50% 0%, rgba(48, 209, 88, 0.15) 0%, rgba(10, 132, 255, 0.08) 35%, rgba(8, 9, 12, 0.95) 75%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 48px 40px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    }
     
-    /* Clean Top Header */
-    header[data-testid="stHeader"] {
-        background: rgba(8, 9, 12, 0.7) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
+    .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #30D158;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
     }
 
-    /* Apple Sidebar */
-    [data-testid="stSidebar"] {
-        background: #0D0E13 !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.15;
+        margin: 0 0 16px 0;
+        background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
-    [data-testid="stSidebar"] hr {
-        border-color: rgba(255, 255, 255, 0.08) !important;
+
+    .hero-subtitle {
+        font-size: 1.15rem;
+        color: #A1A1A6;
+        max-width: 720px;
+        margin: 0 auto 24px auto;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+
+    /* Stat Bar */
+    .hero-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        max-width: 860px;
+        margin: 0 auto;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .hero-stat-box {
+        text-align: center;
+    }
+    .hero-stat-num {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #FFFFFF;
+    }
+    .hero-stat-lbl {
+        font-size: 0.75rem;
+        color: #86868B;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 2px;
     }
 
     /* Glass Cards */
@@ -71,7 +129,7 @@ st.markdown(
         margin-bottom: 20px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
-    
+
     .apple-card-compact {
         background: rgba(255, 255, 255, 0.025);
         border: 1px solid rgba(255, 255, 255, 0.06);
@@ -111,7 +169,43 @@ st.markdown(
         border: 1px solid rgba(191, 90, 242, 0.28);
     }
 
-    /* Apple Metric Widgets */
+    /* Feature Highlights */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .feature-box {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        padding: 24px;
+        transition: all 0.2s ease;
+    }
+    .feature-box:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.12);
+        transform: translateY(-2px);
+    }
+    .feature-icon {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+        display: inline-block;
+    }
+    .feature-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 6px;
+    }
+    .feature-desc {
+        font-size: 0.85rem;
+        color: #86868B;
+        line-height: 1.5;
+    }
+
+    /* Apple Stat Widgets */
     .apple-stat-box {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.07);
@@ -123,7 +217,6 @@ st.markdown(
     .apple-stat-box:hover {
         background: rgba(255, 255, 255, 0.05);
         border-color: rgba(255, 255, 255, 0.12);
-        transform: translateY(-2px);
     }
     .apple-stat-lbl {
         font-size: 0.72rem;
@@ -192,28 +285,6 @@ st.markdown(
     }
     .stButton>button:active {
         transform: scale(0.98) !important;
-    }
-
-    /* Form Inputs */
-    .stSelectbox>div>div, .stNumberInput>div>div>input {
-        background-color: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 10px !important;
-        color: #FFFFFF !important;
-    }
-    
-    /* Clean Expander */
-    .streamlit-expanderHeader {
-        background: rgba(255, 255, 255, 0.02) !important;
-        border-radius: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    }
-
-    /* Dataframe styling */
-    [data-testid="stDataFrame"] {
-        border-radius: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.06) !important;
-        overflow: hidden !important;
     }
     </style>
     """,
@@ -295,27 +366,58 @@ def load_tcm_master():
 df = load_tcm_master()
 
 # ==========================================
-# APPLE-STYLE MINIMALIST NAVBAR & HEADER
+# 🌟 APPLE-GRADE HERO LANDING BANNER
 # ==========================================
 st.markdown("""
-<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.08);">
-    <div>
-        <span class="apple-badge">⌘ EthnoDock OS 2.0</span>
-        <h1 style="margin:8px 0 2px 0; font-size:2.2rem; font-weight:700; letter-spacing:-0.03em; color:#FFFFFF;">
-            EthnoDock <span style="color:#30D158;">Pro</span>
-        </h1>
-        <p style="margin:0; color:#86868B; font-size:0.95rem;">Computational Pharmacognosy & Molecular Biosimulation Suite</p>
+<div class="hero-container">
+    <span class="hero-pill">🌿 EthnoDock Pro • In-Silico Pharmacognosy OS</span>
+    <h1 class="hero-title">Bridging 2,000 Years of Botanical Wisdom<br>with Western Molecular Pharmacology</h1>
+    <p class="hero-subtitle">
+        High-throughput in-silico molecular docking, 3D WebGL non-covalent contact mapping, and classical <i>Paozhi</i> (炮制) detoxification intelligence grounded in peer-reviewed science.
+    </p>
+    
+    <div class="hero-stats-grid">
+        <div class="hero-stat-box">
+            <div class="hero-stat-num" style="color:#30D158;">1,180+</div>
+            <div class="hero-stat-lbl">Curated Formulations</div>
+        </div>
+        <div class="hero-stat-box">
+            <div class="hero-stat-num" style="color:#64D2FF;">AutoDock Vina</div>
+            <div class="hero-stat-lbl">Empirical Scoring Engine</div>
+        </div>
+        <div class="hero-stat-box">
+            <div class="hero-stat-num" style="color:#FFD60A;">3Dmol.js</div>
+            <div class="hero-stat-lbl">WebGL Interaction Studio</div>
+        </div>
+        <div class="hero-stat-box">
+            <div class="hero-stat-num" style="color:#BF5AF2;">Paozhi 炮制</div>
+            <div class="hero-stat-lbl">Detoxification Audit</div>
+        </div>
     </div>
-    <div style="display:flex; gap:10px;">
-        <span class="apple-badge apple-badge-blue">AutoDock Vina v1.2.7</span>
-        <span class="apple-badge apple-badge-gold">ChEMBL / UniProt Standard</span>
+</div>
+
+<div class="feature-grid">
+    <div class="feature-box">
+        <div class="feature-icon">🌿</div>
+        <div class="feature-title">Dual Botanical & Chemical View</div>
+        <div class="feature-desc">Examine verified field specimen photographs alongside microscopic 2D molecular topological structures and SMILES.</div>
+    </div>
+    <div class="feature-box">
+        <div class="feature-icon">🔮</div>
+        <div class="feature-title">3D WebGL Interaction Studio</div>
+        <div class="feature-desc">Compute exact Euclidean contacts (<4.0Å), rendering glowing dashed polar bonds (red) and hydrophobic residue badges (cyan).</div>
+    </div>
+    <div class="feature-box">
+        <div class="feature-icon">⚗️</div>
+        <div class="feature-title">Paozhi & Lead Optimization</div>
+        <div class="feature-desc">Model classical thermal processing detoxification pathways and engineer bioisosteric derivatives to enhance binding affinity.</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # --- Sidebar Controls ---
-st.sidebar.markdown("### ⚙️ Workspace Inspector")
-search_by = st.sidebar.selectbox("Filter Catalog by", ["Common Name", "Protein Target", "Active Phytochemical"], on_change=clear_session_docking_state)
+st.sidebar.markdown("### ⚙️ Workspace Controller")
+search_by = st.sidebar.selectbox("Catalog Search Filter:", ["Common Name", "Protein Target", "Active Phytochemical"], on_change=clear_session_docking_state)
 
 if search_by == "Common Name":
     options = df["Common Name"].unique().tolist()
@@ -324,17 +426,17 @@ elif search_by == "Protein Target":
 else:
     options = df["Active Phytochemical"].unique().tolist()
 
-selected_option = st.sidebar.selectbox(f"Select {search_by}", options, on_change=clear_session_docking_state)
+selected_option = st.sidebar.selectbox(f"Select {search_by}:", options, on_change=clear_session_docking_state)
 selected_data = df[df[search_by] == selected_option]
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("""
 <div style="font-size:12px; color:#86868B;">
-    <p><b>Platform Standards</b></p>
+    <p style="font-weight:600; color:#F5F5F7; margin-bottom:4px;">Platform Rigor Standards</p>
     • <b>Taxonomy:</b> Kew POWO & WFO<br>
-    • <b>In-Silico:</b> Empirical Vina Scoring<br>
-    • <b>Chemistry:</b> RDKit ETKDGv3 / UFF<br>
-    • <b>Toxicology:</b> PAINS & Lipinski Ro5
+    • <b>Receptor:</b> RCSB PDB & UniProt<br>
+    • <b>Conformers:</b> RDKit ETKDGv3 / UFF<br>
+    • <b>Bio-Assay:</b> PAINS & Lipinski Ro5
 </div>
 """, unsafe_allow_html=True)
 
@@ -351,10 +453,10 @@ if not selected_data.empty:
         # 1. BOTANICAL SPECIMEN & METADATA PROFILE
         # ==========================================
         st.markdown("""
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
             <div style="display:flex; align-items:center; gap:8px;">
                 <span class="apple-badge apple-badge-purple">Stage 01</span>
-                <h3 style="margin:0; font-size:1.15rem; font-weight:600;">Botanical Specimen & Chemical Characterization</h3>
+                <h3 style="margin:0; font-size:1.25rem; font-weight:600;">Botanical Specimen & Chemical Characterization</h3>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -459,9 +561,9 @@ if not selected_data.empty:
         # ==========================================
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("""
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
             <span class="apple-badge apple-badge-blue">Stage 02</span>
-            <h3 style="margin:0; font-size:1.15rem; font-weight:600;">Receptor & Search Cavity Configuration</h3>
+            <h3 style="margin:0; font-size:1.25rem; font-weight:600;">Receptor & Search Cavity Configuration</h3>
         </div>
         """, unsafe_allow_html=True)
 
@@ -508,9 +610,9 @@ if not selected_data.empty:
                 # ==========================================
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.markdown("""
-                <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
                     <span class="apple-badge apple-badge-gold">Stage 03</span>
-                    <h3 style="margin:0; font-size:1.15rem; font-weight:600;">In-Silico Docking & 3D WebGL Interaction Studio</h3>
+                    <h3 style="margin:0; font-size:1.25rem; font-weight:600;">In-Silico Docking & 3D WebGL Interaction Studio</h3>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -668,9 +770,9 @@ if not selected_data.empty:
                 # ==========================================
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.markdown("""
-                <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
                     <span class="apple-badge apple-badge-purple">Stage 04</span>
-                    <h3 style="margin:0; font-size:1.15rem; font-weight:600;">Semi-Synthetic Bioisostere Lead Optimization</h3>
+                    <h3 style="margin:0; font-size:1.25rem; font-weight:600;">Semi-Synthetic Bioisostere Lead Optimization</h3>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -731,9 +833,9 @@ if not selected_data.empty:
                 # ==========================================
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.markdown("""
-                <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
                     <span class="apple-badge">Stage 05</span>
-                    <h3 style="margin:0; font-size:1.15rem; font-weight:600;">ADMET Pharmacokinetics & Dossier Export</h3>
+                    <h3 style="margin:0; font-size:1.25rem; font-weight:600;">ADMET Pharmacokinetics & Dossier Export</h3>
                 </div>
                 """, unsafe_allow_html=True)
 

@@ -161,50 +161,66 @@ st.markdown(
         box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
     }
 
-    /* 4-Step Scientific Pipeline Grid */
-    .pipeline-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-        max-width: 960px;
+    /* Graphical Connected Stepper Ribbon */
+    .visual-stepper-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 900px;
         margin: 0 auto;
-        padding-top: 28px;
+        padding: 24px 10px 10px 10px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
     }
-    .pipeline-card {
-        background: rgba(255, 255, 255, 0.025);
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        border-radius: 16px;
-        padding: 18px 16px;
-        text-align: left;
-        transition: all 0.25s ease;
+    .stepper-node {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 18px;
+        padding: 16px 20px;
+        min-width: 160px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
-    .pipeline-card:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.18);
-        transform: translateY(-2px);
+    .stepper-node:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(48, 209, 88, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(48, 209, 88, 0.15);
     }
-    .pipeline-step-badge {
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
-        color: #30D158;
-        margin-bottom: 6px;
-    }
-    .pipeline-step-title {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        margin-bottom: 4px;
+    .stepper-icon-circle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
-        gap: 6px;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .pipeline-step-desc {
-        font-size: 0.8rem;
+    .stepper-label {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin-bottom: 2px;
+    }
+    .stepper-sub {
+        font-size: 0.72rem;
         color: #86868B;
-        line-height: 1.45;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .stepper-arrow {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.2);
+        font-weight: 700;
+        margin: 0 4px;
     }
 
     /* Dual Paradigm Synthesis Cards */
@@ -481,27 +497,30 @@ with tab_intro:
             EthnoDock digitizes classical dynastic pharmacopoeias (<i>Shennong Bencaojing, Bencao Gangmu</i>) to uncover the molecular mechanisms of ancient phytotherapy—validating active phytochemicals against human disease drug targets via empirical AutoDock Vina simulation.
         </p>
 
-        <!-- 4-Step Scientific Pipeline -->
-        <div class="pipeline-grid">
-            <div class="pipeline-card">
-                <div class="pipeline-step-badge">Phase 01</div>
-                <div class="pipeline-step-title">📜 Classical Texts</div>
-                <div class="pipeline-step-desc">Han to Ming dynastic literature mining & Kew botanical taxonomy</div>
+        <!-- Graphical Connected Stepper Ribbon -->
+        <div class="visual-stepper-container">
+            <div class="stepper-node">
+                <div class="stepper-icon-circle" style="color:#30D158; border-color:rgba(48,209,88,0.3);">📜</div>
+                <div class="stepper-label">Classical Texts</div>
+                <div class="stepper-sub">Dynastic Philology</div>
             </div>
-            <div class="pipeline-card">
-                <div class="pipeline-step-badge" style="color:#64D2FF;">Phase 02</div>
-                <div class="pipeline-step-title">🎯 Human Targets</div>
-                <div class="pipeline-step-desc">RCSB PDB & UniProt validated disease macromolecules</div>
+            <div class="stepper-arrow">➔</div>
+            <div class="stepper-node">
+                <div class="stepper-icon-circle" style="color:#64D2FF; border-color:rgba(100,210,255,0.3);">🎯</div>
+                <div class="stepper-label">Human Targets</div>
+                <div class="stepper-sub">PDB & UniProt</div>
             </div>
-            <div class="pipeline-card">
-                <div class="pipeline-step-badge" style="color:#FFD60A;">Phase 03</div>
-                <div class="pipeline-step-title">⚡ Vina Biosimulation</div>
-                <div class="pipeline-step-desc">3D WebGL binding affinity & non-covalent contact networks</div>
+            <div class="stepper-arrow">➔</div>
+            <div class="stepper-node">
+                <div class="stepper-icon-circle" style="color:#FFD60A; border-color:rgba(255,214,10,0.3);">⚡</div>
+                <div class="stepper-label">Vina Simulation</div>
+                <div class="stepper-sub">3D WebGL ΔG</div>
             </div>
-            <div class="pipeline-card">
-                <div class="pipeline-step-badge" style="color:#BF5AF2;">Phase 04</div>
-                <div class="pipeline-step-title">🛡️ Paozhi & ADMET</div>
-                <div class="pipeline-step-desc">Thermal processing detoxification & PAINS safety screening</div>
+            <div class="stepper-arrow">➔</div>
+            <div class="stepper-node">
+                <div class="stepper-icon-circle" style="color:#BF5AF2; border-color:rgba(191,90,242,0.3);">🛡️</div>
+                <div class="stepper-label">Safety & ADMET</div>
+                <div class="stepper-sub">Paozhi Detox</div>
             </div>
         </div>
     </div>

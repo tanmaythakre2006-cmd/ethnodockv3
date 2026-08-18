@@ -22,12 +22,12 @@ import ethnodock_admet_engine as admet_eng
 import ethnodock_dossier_engine as dossier_eng
 import ethnodock_paozhi_engine as paozhi_eng
 
-# --- Page Configuration ---
+# --- Page Configuration (Sidebar Collapsed by Default for Full-Width Immersive Experience) ---
 st.set_page_config(
     page_title="EthnoDock Pro • In-Silico Pharmacognosy",
     page_icon="🌿",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # --- Apple macOS / iOS Premium Glassmorphic Design System ---
@@ -50,9 +50,9 @@ st.markdown(
         background: radial-gradient(circle at 50% 0%, rgba(48, 209, 88, 0.15) 0%, rgba(10, 132, 255, 0.08) 35%, rgba(8, 9, 12, 0.95) 75%);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 24px;
-        padding: 48px 40px;
+        padding: 44px 36px 36px 36px;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 24px;
         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
     }
     
@@ -73,21 +73,21 @@ st.markdown(
     }
 
     .hero-title {
-        font-size: 3rem;
+        font-size: 2.8rem;
         font-weight: 800;
         letter-spacing: -0.035em;
         line-height: 1.15;
-        margin: 0 0 16px 0;
+        margin: 0 0 14px 0;
         background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A6 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         color: #A1A1A6;
-        max-width: 720px;
-        margin: 0 auto 24px auto;
+        max-width: 740px;
+        margin: 0 auto 20px auto;
         line-height: 1.5;
         font-weight: 400;
     }
@@ -99,23 +99,53 @@ st.markdown(
         gap: 16px;
         max-width: 860px;
         margin: 0 auto;
-        padding-top: 20px;
+        padding-top: 18px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
     .hero-stat-box {
         text-align: center;
     }
     .hero-stat-num {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: #FFFFFF;
     }
     .hero-stat-lbl {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         color: #86868B;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-top: 2px;
+    }
+
+    /* Main Command Search Bar */
+    .command-bar-card {
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(35px);
+        -webkit-backdrop-filter: blur(35px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 22px 28px;
+        margin-bottom: 25px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Rigor Ribbon */
+    .rigor-ribbon {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    .rigor-pill {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        color: #86868B;
+        font-weight: 500;
     }
 
     /* Glass Cards */
@@ -167,42 +197,6 @@ st.markdown(
         background: rgba(191, 90, 242, 0.12);
         color: #BF5AF2;
         border: 1px solid rgba(191, 90, 242, 0.28);
-    }
-
-    /* Feature Highlights */
-    .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-    .feature-box {
-        background: rgba(255, 255, 255, 0.025);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 16px;
-        padding: 24px;
-        transition: all 0.2s ease;
-    }
-    .feature-box:hover {
-        background: rgba(255, 255, 255, 0.04);
-        border-color: rgba(255, 255, 255, 0.12);
-        transform: translateY(-2px);
-    }
-    .feature-icon {
-        font-size: 1.8rem;
-        margin-bottom: 12px;
-        display: inline-block;
-    }
-    .feature-title {
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: #FFFFFF;
-        margin-bottom: 6px;
-    }
-    .feature-desc {
-        font-size: 0.85rem;
-        color: #86868B;
-        line-height: 1.5;
     }
 
     /* Apple Stat Widgets */
@@ -366,7 +360,7 @@ def load_tcm_master():
 df = load_tcm_master()
 
 # ==========================================
-# 🌟 APPLE-GRADE HERO LANDING BANNER
+# 🌟 1. APPLE-GRADE HERO LANDING BANNER
 # ==========================================
 st.markdown("""
 <div class="hero-container">
@@ -395,50 +389,56 @@ st.markdown("""
         </div>
     </div>
 </div>
+""", unsafe_allow_html=True)
 
-<div class="feature-grid">
-    <div class="feature-box">
-        <div class="feature-icon">🌿</div>
-        <div class="feature-title">Dual Botanical & Chemical View</div>
-        <div class="feature-desc">Examine verified field specimen photographs alongside microscopic 2D molecular topological structures and SMILES.</div>
-    </div>
-    <div class="feature-box">
-        <div class="feature-icon">🔮</div>
-        <div class="feature-title">3D WebGL Interaction Studio</div>
-        <div class="feature-desc">Compute exact Euclidean contacts (<4.0Å), rendering glowing dashed polar bonds (red) and hydrophobic residue badges (cyan).</div>
-    </div>
-    <div class="feature-box">
-        <div class="feature-icon">⚗️</div>
-        <div class="feature-title">Paozhi & Lead Optimization</div>
-        <div class="feature-desc">Model classical thermal processing detoxification pathways and engineer bioisosteric derivatives to enhance binding affinity.</div>
+# ==========================================
+# 🧭 2. MAIN-PAGE COMMAND CENTER & SEARCH BAR
+# ==========================================
+st.markdown("""
+<div class="command-bar-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span style="font-weight:600; font-size:1.1rem; color:#FFFFFF;">🔍 Pharmacognosy Catalog Command Center</span>
+        <span class="apple-badge apple-badge-blue">Real-Time Search</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# --- Sidebar Controls ---
-st.sidebar.markdown("### ⚙️ Workspace Controller")
-search_by = st.sidebar.selectbox("Catalog Search Filter:", ["Common Name", "Protein Target", "Active Phytochemical"], on_change=clear_session_docking_state)
+col_ctrl1, col_ctrl2 = st.columns([1, 1.8], gap="medium")
 
-if search_by == "Common Name":
-    options = df["Common Name"].unique().tolist()
-elif search_by == "Protein Target":
-    options = df["Protein Target"].unique().tolist()
-else:
-    options = df["Active Phytochemical"].unique().tolist()
+with col_ctrl1:
+    search_by = st.selectbox(
+        "Search Catalog by:",
+        ["Common Name", "Protein Target", "Active Phytochemical"],
+        on_change=clear_session_docking_state,
+        key="main_search_by"
+    )
 
-selected_option = st.sidebar.selectbox(f"Select {search_by}:", options, on_change=clear_session_docking_state)
+with col_ctrl2:
+    if search_by == "Common Name":
+        options = df["Common Name"].unique().tolist()
+    elif search_by == "Protein Target":
+        options = df["Protein Target"].unique().tolist()
+    else:
+        options = df["Active Phytochemical"].unique().tolist()
+
+    selected_option = st.selectbox(
+        f"Select {search_by}:",
+        options,
+        on_change=clear_session_docking_state,
+        key="main_selected_option"
+    )
+
+# Rigor Ribbon on Main Page
+st.markdown("""
+<div class="rigor-ribbon">
+    <span class="rigor-pill">🌿 <b>Taxonomy:</b> Kew POWO & WFO Verified</span>
+    <span class="rigor-pill">🎯 <b>Receptors:</b> RCSB PDB & UniProtKB</span>
+    <span class="rigor-pill">⚡ <b>Engine:</b> AutoDock Vina v1.2.7 Empirical Scoring</span>
+    <span class="rigor-pill">🛡️ <b>Toxicology:</b> Lipinski Rule of 5 & RDKit PAINS</span>
+</div>
+""", unsafe_allow_html=True)
+
 selected_data = df[df[search_by] == selected_option]
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("""
-<div style="font-size:12px; color:#86868B;">
-    <p style="font-weight:600; color:#F5F5F7; margin-bottom:4px;">Platform Rigor Standards</p>
-    • <b>Taxonomy:</b> Kew POWO & WFO<br>
-    • <b>Receptor:</b> RCSB PDB & UniProt<br>
-    • <b>Conformers:</b> RDKit ETKDGv3 / UFF<br>
-    • <b>Bio-Assay:</b> PAINS & Lipinski Ro5
-</div>
-""", unsafe_allow_html=True)
 
 if not selected_data.empty:
     for idx, row in selected_data.iterrows():
@@ -450,7 +450,7 @@ if not selected_data.empty:
         is_processed_state = False
 
         # ==========================================
-        # 1. BOTANICAL SPECIMEN & METADATA PROFILE
+        # STAGE 01: BOTANICAL SPECIMEN & METADATA PROFILE
         # ==========================================
         st.markdown("""
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -557,7 +557,7 @@ if not selected_data.empty:
             """, unsafe_allow_html=True)
 
         # ==========================================
-        # 2. RECEPTOR & SMART CAVITY SETUP
+        # STAGE 02: RECEPTOR & SMART CAVITY SETUP
         # ==========================================
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("""
@@ -606,7 +606,7 @@ if not selected_data.empty:
                 exhaustiveness = st.slider("Vina Exhaustiveness (Sampling Precision)", min_value=4, max_value=32, value=8, step=4, key=f"exh_{idx}")
 
                 # ==========================================
-                # 3. DOCKING SIMULATION & 3D STUDIO
+                # STAGE 03: DOCKING SIMULATION & 3D STUDIO
                 # ==========================================
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.markdown("""
@@ -766,7 +766,7 @@ if not selected_data.empty:
                     st.dataframe(pd.DataFrame(table_data), hide_index=True, use_container_width=True)
 
                 # ==========================================
-                # 4. BIOISOSTERE LEAD OPTIMIZATION
+                # STAGE 04: BIOISOSTERE LEAD OPTIMIZATION
                 # ==========================================
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.markdown("""
@@ -829,7 +829,7 @@ if not selected_data.empty:
                                 st.info("Derivative maintains stable binding compatibility.")
 
                 # ==========================================
-                # 5. ADMET & SCIENTIFIC DOSSIER
+                # STAGE 05: ADMET & SCIENTIFIC DOSSIER
                 # ==========================================
                 st.markdown("<br>", unsafe_allow_html=True)
                 st.markdown("""

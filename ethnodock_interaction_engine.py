@@ -120,8 +120,11 @@ def calc_interactions(ligand_lines, receptor_pdbqt_path, cutoff=4.0):
                         "Distance (Å)": round(dist, 2),
                         "Interaction Type": bond_type,
                         "color": bond_color,
+                        "Color": bond_color,
                         "lig_xyz": lig["xyz"],
-                        "rec_xyz": rec["xyz"]
+                        "Ligand XYZ": lig["xyz"],
+                        "rec_xyz": rec["xyz"],
+                        "Receptor XYZ": rec["xyz"]
                     })
                     seen.add(key)
 
@@ -168,9 +171,9 @@ def build_3dmol_html(container_id, receptor_data, ligand_data, interactions_df=N
     cylinders_js = []
     if interactions_df is not None and not interactions_df.empty:
         for _, row in interactions_df.iterrows():
-            rx, ry, rz = row["Receptor XYZ"]
-            lx, ly, lz = row["Ligand XYZ"]
-            color = row.get("Color", "#FF3366")
+            rx, ry, rz = row.get("Receptor XYZ", row.get("rec_xyz", [0, 0, 0]))
+            lx, ly, lz = row.get("Ligand XYZ", row.get("lig_xyz", [0, 0, 0]))
+            color = row.get("Color", row.get("color", "#FF3366"))
             res_label = row["Receptor Residue"]
             dist = row["Distance (Å)"]
             

@@ -1,4 +1,34 @@
 {
+  "Strychnos Seed (Strychnos nux-vomica) [马钱子]": {
+    "common_name": "Strychnos Seed",
+    "scientific_name": "Strychnos nux-vomica",
+    "chinese_name": "马钱子",
+    "is_verified": true,
+    "source": "Wikimedia Commons / Kew Botanical Specimen",
+    "valid_photos_count": 1,
+    "photos": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Strychnos_nux-vomica_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-266.jpg/960px-Strychnos_nux-vomica_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-266.jpg"
+    ],
+    "specimen_code": "VERIFIED-STRYCHNOS",
+    "local_photos": [
+      "c:\\Users\\hp\\OneDrive\\Desktop\\Ethnodock [TCM}\\ethnodock_knowledge_pool\\species_images\\VERIFIED-STRYCHNOS_1.jpg"
+    ]
+  },
+  "Turmeric (Curcuma longa) [姜黄]": {
+    "common_name": "Turmeric",
+    "scientific_name": "Curcuma longa",
+    "chinese_name": "姜黄",
+    "is_verified": true,
+    "source": "Wikimedia Commons / Botanical Garden Specimen",
+    "valid_photos_count": 1,
+    "photos": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Turmeric_inflorescence.jpg/960px-Turmeric_inflorescence.jpg"
+    ],
+    "specimen_code": "VERIFIED-CURCUMA",
+    "local_photos": [
+      "c:\\Users\\hp\\OneDrive\\Desktop\\Ethnodock [TCM}\\ethnodock_knowledge_pool\\species_images\\VERIFIED-CURCUMA_1.jpg"
+    ]
+  },
   "Acanthopanax (Acanthopanax gracilistylus) [五加皮]": {
     "common_name": "Acanthopanax",
     "scientific_name": "Acanthopanax gracilistylus",

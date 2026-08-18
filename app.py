@@ -493,36 +493,9 @@ with tab_intro:
             Bridging 2,000 Years of Botanical Canon<br>
             with <span class="hero-gradient-text">Modern Structural Biophysics</span>
         </h1>
-        <p class="hero-main-desc">
+        <p class="hero-main-desc" style="margin-bottom:0;">
             EthnoDock digitizes classical dynastic pharmacopoeias (<i>Shennong Bencaojing, Bencao Gangmu</i>) to uncover the molecular mechanisms of ancient phytotherapy—validating active phytochemicals against human disease drug targets via empirical AutoDock Vina simulation.
         </p>
-
-        <!-- Graphical Connected Stepper Ribbon -->
-        <div class="visual-stepper-container">
-            <div class="stepper-node">
-                <div class="stepper-icon-circle" style="color:#30D158; border-color:rgba(48,209,88,0.3);">📜</div>
-                <div class="stepper-label">Classical Texts</div>
-                <div class="stepper-sub">Dynastic Philology</div>
-            </div>
-            <div class="stepper-arrow">➔</div>
-            <div class="stepper-node">
-                <div class="stepper-icon-circle" style="color:#64D2FF; border-color:rgba(100,210,255,0.3);">🎯</div>
-                <div class="stepper-label">Human Targets</div>
-                <div class="stepper-sub">PDB & UniProt</div>
-            </div>
-            <div class="stepper-arrow">➔</div>
-            <div class="stepper-node">
-                <div class="stepper-icon-circle" style="color:#FFD60A; border-color:rgba(255,214,10,0.3);">⚡</div>
-                <div class="stepper-label">Vina Simulation</div>
-                <div class="stepper-sub">3D WebGL ΔG</div>
-            </div>
-            <div class="stepper-arrow">➔</div>
-            <div class="stepper-node">
-                <div class="stepper-icon-circle" style="color:#BF5AF2; border-color:rgba(191,90,242,0.3);">🛡️</div>
-                <div class="stepper-label">Safety & ADMET</div>
-                <div class="stepper-sub">Paozhi Detox</div>
-            </div>
-        </div>
     </div>
     """, unsafe_allow_html=True)
 

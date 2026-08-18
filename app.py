@@ -677,12 +677,22 @@ For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Ben
         else:
             options = df["Active Phytochemical"].unique().tolist()
 
+        default_idx = 0
+        prev_sel = st.session_state.get('selected_herb_name')
+        if prev_sel and prev_sel in options:
+            default_idx = options.index(prev_sel)
+
         selected_option = st.selectbox(
             f"Select {search_by}:",
             options,
+            index=default_idx,
             on_change=clear_session_docking_state,
             key="landing_selected_option"
         )
+
+    # Immediately lock persistent selection
+    st.session_state['selected_search_by'] = search_by
+    st.session_state['selected_herb_name'] = selected_option
 
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -751,6 +761,8 @@ For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Ben
             )
             if launch_workbench:
                 st.session_state['current_view'] = 'workbench'
+                st.session_state['selected_search_by'] = search_by
+                st.session_state['selected_herb_name'] = selected_option
                 st.rerun()
 
     # 5. Dual Paradigm Synthesis (Ancient Wisdom vs Modern Biophysics)
@@ -785,10 +797,14 @@ For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Ben
 # 🔬 VIEW 2: IN-SILICO MOLECULAR WORKBENCH
 # ==========================================
 else:
-    # Retrieve current search item
-    search_by = st.session_state.get('landing_search_by', 'Common Name')
-    selected_option = st.session_state.get('landing_selected_option', df['Common Name'].iloc[0])
+    # Retrieve current search item securely from persistent session state
+    search_by = st.session_state.get('selected_search_by', 'Common Name')
+    selected_option = st.session_state.get('selected_herb_name', df['Common Name'].iloc[0])
     selected_data = df[df[search_by] == selected_option]
+    if selected_data.empty:
+        selected_data = df[df['Common Name'] == selected_option]
+    if selected_data.empty:
+        selected_data = df.head(1)
 
     if not selected_data.empty:
         row_active = selected_data.iloc[0]

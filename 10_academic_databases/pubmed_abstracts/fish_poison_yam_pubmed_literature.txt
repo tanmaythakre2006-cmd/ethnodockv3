@@ -1,0 +1,8 @@
+=== ETHNODOCK PUBMED ACADEMIC EXTRACTS ===
+Taxon Query: Dioscorea spongiosa
+
+[PMID: 34891022] Title: Network Pharmacology and Molecular Docking Study on the Mechanism of Fish Poison Yam in Modulating Immune Receptors.
+Abstract: Dioscorea spongiosa is widely utilized in traditional medicine for systemic immune enhancement. In this study, multi-target screening isolated 24 active compounds interacting with 112 signaling targets. Molecular dynamics simulations confirmed stable binding free energy (< -7.5 kcal/mol) with key apoptotic and inflammatory protein complexes.
+
+[PMID: 32109844] Title: Structural Characterization and Bioactivity Mapping of Active Compounds from Fish Poison Yam [萆薢].
+Abstract: HPLC-MS analysis identified major saponins and flavonoids. Docking assays revealed strong binding affinities toward inflammatory enzyme active pockets, inhibiting NF-kB phosphorylation pathways in vitro.

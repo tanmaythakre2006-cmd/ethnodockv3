@@ -1,0 +1,21 @@
+=== ETHNODOCK TCM PHARMACOPEIA RECORD ===
+Species Common Name: Mallow Seed
+Scientific Taxon: Malva verticillata
+Traditional Chinese Name: 冬葵子
+Category: Traditional Chinese Botanical Medicine
+
+--- TRADITIONAL PROPERTIES & MERIDIAN TROPISM ---
+Nature (Four Natures): Slightly Warm / Neutral
+Taste (Five Flavors): Sweet, Slightly Bitter
+Channel Tropism: Spleen, Lung, Heart Meridians
+
+--- TRADITIONAL FUNCTIONS & INDICATIONS ---
+1. Tonifies Spleen Qi and augments vital organ energy reserves.
+2. Strengthens defensive Qi (Wei Qi) and stabilizes the exterior matrix.
+3. Promotes fluid circulation and relieves interior edema.
+4. Classical Pharmacopeia Citation: Shennong Bencao Jing (Superior Grade Herb).
+
+--- CLASSICAL FORMULA COMPOSITIONS ---
+- Formula 1: Sijunzi Tang (Four Gentlemen Decoction) - Role: Chief (Jun)
+- Formula 2: Bu Zhong Yi Qi Tang (Tonify the Middle Decoction) - Role: Deputy (Chen)
+- Formula 3: Yu Ping Feng San (Jade Windscreen Powder) - Role: Assistant (Zuo)

@@ -1,0 +1,6117 @@
+{
+  "herb_acanthopanax": {
+    "okf_version": "1.1",
+    "entity_id": "herb_acanthopanax",
+    "type": "ethnobotanical_species",
+    "title": "Acanthopanax (五加皮 / Acanthopanax gracilistylus)",
+    "taxonomy": {
+      "genus": "Acanthopanax",
+      "binomial_name": "Acanthopanax gracilistylus",
+      "chinese_name": "五加皮"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "五加皮": "herb_acanthopanax",
+  "acanthopanax gracilistylus": "herb_acanthopanax",
+  "acanthopanax": "herb_acanthopanax",
+  "herb_agrimony": {
+    "okf_version": "1.1",
+    "entity_id": "herb_agrimony",
+    "type": "ethnobotanical_species",
+    "title": "Agrimony (仙鹤草 / Agrimonia pilosa)",
+    "taxonomy": {
+      "genus": "Agrimonia",
+      "binomial_name": "Agrimonia pilosa",
+      "chinese_name": "仙鹤草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "仙鹤草": "herb_agrimony",
+  "agrimonia pilosa": "herb_agrimony",
+  "agrimony": "herb_agrimony",
+  "herb_aloe_vera": {
+    "okf_version": "1.1",
+    "entity_id": "herb_aloe_vera",
+    "type": "ethnobotanical_species",
+    "title": "Aloe Vera (芦荟 / Aloe vera)",
+    "taxonomy": {
+      "genus": "Aloe",
+      "binomial_name": "Aloe vera",
+      "chinese_name": "芦荟"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "芦荟": "herb_aloe_vera",
+  "aloe vera": "herb_aloe_vera",
+  "herb_alpinia": {
+    "okf_version": "1.1",
+    "entity_id": "herb_alpinia",
+    "type": "ethnobotanical_species",
+    "title": "Alpinia (益智仁 / Alpinia oxyphylla)",
+    "taxonomy": {
+      "genus": "Alpinia",
+      "binomial_name": "Alpinia oxyphylla",
+      "chinese_name": "益智仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "益智仁": "herb_alpinia",
+  "alpinia oxyphylla": "herb_alpinia",
+  "alpinia": "herb_alpinia",
+  "herb_amomum": {
+    "okf_version": "1.1",
+    "entity_id": "herb_amomum",
+    "type": "ethnobotanical_species",
+    "title": "Amomum (砂仁 / Amomum villosum)",
+    "taxonomy": {
+      "genus": "Amomum",
+      "binomial_name": "Amomum villosum",
+      "chinese_name": "砂仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "砂仁": "herb_amomum",
+  "amomum villosum": "herb_amomum",
+  "amomum": "herb_amomum",
+  "herb_amur_cork_tree": {
+    "okf_version": "1.1",
+    "entity_id": "herb_amur_cork_tree",
+    "type": "ethnobotanical_species",
+    "title": "Amur Cork Tree (黄柏 / Phellodendron amurense)",
+    "taxonomy": {
+      "genus": "Phellodendron",
+      "binomial_name": "Phellodendron amurense",
+      "chinese_name": "黄柏"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "黄柏": "herb_amur_cork_tree",
+  "phellodendron amurense": "herb_amur_cork_tree",
+  "amur cork tree": "herb_amur_cork_tree",
+  "herb_apricot_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_apricot_seed",
+    "type": "ethnobotanical_species",
+    "title": "Apricot Seed (杏仁 / Prunus armeniaca)",
+    "taxonomy": {
+      "genus": "Prunus",
+      "binomial_name": "Prunus armeniaca",
+      "chinese_name": "杏仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "杏仁": "herb_apricot_seed",
+  "prunus armeniaca": "herb_apricot_seed",
+  "apricot seed": "herb_apricot_seed",
+  "herb_areca_nut": {
+    "okf_version": "1.1",
+    "entity_id": "herb_areca_nut",
+    "type": "ethnobotanical_species",
+    "title": "Areca Nut (大腹皮 / Areca catechu)",
+    "taxonomy": {
+      "genus": "Areca",
+      "binomial_name": "Areca catechu",
+      "chinese_name": "大腹皮"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "大腹皮": "herb_areca_nut",
+  "areca catechu": "herb_betel_nut",
+  "areca nut": "herb_areca_nut",
+  "herb_asian_plantain": {
+    "okf_version": "1.1",
+    "entity_id": "herb_asian_plantain",
+    "type": "ethnobotanical_species",
+    "title": "Asian Plantain (车前子 / Plantago asiatica)",
+    "taxonomy": {
+      "genus": "Plantago",
+      "binomial_name": "Plantago asiatica",
+      "chinese_name": "车前子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "车前子": "herb_asian_plantain",
+  "plantago asiatica": "herb_asian_plantain",
+  "asian plantain": "herb_asian_plantain",
+  "herb_asiatic_cornelian_cherry": {
+    "okf_version": "1.1",
+    "entity_id": "herb_asiatic_cornelian_cherry",
+    "type": "ethnobotanical_species",
+    "title": "Asiatic Cornelian Cherry (山茱萸 / Cornus officinalis)",
+    "taxonomy": {
+      "genus": "Cornus",
+      "binomial_name": "Cornus officinalis",
+      "chinese_name": "山茱萸"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "山茱萸": "herb_asiatic_cornelian_cherry",
+  "cornus officinalis": "herb_asiatic_cornelian_cherry",
+  "asiatic cornelian cherry": "herb_asiatic_cornelian_cherry",
+  "herb_astragalus": {
+    "okf_version": "1.1",
+    "entity_id": "herb_astragalus",
+    "type": "ethnobotanical_species",
+    "title": "Astragalus (黄芪 / Astragalus membranaceus)",
+    "taxonomy": {
+      "genus": "Astragalus",
+      "binomial_name": "Astragalus membranaceus",
+      "chinese_name": "黄芪"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "黄芪": "herb_astragalus",
+  "astragalus membranaceus": "herb_astragalus",
+  "astragalus": "herb_astragalus",
+  "herb_atractylodes_black": {
+    "okf_version": "1.1",
+    "entity_id": "herb_atractylodes_black",
+    "type": "ethnobotanical_species",
+    "title": "Atractylodes (Black) (苍术 / Atractylodes lancea)",
+    "taxonomy": {
+      "genus": "Atractylodes",
+      "binomial_name": "Atractylodes lancea",
+      "chinese_name": "苍术"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "苍术": "herb_atractylodes_black",
+  "atractylodes lancea": "herb_atractylodes_black",
+  "atractylodes (black)": "herb_atractylodes_black",
+  "herb_atractylodes_white": {
+    "okf_version": "1.1",
+    "entity_id": "herb_atractylodes_white",
+    "type": "ethnobotanical_species",
+    "title": "Atractylodes (White) (白术 / Atractylodes macrocephala)",
+    "taxonomy": {
+      "genus": "Atractylodes",
+      "binomial_name": "Atractylodes macrocephala",
+      "chinese_name": "白术"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白术": "herb_atractylodes_white",
+  "atractylodes macrocephala": "herb_atractylodes_white",
+  "atractylodes (white)": "herb_atractylodes_white",
+  "herb_balloon_flower": {
+    "okf_version": "1.1",
+    "entity_id": "herb_balloon_flower",
+    "type": "ethnobotanical_species",
+    "title": "Balloon Flower (桔梗 / Platycodon grandiflorus)",
+    "taxonomy": {
+      "genus": "Platycodon",
+      "binomial_name": "Platycodon grandiflorus",
+      "chinese_name": "桔梗"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "桔梗": "herb_balloon_flower",
+  "platycodon grandiflorus": "herb_balloon_flower",
+  "balloon flower": "herb_balloon_flower",
+  "herb_bamboo_leaf": {
+    "okf_version": "1.1",
+    "entity_id": "herb_bamboo_leaf",
+    "type": "ethnobotanical_species",
+    "title": "Bamboo Leaf (竹叶 / Phyllostachys nigra)",
+    "taxonomy": {
+      "genus": "Phyllostachys",
+      "binomial_name": "Phyllostachys nigra",
+      "chinese_name": "竹叶"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "竹叶": "herb_bamboo_leaf",
+  "phyllostachys nigra": "herb_bamboo_leaf",
+  "bamboo leaf": "herb_bamboo_leaf",
+  "herb_barley_sprout": {
+    "okf_version": "1.1",
+    "entity_id": "herb_barley_sprout",
+    "type": "ethnobotanical_species",
+    "title": "Barley Sprout (麦芽 / Hordeum vulgare)",
+    "taxonomy": {
+      "genus": "Hordeum",
+      "binomial_name": "Hordeum vulgare",
+      "chinese_name": "麦芽"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "麦芽": "herb_barley_sprout",
+  "hordeum vulgare": "herb_barley_sprout",
+  "barley sprout": "herb_barley_sprout",
+  "herb_betel_nut": {
+    "okf_version": "1.1",
+    "entity_id": "herb_betel_nut",
+    "type": "ethnobotanical_species",
+    "title": "Betel Nut (槟榔 / Areca catechu)",
+    "taxonomy": {
+      "genus": "Areca",
+      "binomial_name": "Areca catechu",
+      "chinese_name": "槟榔"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "槟榔": "herb_betel_nut",
+  "betel nut": "herb_betel_nut",
+  "herb_bile_arisaema": {
+    "okf_version": "1.1",
+    "entity_id": "herb_bile_arisaema",
+    "type": "ethnobotanical_species",
+    "title": "Bile Arisaema (胆南星 / Arisaema cum bile)",
+    "taxonomy": {
+      "genus": "Arisaema",
+      "binomial_name": "Arisaema cum bile",
+      "chinese_name": "胆南星"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "胆南星": "herb_bile_arisaema",
+  "arisaema cum bile": "herb_bile_arisaema",
+  "bile arisaema": "herb_bile_arisaema",
+  "herb_biota_leaves": {
+    "okf_version": "1.1",
+    "entity_id": "herb_biota_leaves",
+    "type": "ethnobotanical_species",
+    "title": "Biota Leaves (侧柏叶 / Platycladus orientalis)",
+    "taxonomy": {
+      "genus": "Platycladus",
+      "binomial_name": "Platycladus orientalis",
+      "chinese_name": "侧柏叶"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "侧柏叶": "herb_biota_leaves",
+  "platycladus orientalis": "herb_biota_seed",
+  "biota leaves": "herb_biota_leaves",
+  "herb_biota_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_biota_seed",
+    "type": "ethnobotanical_species",
+    "title": "Biota Seed (柏子仁 / Platycladus orientalis)",
+    "taxonomy": {
+      "genus": "Platycladus",
+      "binomial_name": "Platycladus orientalis",
+      "chinese_name": "柏子仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "柏子仁": "herb_biota_seed",
+  "biota seed": "herb_biota_seed",
+  "herb_bitter_orange": {
+    "okf_version": "1.1",
+    "entity_id": "herb_bitter_orange",
+    "type": "ethnobotanical_species",
+    "title": "Bitter Orange (枳壳 / Citrus aurantium)",
+    "taxonomy": {
+      "genus": "Citrus",
+      "binomial_name": "Citrus aurantium",
+      "chinese_name": "枳壳"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "枳壳": "herb_bitter_orange",
+  "citrus aurantium": "herb_bitter_orange",
+  "bitter orange": "herb_bitter_orange",
+  "herb_bletilla_rhizome": {
+    "okf_version": "1.1",
+    "entity_id": "herb_bletilla_rhizome",
+    "type": "ethnobotanical_species",
+    "title": "Bletilla Rhizome (白及 / Bletilla striata)",
+    "taxonomy": {
+      "genus": "Bletilla",
+      "binomial_name": "Bletilla striata",
+      "chinese_name": "白及"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白及": "herb_bletilla_rhizome",
+  "bletilla striata": "herb_bletilla_rhizome",
+  "bletilla rhizome": "herb_bletilla_rhizome",
+  "herb_bupleurum": {
+    "okf_version": "1.1",
+    "entity_id": "herb_bupleurum",
+    "type": "ethnobotanical_species",
+    "title": "Bupleurum (柴胡 / Bupleurum chinense)",
+    "taxonomy": {
+      "genus": "Bupleurum",
+      "binomial_name": "Bupleurum chinense",
+      "chinese_name": "柴胡"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "柴胡": "herb_bupleurum",
+  "bupleurum chinense": "herb_bupleurum",
+  "bupleurum": "herb_bupleurum",
+  "herb_burdock_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_burdock_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Burdock Fruit (牛蒡子 / Arctium lappa)",
+    "taxonomy": {
+      "genus": "Arctium",
+      "binomial_name": "Arctium lappa",
+      "chinese_name": "牛蒡子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "牛蒡子": "herb_burdock_fruit",
+  "arctium lappa": "herb_burdock_fruit",
+  "burdock fruit": "herb_burdock_fruit",
+  "herb_cassia_bark": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cassia_bark",
+    "type": "ethnobotanical_species",
+    "title": "Cassia Bark (肉桂 / Cinnamomum cassia)",
+    "taxonomy": {
+      "genus": "Cinnamomum",
+      "binomial_name": "Cinnamomum cassia",
+      "chinese_name": "肉桂"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "肉桂": "herb_cassia_bark",
+  "cinnamomum cassia": "herb_cassia_twig",
+  "cassia bark": "herb_cassia_bark",
+  "herb_cassia_twig": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cassia_twig",
+    "type": "ethnobotanical_species",
+    "title": "Cassia Twig (桂枝 / Cinnamomum cassia)",
+    "taxonomy": {
+      "genus": "Cinnamomum",
+      "binomial_name": "Cinnamomum cassia",
+      "chinese_name": "桂枝"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "桂枝": "herb_cassia_twig",
+  "cassia twig": "herb_cassia_twig",
+  "herb_castor_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_castor_seed",
+    "type": "ethnobotanical_species",
+    "title": "Castor Seed (蓖麻子 / Ricinus communis)",
+    "taxonomy": {
+      "genus": "Ricinus",
+      "binomial_name": "Ricinus communis",
+      "chinese_name": "蓖麻子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "蓖麻子": "herb_castor_seed",
+  "ricinus communis": "herb_castor_seed",
+  "castor seed": "herb_castor_seed",
+  "herb_cherokee_rose_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cherokee_rose_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Cherokee Rose Fruit (金樱子 / Rosa laevigata)",
+    "taxonomy": {
+      "genus": "Rosa",
+      "binomial_name": "Rosa laevigata",
+      "chinese_name": "金樱子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "金樱子": "herb_cherokee_rose_fruit",
+  "rosa laevigata": "herb_cherokee_rose_fruit",
+  "cherokee rose fruit": "herb_cherokee_rose_fruit",
+  "herb_chicken_gizzard_lining": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chicken_gizzard_lining",
+    "type": "ethnobotanical_species",
+    "title": "Chicken Gizzard Lining (鸡内金 / Gallus gallus domesticus)",
+    "taxonomy": {
+      "genus": "Gallus",
+      "binomial_name": "Gallus gallus domesticus",
+      "chinese_name": "鸡内金"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "鸡内金": "herb_chicken_gizzard_lining",
+  "gallus gallus domesticus": "herb_chicken_gizzard_lining",
+  "chicken gizzard lining": "herb_chicken_gizzard_lining",
+  "herb_chinese_gall": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_gall",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Gall (五倍子 / Rhus chinensis)",
+    "taxonomy": {
+      "genus": "Rhus",
+      "binomial_name": "Rhus chinensis",
+      "chinese_name": "五倍子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "五倍子": "herb_chinese_gall",
+  "rhus chinensis": "herb_chinese_gall",
+  "chinese gall": "herb_chinese_gall",
+  "herb_chinese_mint": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_mint",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Mint (薄荷 / Mentha haplocalyx)",
+    "taxonomy": {
+      "genus": "Mentha",
+      "binomial_name": "Mentha haplocalyx",
+      "chinese_name": "薄荷"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "薄荷": "herb_chinese_mint",
+  "mentha haplocalyx": "herb_chinese_mint",
+  "chinese mint": "herb_chinese_mint",
+  "herb_chinese_mistletoe": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_mistletoe",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Mistletoe (桑寄生 / Taxillus chinensis)",
+    "taxonomy": {
+      "genus": "Taxillus",
+      "binomial_name": "Taxillus chinensis",
+      "chinese_name": "桑寄生"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "桑寄生": "herb_chinese_mistletoe",
+  "taxillus chinensis": "herb_chinese_mistletoe",
+  "chinese mistletoe": "herb_chinese_mistletoe",
+  "herb_chinese_motherwort": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_motherwort",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Motherwort (益母草 / Leonurus japonicus)",
+    "taxonomy": {
+      "genus": "Leonurus",
+      "binomial_name": "Leonurus japonicus",
+      "chinese_name": "益母草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "益母草": "herb_chinese_motherwort",
+  "leonurus japonicus": "herb_chinese_motherwort",
+  "chinese motherwort": "herb_chinese_motherwort",
+  "herb_chinese_parasol_tree_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_parasol_tree_seed",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Parasol Tree Seed (梧桐子 / Firmiana simplex)",
+    "taxonomy": {
+      "genus": "Firmiana",
+      "binomial_name": "Firmiana simplex",
+      "chinese_name": "梧桐子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "梧桐子": "herb_chinese_parasol_tree_seed",
+  "firmiana simplex": "herb_chinese_parasol_tree_seed",
+  "chinese parasol tree seed": "herb_chinese_parasol_tree_seed",
+  "herb_chinese_quince": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_quince",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Quince (木瓜 / Chaenomeles sinensis)",
+    "taxonomy": {
+      "genus": "Chaenomeles",
+      "binomial_name": "Chaenomeles sinensis",
+      "chinese_name": "木瓜"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "木瓜": "herb_chinese_quince",
+  "chaenomeles sinensis": "herb_chinese_quince",
+  "chinese quince": "herb_chinese_quince",
+  "herb_chinese_softshell_turtle_shell": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_softshell_turtle_shell",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Softshell Turtle Shell (鳖甲 / Trionyx sinensis)",
+    "taxonomy": {
+      "genus": "Trionyx",
+      "binomial_name": "Trionyx sinensis",
+      "chinese_name": "鳖甲"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "鳖甲": "herb_chinese_softshell_turtle_shell",
+  "trionyx sinensis": "herb_chinese_softshell_turtle_shell",
+  "chinese softshell turtle shell": "herb_chinese_softshell_turtle_shell",
+  "herb_chinese_yam": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chinese_yam",
+    "type": "ethnobotanical_species",
+    "title": "Chinese Yam (山药 / Dioscorea polystachya)",
+    "taxonomy": {
+      "genus": "Dioscorea",
+      "binomial_name": "Dioscorea polystachya",
+      "chinese_name": "山药"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "山药": "herb_chinese_yam",
+  "dioscorea polystachya": "herb_chinese_yam",
+  "chinese yam": "herb_chinese_yam",
+  "herb_chrysanthemum": {
+    "okf_version": "1.1",
+    "entity_id": "herb_chrysanthemum",
+    "type": "ethnobotanical_species",
+    "title": "Chrysanthemum (菊花 / Chrysanthemum morifolium)",
+    "taxonomy": {
+      "genus": "Chrysanthemum",
+      "binomial_name": "Chrysanthemum morifolium",
+      "chinese_name": "菊花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "菊花": "herb_chrysanthemum",
+  "chrysanthemum morifolium": "herb_chrysanthemum",
+  "chrysanthemum": "herb_chrysanthemum",
+  "herb_cicada_slough": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cicada_slough",
+    "type": "ethnobotanical_species",
+    "title": "Cicada Slough (蝉蜕 / Cryptotympana pustulata)",
+    "taxonomy": {
+      "genus": "Cryptotympana",
+      "binomial_name": "Cryptotympana pustulata",
+      "chinese_name": "蝉蜕"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "蝉蜕": "herb_cicada_slough",
+  "cryptotympana pustulata": "herb_cicada_slough",
+  "cicada slough": "herb_cicada_slough",
+  "herb_clove": {
+    "okf_version": "1.1",
+    "entity_id": "herb_clove",
+    "type": "ethnobotanical_species",
+    "title": "Clove (丁香 / Eugenia caryophyllata)",
+    "taxonomy": {
+      "genus": "Eugenia",
+      "binomial_name": "Eugenia caryophyllata",
+      "chinese_name": "丁香"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "丁香": "herb_clove",
+  "eugenia caryophyllata": "herb_clove",
+  "clove": "herb_clove",
+  "herb_cnidium_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cnidium_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Cnidium Fruit (蛇床子 / Cnidium monnieri)",
+    "taxonomy": {
+      "genus": "Cnidium",
+      "binomial_name": "Cnidium monnieri",
+      "chinese_name": "蛇床子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "蛇床子": "herb_cnidium_fruit",
+  "cnidium monnieri": "herb_cnidium_fruit",
+  "cnidium fruit": "herb_cnidium_fruit",
+  "herb_codonopsis_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_codonopsis_root",
+    "type": "ethnobotanical_species",
+    "title": "Codonopsis Root (党参 / Codonopsis pilosula)",
+    "taxonomy": {
+      "genus": "Codonopsis",
+      "binomial_name": "Codonopsis pilosula",
+      "chinese_name": "党参"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "党参": "herb_codonopsis_root",
+  "codonopsis pilosula": "herb_codonopsis_root",
+  "codonopsis root": "herb_codonopsis_root",
+  "herb_cogongrass_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cogongrass_root",
+    "type": "ethnobotanical_species",
+    "title": "Cogongrass Root (白茅根 / 茅根 / Imperata cylindrica)",
+    "taxonomy": {
+      "genus": "Imperata",
+      "binomial_name": "Imperata cylindrica",
+      "chinese_name": "白茅根 / 茅根"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白茅根 / 茅根": "herb_cogongrass_root",
+  "imperata cylindrica": "herb_cogongrass_root",
+  "cogongrass root": "herb_cogongrass_root",
+  "herb_coix_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_coix_seed",
+    "type": "ethnobotanical_species",
+    "title": "Coix Seed (薏苡仁 / Coix lacryma-jobi)",
+    "taxonomy": {
+      "genus": "Coix",
+      "binomial_name": "Coix lacryma-jobi",
+      "chinese_name": "薏苡仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "薏苡仁": "herb_coix_seed",
+  "coix lacryma-jobi": "herb_coix_seed",
+  "coix seed": "herb_coix_seed",
+  "herb_coltsfoot_flower": {
+    "okf_version": "1.1",
+    "entity_id": "herb_coltsfoot_flower",
+    "type": "ethnobotanical_species",
+    "title": "Coltsfoot Flower (款冬花 / Tussilago farfara)",
+    "taxonomy": {
+      "genus": "Tussilago",
+      "binomial_name": "Tussilago farfara",
+      "chinese_name": "款冬花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "款冬花": "herb_coltsfoot_flower",
+  "tussilago farfara": "herb_coltsfoot_flower",
+  "coltsfoot flower": "herb_coltsfoot_flower",
+  "herb_coptis": {
+    "okf_version": "1.1",
+    "entity_id": "herb_coptis",
+    "type": "ethnobotanical_species",
+    "title": "Coptis (黄连 / Coptis chinensis)",
+    "taxonomy": {
+      "genus": "Coptis",
+      "binomial_name": "Coptis chinensis",
+      "chinese_name": "黄连"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "黄连": "herb_coptis",
+  "coptis chinensis": "herb_coptis",
+  "coptis": "herb_coptis",
+  "herb_cordyceps": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cordyceps",
+    "type": "ethnobotanical_species",
+    "title": "Cordyceps (冬虫夏草 / 虫草 / Cordyceps sinensis)",
+    "taxonomy": {
+      "genus": "Cordyceps",
+      "binomial_name": "Cordyceps sinensis",
+      "chinese_name": "冬虫夏草 / 虫草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "冬虫夏草 / 虫草": "herb_cordyceps",
+  "cordyceps sinensis": "herb_cordyceps",
+  "cordyceps": "herb_cordyceps",
+  "herb_corydalis": {
+    "okf_version": "1.1",
+    "entity_id": "herb_corydalis",
+    "type": "ethnobotanical_species",
+    "title": "Corydalis (延胡索 / Corydalis yanhusuo)",
+    "taxonomy": {
+      "genus": "Corydalis",
+      "binomial_name": "Corydalis yanhusuo",
+      "chinese_name": "延胡索"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "延胡索": "herb_corydalis",
+  "corydalis yanhusuo": "herb_corydalis",
+  "corydalis": "herb_corydalis",
+  "herb_cuttlefish_bone": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cuttlefish_bone",
+    "type": "ethnobotanical_species",
+    "title": "Cuttlefish Bone (海螵蛸 / Sepia esculenta)",
+    "taxonomy": {
+      "genus": "Sepia",
+      "binomial_name": "Sepia esculenta",
+      "chinese_name": "海螵蛸"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "海螵蛸": "herb_cuttlefish_bone",
+  "sepia esculenta": "herb_cuttlefish_bone",
+  "cuttlefish bone": "herb_cuttlefish_bone",
+  "herb_cyathula_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cyathula_root",
+    "type": "ethnobotanical_species",
+    "title": "Cyathula Root (川牛膝 / Cyathula officinalis)",
+    "taxonomy": {
+      "genus": "Cyathula",
+      "binomial_name": "Cyathula officinalis",
+      "chinese_name": "川牛膝"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "川牛膝": "herb_cyathula_root",
+  "cyathula officinalis": "herb_cyathula_root",
+  "cyathula root": "herb_cyathula_root",
+  "herb_cynanchum_rhizome": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cynanchum_rhizome",
+    "type": "ethnobotanical_species",
+    "title": "Cynanchum Rhizome (白前 / Cynanchum stauntonii)",
+    "taxonomy": {
+      "genus": "Cynanchum",
+      "binomial_name": "Cynanchum stauntonii",
+      "chinese_name": "白前"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白前": "herb_cynanchum_rhizome",
+  "cynanchum stauntonii": "herb_cynanchum_rhizome",
+  "cynanchum rhizome": "herb_cynanchum_rhizome",
+  "herb_dahurian_angelica": {
+    "okf_version": "1.1",
+    "entity_id": "herb_dahurian_angelica",
+    "type": "ethnobotanical_species",
+    "title": "Dahurian Angelica (白芷 / Angelica dahurica)",
+    "taxonomy": {
+      "genus": "Angelica",
+      "binomial_name": "Angelica dahurica",
+      "chinese_name": "白芷"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白芷": "herb_dahurian_angelica",
+  "angelica dahurica": "herb_dahurian_angelica",
+  "dahurian angelica": "herb_dahurian_angelica",
+  "herb_dendrobium": {
+    "okf_version": "1.1",
+    "entity_id": "herb_dendrobium",
+    "type": "ethnobotanical_species",
+    "title": "Dendrobium (石斛 / Dendrobium nobile)",
+    "taxonomy": {
+      "genus": "Dendrobium",
+      "binomial_name": "Dendrobium nobile",
+      "chinese_name": "石斛"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "石斛": "herb_dendrobium",
+  "dendrobium nobile": "herb_dendrobium",
+  "dendrobium": "herb_dendrobium",
+  "herb_desertliving_cistanche": {
+    "okf_version": "1.1",
+    "entity_id": "herb_desertliving_cistanche",
+    "type": "ethnobotanical_species",
+    "title": "Desertliving Cistanche (肉苁蓉 / Cistanche deserticola)",
+    "taxonomy": {
+      "genus": "Cistanche",
+      "binomial_name": "Cistanche deserticola",
+      "chinese_name": "肉苁蓉"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "肉苁蓉": "herb_desertliving_cistanche",
+  "cistanche deserticola": "herb_desertliving_cistanche",
+  "desertliving cistanche": "herb_desertliving_cistanche",
+  "herb_dodder_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_dodder_seed",
+    "type": "ethnobotanical_species",
+    "title": "Dodder Seed (菟丝子 / Cuscuta chinensis)",
+    "taxonomy": {
+      "genus": "Cuscuta",
+      "binomial_name": "Cuscuta chinensis",
+      "chinese_name": "菟丝子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "菟丝子": "herb_dodder_seed",
+  "cuscuta chinensis": "herb_dodder_seed",
+  "dodder seed": "herb_dodder_seed",
+  "herb_dong_quai": {
+    "okf_version": "1.1",
+    "entity_id": "herb_dong_quai",
+    "type": "ethnobotanical_species",
+    "title": "Dong Quai (当归 / Angelica sinensis)",
+    "taxonomy": {
+      "genus": "Angelica",
+      "binomial_name": "Angelica sinensis",
+      "chinese_name": "当归"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "当归": "herb_dong_quai",
+  "angelica sinensis": "herb_dong_quai",
+  "dong quai": "herb_dong_quai",
+  "herb_donkey_hide_gelatin": {
+    "okf_version": "1.1",
+    "entity_id": "herb_donkey_hide_gelatin",
+    "type": "ethnobotanical_species",
+    "title": "Donkey-Hide Gelatin (阿胶 / Equus asinus)",
+    "taxonomy": {
+      "genus": "Equus",
+      "binomial_name": "Equus asinus",
+      "chinese_name": "阿胶"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "阿胶": "herb_donkey_hide_gelatin",
+  "equus asinus": "herb_donkey_hide_gelatin",
+  "donkey-hide gelatin": "herb_donkey_hide_gelatin",
+  "herb_duckweed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_duckweed",
+    "type": "ethnobotanical_species",
+    "title": "Duckweed (浮萍 / Spirodela polyrhiza)",
+    "taxonomy": {
+      "genus": "Spirodela",
+      "binomial_name": "Spirodela polyrhiza",
+      "chinese_name": "浮萍"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "浮萍": "herb_duckweed",
+  "spirodela polyrhiza": "herb_duckweed",
+  "duckweed": "herb_duckweed",
+  "herb_eclipta": {
+    "okf_version": "1.1",
+    "entity_id": "herb_eclipta",
+    "type": "ethnobotanical_species",
+    "title": "Eclipta (旱莲草 / Eclipta prostrata)",
+    "taxonomy": {
+      "genus": "Eclipta",
+      "binomial_name": "Eclipta prostrata",
+      "chinese_name": "旱莲草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "旱莲草": "herb_eclipta",
+  "eclipta prostrata": "herb_eclipta",
+  "eclipta": "herb_eclipta",
+  "herb_ephedra": {
+    "okf_version": "1.1",
+    "entity_id": "herb_ephedra",
+    "type": "ethnobotanical_species",
+    "title": "Ephedra (麻黄 / Ephedra sinica)",
+    "taxonomy": {
+      "genus": "Ephedra",
+      "binomial_name": "Ephedra sinica",
+      "chinese_name": "麻黄"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "麻黄": "herb_ephedra",
+  "ephedra sinica": "herb_ephedra",
+  "ephedra": "herb_ephedra",
+  "herb_epimedium": {
+    "okf_version": "1.1",
+    "entity_id": "herb_epimedium",
+    "type": "ethnobotanical_species",
+    "title": "Epimedium (淫羊藿 / Epimedium brevicornu)",
+    "taxonomy": {
+      "genus": "Epimedium",
+      "binomial_name": "Epimedium brevicornu",
+      "chinese_name": "淫羊藿"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "淫羊藿": "herb_epimedium",
+  "epimedium brevicornu": "herb_epimedium",
+  "epimedium": "herb_epimedium",
+  "herb_eucommia_bark": {
+    "okf_version": "1.1",
+    "entity_id": "herb_eucommia_bark",
+    "type": "ethnobotanical_species",
+    "title": "Eucommia Bark (杜仲 / Eucommia ulmoides)",
+    "taxonomy": {
+      "genus": "Eucommia",
+      "binomial_name": "Eucommia ulmoides",
+      "chinese_name": "杜仲"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "杜仲": "herb_eucommia_bark",
+  "eucommia ulmoides": "herb_eucommia_bark",
+  "eucommia bark": "herb_eucommia_bark",
+  "herb_fish_poison_yam": {
+    "okf_version": "1.1",
+    "entity_id": "herb_fish_poison_yam",
+    "type": "ethnobotanical_species",
+    "title": "Fish Poison Yam (萆薢 / Dioscorea spongiosa)",
+    "taxonomy": {
+      "genus": "Dioscorea",
+      "binomial_name": "Dioscorea spongiosa",
+      "chinese_name": "萆薢"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "萆薢": "herb_fish_poison_yam",
+  "dioscorea spongiosa": "herb_fish_poison_yam",
+  "fish poison yam": "herb_fish_poison_yam",
+  "herb_fleeceflower_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_fleeceflower_root",
+    "type": "ethnobotanical_species",
+    "title": "Fleeceflower Root (何首乌 / Polygonum multiflorum)",
+    "taxonomy": {
+      "genus": "Polygonum",
+      "binomial_name": "Polygonum multiflorum",
+      "chinese_name": "何首乌"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "何首乌": "herb_fleeceflower_root",
+  "polygonum multiflorum": "herb_fleeceflower_root",
+  "fleeceflower root": "herb_fleeceflower_root",
+  "herb_forsythia": {
+    "okf_version": "1.1",
+    "entity_id": "herb_forsythia",
+    "type": "ethnobotanical_species",
+    "title": "Forsythia (连翘 / Forsythia suspensa)",
+    "taxonomy": {
+      "genus": "Forsythia",
+      "binomial_name": "Forsythia suspensa",
+      "chinese_name": "连翘"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "连翘": "herb_forsythia",
+  "forsythia suspensa": "herb_forsythia",
+  "forsythia": "herb_forsythia",
+  "herb_gardenia_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_gardenia_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Gardenia Fruit (栀子 / Gardenia jasminoides)",
+    "taxonomy": {
+      "genus": "Gardenia",
+      "binomial_name": "Gardenia jasminoides",
+      "chinese_name": "栀子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "栀子": "herb_gardenia_fruit",
+  "gardenia jasminoides": "herb_gardenia_fruit",
+  "gardenia fruit": "herb_gardenia_fruit",
+  "herb_garlic_chives_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_garlic_chives_seed",
+    "type": "ethnobotanical_species",
+    "title": "Garlic Chives Seed (韭菜子 / Allium tuberosum)",
+    "taxonomy": {
+      "genus": "Allium",
+      "binomial_name": "Allium tuberosum",
+      "chinese_name": "韭菜子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "韭菜子": "herb_garlic_chives_seed",
+  "allium tuberosum": "herb_garlic_chives_seed",
+  "garlic chives seed": "herb_garlic_chives_seed",
+  "herb_gastrodia": {
+    "okf_version": "1.1",
+    "entity_id": "herb_gastrodia",
+    "type": "ethnobotanical_species",
+    "title": "Gastrodia (天麻 / Gastrodia elata)",
+    "taxonomy": {
+      "genus": "Gastrodia",
+      "binomial_name": "Gastrodia elata",
+      "chinese_name": "天麻"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "天麻": "herb_gastrodia",
+  "gastrodia elata": "herb_gastrodia",
+  "gastrodia": "herb_gastrodia",
+  "herb_genkwa_flower": {
+    "okf_version": "1.1",
+    "entity_id": "herb_genkwa_flower",
+    "type": "ethnobotanical_species",
+    "title": "Genkwa Flower (芫花 / Daphne genkwa)",
+    "taxonomy": {
+      "genus": "Daphne",
+      "binomial_name": "Daphne genkwa",
+      "chinese_name": "芫花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "芫花": "herb_genkwa_flower",
+  "daphne genkwa": "herb_genkwa_flower",
+  "genkwa flower": "herb_genkwa_flower",
+  "herb_ginger": {
+    "okf_version": "1.1",
+    "entity_id": "herb_ginger",
+    "type": "ethnobotanical_species",
+    "title": "Ginger (生姜 / Zingiber officinale)",
+    "taxonomy": {
+      "genus": "Zingiber",
+      "binomial_name": "Zingiber officinale",
+      "chinese_name": "生姜"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "生姜": "herb_ginger",
+  "zingiber officinale": "herb_ginger",
+  "ginger": "herb_ginger",
+  "herb_ginkgo": {
+    "okf_version": "1.1",
+    "entity_id": "herb_ginkgo",
+    "type": "ethnobotanical_species",
+    "title": "Ginkgo (白果 / Ginkgo biloba)",
+    "taxonomy": {
+      "genus": "Ginkgo",
+      "binomial_name": "Ginkgo biloba",
+      "chinese_name": "白果"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白果": "herb_ginkgo",
+  "ginkgo biloba": "herb_ginkgo",
+  "ginkgo": "herb_ginkgo",
+  "herb_ginseng": {
+    "okf_version": "1.1",
+    "entity_id": "herb_ginseng",
+    "type": "ethnobotanical_species",
+    "title": "Ginseng (人参 / Panax ginseng)",
+    "taxonomy": {
+      "genus": "Panax",
+      "binomial_name": "Panax ginseng",
+      "chinese_name": "人参"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "人参": "herb_ginseng",
+  "panax ginseng": "herb_ginseng",
+  "ginseng": "herb_ginseng",
+  "herb_goji_berry": {
+    "okf_version": "1.1",
+    "entity_id": "herb_goji_berry",
+    "type": "ethnobotanical_species",
+    "title": "Goji Berry (枸杞 / Lycium barbarum)",
+    "taxonomy": {
+      "genus": "Lycium",
+      "binomial_name": "Lycium barbarum",
+      "chinese_name": "枸杞"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "枸杞": "herb_goji_berry",
+  "lycium barbarum": "herb_wolfberry_bark",
+  "goji berry": "herb_goji_berry",
+  "herb_gotu_kola": {
+    "okf_version": "1.1",
+    "entity_id": "herb_gotu_kola",
+    "type": "ethnobotanical_species",
+    "title": "Gotu Kola (积雪草 / Centella asiatica)",
+    "taxonomy": {
+      "genus": "Centella",
+      "binomial_name": "Centella asiatica",
+      "chinese_name": "积雪草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "积雪草": "herb_gotu_kola",
+  "centella asiatica": "herb_gotu_kola",
+  "gotu kola": "herb_gotu_kola",
+  "herb_green_chiretta": {
+    "okf_version": "1.1",
+    "entity_id": "herb_green_chiretta",
+    "type": "ethnobotanical_species",
+    "title": "Green Chiretta (穿心莲 / Andrographis paniculata)",
+    "taxonomy": {
+      "genus": "Andrographis",
+      "binomial_name": "Andrographis paniculata",
+      "chinese_name": "穿心莲"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "穿心莲": "herb_green_chiretta",
+  "andrographis paniculata": "herb_green_chiretta",
+  "green chiretta": "herb_green_chiretta",
+  "herb_gromwell_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_gromwell_root",
+    "type": "ethnobotanical_species",
+    "title": "Gromwell Root (紫草 / Lithospermum erythrorhizon)",
+    "taxonomy": {
+      "genus": "Lithospermum",
+      "binomial_name": "Lithospermum erythrorhizon",
+      "chinese_name": "紫草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "紫草": "herb_gromwell_root",
+  "lithospermum erythrorhizon": "herb_gromwell_root",
+  "gromwell root": "herb_gromwell_root",
+  "herb_hawthorn": {
+    "okf_version": "1.1",
+    "entity_id": "herb_hawthorn",
+    "type": "ethnobotanical_species",
+    "title": "Hawthorn (山楂 / Crataegus pinnatifida)",
+    "taxonomy": {
+      "genus": "Crataegus",
+      "binomial_name": "Crataegus pinnatifida",
+      "chinese_name": "山楂"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "山楂": "herb_hawthorn",
+  "crataegus pinnatifida": "herb_hawthorn",
+  "hawthorn": "herb_hawthorn",
+  "herb_heartleaf_houttuynia": {
+    "okf_version": "1.1",
+    "entity_id": "herb_heartleaf_houttuynia",
+    "type": "ethnobotanical_species",
+    "title": "Heartleaf Houttuynia (鱼腥草 / Houttuynia cordata)",
+    "taxonomy": {
+      "genus": "Houttuynia",
+      "binomial_name": "Houttuynia cordata",
+      "chinese_name": "鱼腥草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "鱼腥草": "herb_heartleaf_houttuynia",
+  "houttuynia cordata": "herb_heartleaf_houttuynia",
+  "heartleaf houttuynia": "herb_heartleaf_houttuynia",
+  "herb_hemp_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_hemp_seed",
+    "type": "ethnobotanical_species",
+    "title": "Hemp Seed (火麻仁 / Cannabis sativa)",
+    "taxonomy": {
+      "genus": "Cannabis",
+      "binomial_name": "Cannabis sativa",
+      "chinese_name": "火麻仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "火麻仁": "herb_hemp_seed",
+  "cannabis sativa": "herb_hemp_seed",
+  "hemp seed": "herb_hemp_seed",
+  "herb_honeysuckle": {
+    "okf_version": "1.1",
+    "entity_id": "herb_honeysuckle",
+    "type": "ethnobotanical_species",
+    "title": "Honeysuckle (金银花 / Lonicera japonica)",
+    "taxonomy": {
+      "genus": "Lonicera",
+      "binomial_name": "Lonicera japonica",
+      "chinese_name": "金银花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "金银花": "herb_honeysuckle",
+  "lonicera japonica": "herb_honeysuckle",
+  "honeysuckle": "herb_honeysuckle",
+  "herb_hyacinth_bean": {
+    "okf_version": "1.1",
+    "entity_id": "herb_hyacinth_bean",
+    "type": "ethnobotanical_species",
+    "title": "Hyacinth Bean (扁豆 / Dolichos lablab)",
+    "taxonomy": {
+      "genus": "Dolichos",
+      "binomial_name": "Dolichos lablab",
+      "chinese_name": "扁豆"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "扁豆": "herb_hyacinth_bean",
+  "dolichos lablab": "herb_hyacinth_bean",
+  "hyacinth bean": "herb_hyacinth_bean",
+  "herb_inula_flower": {
+    "okf_version": "1.1",
+    "entity_id": "herb_inula_flower",
+    "type": "ethnobotanical_species",
+    "title": "Inula Flower (旋复花 / Inula japonica)",
+    "taxonomy": {
+      "genus": "Inula",
+      "binomial_name": "Inula japonica",
+      "chinese_name": "旋复花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "旋复花": "herb_inula_flower",
+  "inula japonica": "herb_inula_flower",
+  "inula flower": "herb_inula_flower",
+  "herb_isatis_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_isatis_root",
+    "type": "ethnobotanical_species",
+    "title": "Isatis Root (板蓝根 / Isatis tinctoria)",
+    "taxonomy": {
+      "genus": "Isatis",
+      "binomial_name": "Isatis tinctoria",
+      "chinese_name": "板蓝根"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "板蓝根": "herb_isatis_root",
+  "isatis tinctoria": "herb_isatis_root",
+  "isatis root": "herb_isatis_root",
+  "herb_japanese_catnip": {
+    "okf_version": "1.1",
+    "entity_id": "herb_japanese_catnip",
+    "type": "ethnobotanical_species",
+    "title": "Japanese Catnip (荆芥 / Schizonepeta tenuifolia)",
+    "taxonomy": {
+      "genus": "Schizonepeta",
+      "binomial_name": "Schizonepeta tenuifolia",
+      "chinese_name": "荆芥"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "荆芥": "herb_japanese_catnip",
+  "schizonepeta tenuifolia": "herb_japanese_catnip",
+  "japanese catnip": "herb_japanese_catnip",
+  "herb_japanese_thistle": {
+    "okf_version": "1.1",
+    "entity_id": "herb_japanese_thistle",
+    "type": "ethnobotanical_species",
+    "title": "Japanese Thistle (大蓟 / Cirsium japonicum)",
+    "taxonomy": {
+      "genus": "Cirsium",
+      "binomial_name": "Cirsium japonicum",
+      "chinese_name": "大蓟"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "大蓟": "herb_japanese_thistle",
+  "cirsium japonicum": "herb_japanese_thistle",
+  "japanese thistle": "herb_japanese_thistle",
+  "herb_jimsonweed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_jimsonweed",
+    "type": "ethnobotanical_species",
+    "title": "Jimsonweed (洋金花 / Datura stramonium)",
+    "taxonomy": {
+      "genus": "Datura",
+      "binomial_name": "Datura stramonium",
+      "chinese_name": "洋金花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "洋金花": "herb_jimsonweed",
+  "datura stramonium": "herb_jimsonweed",
+  "jimsonweed": "herb_jimsonweed",
+  "herb_jujube": {
+    "okf_version": "1.1",
+    "entity_id": "herb_jujube",
+    "type": "ethnobotanical_species",
+    "title": "Jujube (大枣 / Ziziphus jujuba)",
+    "taxonomy": {
+      "genus": "Ziziphus",
+      "binomial_name": "Ziziphus jujuba",
+      "chinese_name": "大枣"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "大枣": "herb_jujube",
+  "ziziphus jujuba": "herb_jujube",
+  "jujube": "herb_jujube",
+  "herb_kansui": {
+    "okf_version": "1.1",
+    "entity_id": "herb_kansui",
+    "type": "ethnobotanical_species",
+    "title": "Kansui (甘遂 / Euphorbia kansui)",
+    "taxonomy": {
+      "genus": "Euphorbia",
+      "binomial_name": "Euphorbia kansui",
+      "chinese_name": "甘遂"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "甘遂": "herb_kansui",
+  "euphorbia kansui": "herb_kansui",
+  "kansui": "herb_kansui",
+  "herb_kochia_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_kochia_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Kochia Fruit (地肤子 / Kochia scoparia)",
+    "taxonomy": {
+      "genus": "Kochia",
+      "binomial_name": "Kochia scoparia",
+      "chinese_name": "地肤子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "地肤子": "herb_kochia_fruit",
+  "kochia scoparia": "herb_kochia_fruit",
+  "kochia fruit": "herb_kochia_fruit",
+  "herb_kudzu": {
+    "okf_version": "1.1",
+    "entity_id": "herb_kudzu",
+    "type": "ethnobotanical_species",
+    "title": "Kudzu (葛根 / Pueraria lobata)",
+    "taxonomy": {
+      "genus": "Pueraria",
+      "binomial_name": "Pueraria lobata",
+      "chinese_name": "葛根"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "葛根": "herb_kudzu",
+  "pueraria lobata": "herb_kudzu",
+  "kudzu": "herb_kudzu",
+  "herb_large_leaf_gentian": {
+    "okf_version": "1.1",
+    "entity_id": "herb_large_leaf_gentian",
+    "type": "ethnobotanical_species",
+    "title": "Large-Leaf Gentian (秦艽 / Gentiana macrophylla)",
+    "taxonomy": {
+      "genus": "Gentiana",
+      "binomial_name": "Gentiana macrophylla",
+      "chinese_name": "秦艽"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "秦艽": "herb_large_leaf_gentian",
+  "gentiana macrophylla": "herb_large_leaf_gentian",
+  "large-leaf gentian": "herb_large_leaf_gentian",
+  "herb_licorice_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_licorice_root",
+    "type": "ethnobotanical_species",
+    "title": "Licorice Root (甘草 / Glycyrrhiza uralensis)",
+    "taxonomy": {
+      "genus": "Glycyrrhiza",
+      "binomial_name": "Glycyrrhiza uralensis",
+      "chinese_name": "甘草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "甘草": "herb_licorice_root",
+  "glycyrrhiza uralensis": "herb_licorice_root",
+  "licorice root": "herb_licorice_root",
+  "herb_light_yellow_sophora_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_light_yellow_sophora_root",
+    "type": "ethnobotanical_species",
+    "title": "Light Yellow Sophora Root (苦参 / Sophora flavescens)",
+    "taxonomy": {
+      "genus": "Sophora",
+      "binomial_name": "Sophora flavescens",
+      "chinese_name": "苦参"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "苦参": "herb_light_yellow_sophora_root",
+  "sophora flavescens": "herb_light_yellow_sophora_root",
+  "light yellow sophora root": "herb_light_yellow_sophora_root",
+  "herb_lotus_leaf": {
+    "okf_version": "1.1",
+    "entity_id": "herb_lotus_leaf",
+    "type": "ethnobotanical_species",
+    "title": "Lotus Leaf (荷叶 / Nelumbo nucifera)",
+    "taxonomy": {
+      "genus": "Nelumbo",
+      "binomial_name": "Nelumbo nucifera",
+      "chinese_name": "荷叶"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "荷叶": "herb_lotus_leaf",
+  "nelumbo nucifera": "herb_lotus_leaf",
+  "lotus leaf": "herb_lotus_leaf",
+  "herb_madder_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_madder_root",
+    "type": "ethnobotanical_species",
+    "title": "Madder Root (茜草 / Rubia cordifolia)",
+    "taxonomy": {
+      "genus": "Rubia",
+      "binomial_name": "Rubia cordifolia",
+      "chinese_name": "茜草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "茜草": "herb_madder_root",
+  "rubia cordifolia": "herb_madder_root",
+  "madder root": "herb_madder_root",
+  "herb_magnetite": {
+    "okf_version": "1.1",
+    "entity_id": "herb_magnetite",
+    "type": "ethnobotanical_species",
+    "title": "Magnetite (磁石 / Magnetitum)",
+    "taxonomy": {
+      "genus": "Magnetitum",
+      "binomial_name": "Magnetitum",
+      "chinese_name": "磁石"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "磁石": "herb_magnetite",
+  "magnetitum": "herb_magnetite",
+  "magnetite": "herb_magnetite",
+  "herb_magnolia_bark": {
+    "okf_version": "1.1",
+    "entity_id": "herb_magnolia_bark",
+    "type": "ethnobotanical_species",
+    "title": "Magnolia Bark (厚朴 / Magnolia officinalis)",
+    "taxonomy": {
+      "genus": "Magnolia",
+      "binomial_name": "Magnolia officinalis",
+      "chinese_name": "厚朴"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "厚朴": "herb_magnolia_bark",
+  "magnolia officinalis": "herb_magnolia_bark",
+  "magnolia bark": "herb_magnolia_bark",
+  "herb_mallow_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_mallow_seed",
+    "type": "ethnobotanical_species",
+    "title": "Mallow Seed (冬葵子 / Malva verticillata)",
+    "taxonomy": {
+      "genus": "Malva",
+      "binomial_name": "Malva verticillata",
+      "chinese_name": "冬葵子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "冬葵子": "herb_mallow_seed",
+  "malva verticillata": "herb_mallow_seed",
+  "mallow seed": "herb_mallow_seed",
+  "herb_momordica_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_momordica_seed",
+    "type": "ethnobotanical_species",
+    "title": "Momordica Seed (木鳖子 / Momordica cochinchinensis)",
+    "taxonomy": {
+      "genus": "Momordica",
+      "binomial_name": "Momordica cochinchinensis",
+      "chinese_name": "木鳖子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "木鳖子": "herb_momordica_seed",
+  "momordica cochinchinensis": "herb_momordica_seed",
+  "momordica seed": "herb_momordica_seed",
+  "herb_morning_glory_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_morning_glory_seed",
+    "type": "ethnobotanical_species",
+    "title": "Morning Glory Seed (牵牛子 / Pharbitis nil)",
+    "taxonomy": {
+      "genus": "Pharbitis",
+      "binomial_name": "Pharbitis nil",
+      "chinese_name": "牵牛子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "牵牛子": "herb_morning_glory_seed",
+  "pharbitis nil": "herb_morning_glory_seed",
+  "morning glory seed": "herb_morning_glory_seed",
+  "herb_moutan": {
+    "okf_version": "1.1",
+    "entity_id": "herb_moutan",
+    "type": "ethnobotanical_species",
+    "title": "Moutan (牡丹皮 / Paeonia suffruticosa)",
+    "taxonomy": {
+      "genus": "Paeonia",
+      "binomial_name": "Paeonia suffruticosa",
+      "chinese_name": "牡丹皮"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "牡丹皮": "herb_moutan",
+  "paeonia suffruticosa": "herb_moutan",
+  "moutan": "herb_moutan",
+  "herb_mugwort_leaf": {
+    "okf_version": "1.1",
+    "entity_id": "herb_mugwort_leaf",
+    "type": "ethnobotanical_species",
+    "title": "Mugwort Leaf (艾叶 / Artemisia argyi)",
+    "taxonomy": {
+      "genus": "Artemisia",
+      "binomial_name": "Artemisia argyi",
+      "chinese_name": "艾叶"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "艾叶": "herb_mugwort_leaf",
+  "artemisia argyi": "herb_mugwort_leaf",
+  "mugwort leaf": "herb_mugwort_leaf",
+  "herb_notoginseng": {
+    "okf_version": "1.1",
+    "entity_id": "herb_notoginseng",
+    "type": "ethnobotanical_species",
+    "title": "Notoginseng (三七 / Panax notoginseng)",
+    "taxonomy": {
+      "genus": "Panax",
+      "binomial_name": "Panax notoginseng",
+      "chinese_name": "三七"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "三七": "herb_notoginseng",
+  "panax notoginseng": "herb_notoginseng",
+  "notoginseng": "herb_notoginseng",
+  "herb_nutgrass_rhizome": {
+    "okf_version": "1.1",
+    "entity_id": "herb_nutgrass_rhizome",
+    "type": "ethnobotanical_species",
+    "title": "Nutgrass Rhizome (香附子 / Cyperus rotundus)",
+    "taxonomy": {
+      "genus": "Cyperus",
+      "binomial_name": "Cyperus rotundus",
+      "chinese_name": "香附子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "香附子": "herb_nutgrass_rhizome",
+  "cyperus rotundus": "herb_nutgrass_rhizome",
+  "nutgrass rhizome": "herb_nutgrass_rhizome",
+  "herb_ophiopogon": {
+    "okf_version": "1.1",
+    "entity_id": "herb_ophiopogon",
+    "type": "ethnobotanical_species",
+    "title": "Ophiopogon (麦冬 / Ophiopogon japonicus)",
+    "taxonomy": {
+      "genus": "Ophiopogon",
+      "binomial_name": "Ophiopogon japonicus",
+      "chinese_name": "麦冬"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "麦冬": "herb_ophiopogon",
+  "ophiopogon japonicus": "herb_ophiopogon",
+  "ophiopogon": "herb_ophiopogon",
+  "herb_pagoda_tree_flower": {
+    "okf_version": "1.1",
+    "entity_id": "herb_pagoda_tree_flower",
+    "type": "ethnobotanical_species",
+    "title": "Pagoda Tree Flower (槐花 / Styphnolobium japonicum)",
+    "taxonomy": {
+      "genus": "Styphnolobium",
+      "binomial_name": "Styphnolobium japonicum",
+      "chinese_name": "槐花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "槐花": "herb_pagoda_tree_flower",
+  "styphnolobium japonicum": "herb_pagoda_tree_flower",
+  "pagoda tree flower": "herb_pagoda_tree_flower",
+  "herb_patchouli": {
+    "okf_version": "1.1",
+    "entity_id": "herb_patchouli",
+    "type": "ethnobotanical_species",
+    "title": "Patchouli (藿香 / Agastache rugosa)",
+    "taxonomy": {
+      "genus": "Agastache",
+      "binomial_name": "Agastache rugosa",
+      "chinese_name": "藿香"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "藿香": "herb_patchouli",
+  "agastache rugosa": "herb_patchouli",
+  "patchouli": "herb_patchouli",
+  "herb_peach_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_peach_seed",
+    "type": "ethnobotanical_species",
+    "title": "Peach Seed (桃仁 / Prunus persica)",
+    "taxonomy": {
+      "genus": "Prunus",
+      "binomial_name": "Prunus persica",
+      "chinese_name": "桃仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "桃仁": "herb_peach_seed",
+  "prunus persica": "herb_peach_seed",
+  "peach seed": "herb_peach_seed",
+  "herb_peony_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_peony_root",
+    "type": "ethnobotanical_species",
+    "title": "Peony Root (白芍 / Paeonia lactiflora)",
+    "taxonomy": {
+      "genus": "Paeonia",
+      "binomial_name": "Paeonia lactiflora",
+      "chinese_name": "白芍"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白芍": "herb_peony_root",
+  "paeonia lactiflora": "herb_peony_root",
+  "peony root": "herb_peony_root",
+  "herb_perilla": {
+    "okf_version": "1.1",
+    "entity_id": "herb_perilla",
+    "type": "ethnobotanical_species",
+    "title": "Perilla (紫苏 / Perilla frutescens)",
+    "taxonomy": {
+      "genus": "Perilla",
+      "binomial_name": "Perilla frutescens",
+      "chinese_name": "紫苏"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "紫苏": "herb_perilla",
+  "perilla frutescens": "herb_perilla_leaf",
+  "perilla": "herb_perilla",
+  "herb_pinellia": {
+    "okf_version": "1.1",
+    "entity_id": "herb_pinellia",
+    "type": "ethnobotanical_species",
+    "title": "Pinellia (半夏 / Pinellia ternata)",
+    "taxonomy": {
+      "genus": "Pinellia",
+      "binomial_name": "Pinellia ternata",
+      "chinese_name": "半夏"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "半夏": "herb_pinellia",
+  "pinellia ternata": "herb_pinellia",
+  "pinellia": "herb_pinellia",
+  "herb_polyporus": {
+    "okf_version": "1.1",
+    "entity_id": "herb_polyporus",
+    "type": "ethnobotanical_species",
+    "title": "Polyporus (猪苓 / Polyporus umbellatus)",
+    "taxonomy": {
+      "genus": "Polyporus",
+      "binomial_name": "Polyporus umbellatus",
+      "chinese_name": "猪苓"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "猪苓": "herb_polyporus",
+  "polyporus umbellatus": "herb_polyporus",
+  "polyporus": "herb_polyporus",
+  "herb_poria": {
+    "okf_version": "1.1",
+    "entity_id": "herb_poria",
+    "type": "ethnobotanical_species",
+    "title": "Poria (茯苓 / Poria cocos)",
+    "taxonomy": {
+      "genus": "Poria",
+      "binomial_name": "Poria cocos",
+      "chinese_name": "茯苓"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "茯苓": "herb_poria",
+  "poria cocos": "herb_poria",
+  "poria": "herb_poria",
+  "herb_privet_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_privet_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Privet Fruit (女贞子 / Ligustrum lucidum)",
+    "taxonomy": {
+      "genus": "Ligustrum",
+      "binomial_name": "Ligustrum lucidum",
+      "chinese_name": "女贞子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "女贞子": "herb_privet_fruit",
+  "ligustrum lucidum": "herb_privet_fruit",
+  "privet fruit": "herb_privet_fruit",
+  "herb_prunella_spike": {
+    "okf_version": "1.1",
+    "entity_id": "herb_prunella_spike",
+    "type": "ethnobotanical_species",
+    "title": "Prunella Spike (夏枯草 / Prunella vulgaris)",
+    "taxonomy": {
+      "genus": "Prunella",
+      "binomial_name": "Prunella vulgaris",
+      "chinese_name": "夏枯草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "夏枯草": "herb_prunella_spike",
+  "prunella vulgaris": "herb_prunella_spike",
+  "prunella spike": "herb_prunella_spike",
+  "herb_pulsatilla_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_pulsatilla_root",
+    "type": "ethnobotanical_species",
+    "title": "Pulsatilla Root (白头翁 / Pulsatilla chinensis)",
+    "taxonomy": {
+      "genus": "Pulsatilla",
+      "binomial_name": "Pulsatilla chinensis",
+      "chinese_name": "白头翁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白头翁": "herb_pulsatilla_root",
+  "pulsatilla chinensis": "herb_pulsatilla_root",
+  "pulsatilla root": "herb_pulsatilla_root",
+  "herb_radish_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_radish_seed",
+    "type": "ethnobotanical_species",
+    "title": "Radish Seed (莱菔子 / Raphanus sativus)",
+    "taxonomy": {
+      "genus": "Raphanus",
+      "binomial_name": "Raphanus sativus",
+      "chinese_name": "莱菔子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "莱菔子": "herb_radish_seed",
+  "raphanus sativus": "herb_radish_seed",
+  "radish seed": "herb_radish_seed",
+  "herb_raspberry": {
+    "okf_version": "1.1",
+    "entity_id": "herb_raspberry",
+    "type": "ethnobotanical_species",
+    "title": "Raspberry (覆盆子 / Rubus chingii)",
+    "taxonomy": {
+      "genus": "Rubus",
+      "binomial_name": "Rubus chingii",
+      "chinese_name": "覆盆子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "覆盆子": "herb_raspberry",
+  "rubus chingii": "herb_raspberry",
+  "raspberry": "herb_raspberry",
+  "herb_red_peony_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_red_peony_root",
+    "type": "ethnobotanical_species",
+    "title": "Red Peony Root (赤芍 / Paeonia veitchii)",
+    "taxonomy": {
+      "genus": "Paeonia",
+      "binomial_name": "Paeonia veitchii",
+      "chinese_name": "赤芍"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "赤芍": "herb_red_peony_root",
+  "paeonia veitchii": "herb_red_peony_root",
+  "red peony root": "herb_red_peony_root",
+  "herb_red_sage": {
+    "okf_version": "1.1",
+    "entity_id": "herb_red_sage",
+    "type": "ethnobotanical_species",
+    "title": "Red Sage (丹参 / Salvia miltiorrhiza)",
+    "taxonomy": {
+      "genus": "Salvia",
+      "binomial_name": "Salvia miltiorrhiza",
+      "chinese_name": "丹参"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "丹参": "herb_red_sage",
+  "salvia miltiorrhiza": "herb_red_sage",
+  "red sage": "herb_red_sage",
+  "herb_rehmannia": {
+    "okf_version": "1.1",
+    "entity_id": "herb_rehmannia",
+    "type": "ethnobotanical_species",
+    "title": "Rehmannia (地黄 / Rehmannia glutinosa)",
+    "taxonomy": {
+      "genus": "Rehmannia",
+      "binomial_name": "Rehmannia glutinosa",
+      "chinese_name": "地黄"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "地黄": "herb_rehmannia",
+  "rehmannia glutinosa": "herb_rehmannia",
+  "rehmannia": "herb_rehmannia",
+  "herb_rhubarb": {
+    "okf_version": "1.1",
+    "entity_id": "herb_rhubarb",
+    "type": "ethnobotanical_species",
+    "title": "Rhubarb (大黄 / Rheum palmatum)",
+    "taxonomy": {
+      "genus": "Rheum",
+      "binomial_name": "Rheum palmatum",
+      "chinese_name": "大黄"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "大黄": "herb_rhubarb",
+  "rheum palmatum": "herb_rhubarb",
+  "rhubarb": "herb_rhubarb",
+  "herb_rice_paper_plant": {
+    "okf_version": "1.1",
+    "entity_id": "herb_rice_paper_plant",
+    "type": "ethnobotanical_species",
+    "title": "Rice Paper Plant (通草 / Tetrapanax papyrifer)",
+    "taxonomy": {
+      "genus": "Tetrapanax",
+      "binomial_name": "Tetrapanax papyrifer",
+      "chinese_name": "通草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "通草": "herb_rice_paper_plant",
+  "tetrapanax papyrifer": "herb_rice_paper_plant",
+  "rice paper plant": "herb_rice_paper_plant",
+  "herb_safflower": {
+    "okf_version": "1.1",
+    "entity_id": "herb_safflower",
+    "type": "ethnobotanical_species",
+    "title": "Safflower (红花 / Carthamus tinctorius)",
+    "taxonomy": {
+      "genus": "Carthamus",
+      "binomial_name": "Carthamus tinctorius",
+      "chinese_name": "红花"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "红花": "herb_safflower",
+  "carthamus tinctorius": "herb_safflower",
+  "safflower": "herb_safflower",
+  "herb_sanguisorba_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_sanguisorba_root",
+    "type": "ethnobotanical_species",
+    "title": "Sanguisorba Root (地榆 / Sanguisorba officinalis)",
+    "taxonomy": {
+      "genus": "Sanguisorba",
+      "binomial_name": "Sanguisorba officinalis",
+      "chinese_name": "地榆"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "地榆": "herb_sanguisorba_root",
+  "sanguisorba officinalis": "herb_sanguisorba_root",
+  "sanguisorba root": "herb_sanguisorba_root",
+  "herb_saposhnikovia_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_saposhnikovia_root",
+    "type": "ethnobotanical_species",
+    "title": "Saposhnikovia Root (防风 / Saposhnikovia divaricata)",
+    "taxonomy": {
+      "genus": "Saposhnikovia",
+      "binomial_name": "Saposhnikovia divaricata",
+      "chinese_name": "防风"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "防风": "herb_saposhnikovia_root",
+  "saposhnikovia divaricata": "herb_saposhnikovia_root",
+  "saposhnikovia root": "herb_saposhnikovia_root",
+  "herb_schisandra": {
+    "okf_version": "1.1",
+    "entity_id": "herb_schisandra",
+    "type": "ethnobotanical_species",
+    "title": "Schisandra (五味子 / Schisandra chinensis)",
+    "taxonomy": {
+      "genus": "Schisandra",
+      "binomial_name": "Schisandra chinensis",
+      "chinese_name": "五味子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "五味子": "herb_schisandra",
+  "schisandra chinensis": "herb_schisandra",
+  "schisandra": "herb_schisandra",
+  "herb_scutellaria": {
+    "okf_version": "1.1",
+    "entity_id": "herb_scutellaria",
+    "type": "ethnobotanical_species",
+    "title": "Scutellaria (黄芩 / Scutellaria baicalensis)",
+    "taxonomy": {
+      "genus": "Scutellaria",
+      "binomial_name": "Scutellaria baicalensis",
+      "chinese_name": "黄芩"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "黄芩": "herb_scutellaria",
+  "scutellaria baicalensis": "herb_scutellaria",
+  "scutellaria": "herb_scutellaria",
+  "herb_senega_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_senega_root",
+    "type": "ethnobotanical_species",
+    "title": "Senega Root (远志 / Polygala tenuifolia)",
+    "taxonomy": {
+      "genus": "Polygala",
+      "binomial_name": "Polygala tenuifolia",
+      "chinese_name": "远志"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "远志": "herb_senega_root",
+  "polygala tenuifolia": "herb_senega_root",
+  "senega root": "herb_senega_root",
+  "herb_siberian_ginseng": {
+    "okf_version": "1.1",
+    "entity_id": "herb_siberian_ginseng",
+    "type": "ethnobotanical_species",
+    "title": "Siberian Ginseng (刺五加 / Eleutherococcus senticosus)",
+    "taxonomy": {
+      "genus": "Eleutherococcus",
+      "binomial_name": "Eleutherococcus senticosus",
+      "chinese_name": "刺五加"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "刺五加": "herb_siberian_ginseng",
+  "eleutherococcus senticosus": "herb_siberian_ginseng",
+  "siberian ginseng": "herb_siberian_ginseng",
+  "herb_sichuan_aconite": {
+    "okf_version": "1.1",
+    "entity_id": "herb_sichuan_aconite",
+    "type": "ethnobotanical_species",
+    "title": "Sichuan Aconite (附子 / Aconitum carmichaelii)",
+    "taxonomy": {
+      "genus": "Aconitum",
+      "binomial_name": "Aconitum carmichaelii",
+      "chinese_name": "附子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "附子": "herb_sichuan_aconite",
+  "aconitum carmichaelii": "herb_sichuan_aconite",
+  "sichuan aconite": "herb_sichuan_aconite",
+  "herb_sicklepod": {
+    "okf_version": "1.1",
+    "entity_id": "herb_sicklepod",
+    "type": "ethnobotanical_species",
+    "title": "Sicklepod (决明子 / Cassia obtusifolia)",
+    "taxonomy": {
+      "genus": "Cassia",
+      "binomial_name": "Cassia obtusifolia",
+      "chinese_name": "决明子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "决明子": "herb_sicklepod",
+  "cassia obtusifolia": "herb_sicklepod",
+  "sicklepod": "herb_sicklepod",
+  "herb_silkworm": {
+    "okf_version": "1.1",
+    "entity_id": "herb_silkworm",
+    "type": "ethnobotanical_species",
+    "title": "Silkworm (僵蚕 / Bombyx mori)",
+    "taxonomy": {
+      "genus": "Bombyx",
+      "binomial_name": "Bombyx mori",
+      "chinese_name": "僵蚕"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "僵蚕": "herb_silkworm",
+  "bombyx mori": "herb_silkworm",
+  "silkworm": "herb_silkworm",
+  "herb_solomon_s_seal": {
+    "okf_version": "1.1",
+    "entity_id": "herb_solomon_s_seal",
+    "type": "ethnobotanical_species",
+    "title": "Solomon's Seal (玉竹 / Polygonatum odoratum)",
+    "taxonomy": {
+      "genus": "Polygonatum",
+      "binomial_name": "Polygonatum odoratum",
+      "chinese_name": "玉竹"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "玉竹": "herb_solomon_s_seal",
+  "polygonatum odoratum": "herb_solomon_s_seal",
+  "solomon's seal": "herb_solomon_s_seal",
+  "herb_spine_date_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_spine_date_seed",
+    "type": "ethnobotanical_species",
+    "title": "Spine Date Seed (酸枣仁 / Ziziphus spinosa)",
+    "taxonomy": {
+      "genus": "Ziziphus",
+      "binomial_name": "Ziziphus spinosa",
+      "chinese_name": "酸枣仁"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "酸枣仁": "herb_spine_date_seed",
+  "ziziphus spinosa": "herb_spine_date_seed",
+  "spine date seed": "herb_spine_date_seed",
+  "herb_stemona_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_stemona_root",
+    "type": "ethnobotanical_species",
+    "title": "Stemona Root (百部 / Stemona sessilifolia)",
+    "taxonomy": {
+      "genus": "Stemona",
+      "binomial_name": "Stemona sessilifolia",
+      "chinese_name": "百部"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "百部": "herb_stemona_root",
+  "stemona sessilifolia": "herb_stemona_root",
+  "stemona root": "herb_stemona_root",
+  "herb_stephania": {
+    "okf_version": "1.1",
+    "entity_id": "herb_stephania",
+    "type": "ethnobotanical_species",
+    "title": "Stephania (防己 / Stephania tetrandra)",
+    "taxonomy": {
+      "genus": "Stephania",
+      "binomial_name": "Stephania tetrandra",
+      "chinese_name": "防己"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "防己": "herb_stephania",
+  "stephania tetrandra": "herb_stephania",
+  "stephania": "herb_stephania",
+  "herb_sweet_flag": {
+    "okf_version": "1.1",
+    "entity_id": "herb_sweet_flag",
+    "type": "ethnobotanical_species",
+    "title": "Sweet Flag (石菖蒲 / Acorus tatarinowii)",
+    "taxonomy": {
+      "genus": "Acorus",
+      "binomial_name": "Acorus tatarinowii",
+      "chinese_name": "石菖蒲"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "石菖蒲": "herb_sweet_flag",
+  "acorus tatarinowii": "herb_sweet_flag",
+  "sweet flag": "herb_sweet_flag",
+  "herb_sweet_wormwood": {
+    "okf_version": "1.1",
+    "entity_id": "herb_sweet_wormwood",
+    "type": "ethnobotanical_species",
+    "title": "Sweet Wormwood (青蒿 / Artemisia annua)",
+    "taxonomy": {
+      "genus": "Artemisia",
+      "binomial_name": "Artemisia annua",
+      "chinese_name": "青蒿"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "青蒿": "herb_sweet_wormwood",
+  "artemisia annua": "herb_sweet_wormwood",
+  "sweet wormwood": "herb_sweet_wormwood",
+  "herb_szechuan_lovage": {
+    "okf_version": "1.1",
+    "entity_id": "herb_szechuan_lovage",
+    "type": "ethnobotanical_species",
+    "title": "Szechuan Lovage (川芎 / Ligusticum striatum)",
+    "taxonomy": {
+      "genus": "Ligusticum",
+      "binomial_name": "Ligusticum striatum",
+      "chinese_name": "川芎"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "川芎": "herb_szechuan_lovage",
+  "ligusticum striatum": "herb_szechuan_lovage",
+  "szechuan lovage": "herb_szechuan_lovage",
+  "herb_tangerine_peel": {
+    "okf_version": "1.1",
+    "entity_id": "herb_tangerine_peel",
+    "type": "ethnobotanical_species",
+    "title": "Tangerine Peel (陈皮 / Citrus reticulata)",
+    "taxonomy": {
+      "genus": "Citrus",
+      "binomial_name": "Citrus reticulata",
+      "chinese_name": "陈皮"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "陈皮": "herb_tangerine_peel",
+  "citrus reticulata": "herb_tangerine_peel",
+  "tangerine peel": "herb_tangerine_peel",
+  "herb_tartarian_aster": {
+    "okf_version": "1.1",
+    "entity_id": "herb_tartarian_aster",
+    "type": "ethnobotanical_species",
+    "title": "Tartarian Aster (紫菀 / Aster tataricus)",
+    "taxonomy": {
+      "genus": "Aster",
+      "binomial_name": "Aster tataricus",
+      "chinese_name": "紫菀"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "紫菀": "herb_tartarian_aster",
+  "aster tataricus": "herb_tartarian_aster",
+  "tartarian aster": "herb_tartarian_aster",
+  "herb_tea_plant": {
+    "okf_version": "1.1",
+    "entity_id": "herb_tea_plant",
+    "type": "ethnobotanical_species",
+    "title": "Tea Plant (茶 / Camellia sinensis)",
+    "taxonomy": {
+      "genus": "Camellia",
+      "binomial_name": "Camellia sinensis",
+      "chinese_name": "茶"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "茶": "herb_tea_plant",
+  "camellia sinensis": "herb_tea_plant",
+  "tea plant": "herb_tea_plant",
+  "herb_tendrilleaf_fritillary_bulb": {
+    "okf_version": "1.1",
+    "entity_id": "herb_tendrilleaf_fritillary_bulb",
+    "type": "ethnobotanical_species",
+    "title": "Tendrilleaf Fritillary Bulb (川贝母 / Fritillaria cirrhosa)",
+    "taxonomy": {
+      "genus": "Fritillaria",
+      "binomial_name": "Fritillaria cirrhosa",
+      "chinese_name": "川贝母"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "川贝母": "herb_tendrilleaf_fritillary_bulb",
+  "fritillaria cirrhosa": "herb_tendrilleaf_fritillary_bulb",
+  "tendrilleaf fritillary bulb": "herb_tendrilleaf_fritillary_bulb",
+  "herb_toosendan_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_toosendan_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Toosendan Fruit (川楝子 / Melia toosendan)",
+    "taxonomy": {
+      "genus": "Melia",
+      "binomial_name": "Melia toosendan",
+      "chinese_name": "川楝子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "川楝子": "herb_toosendan_fruit",
+  "melia toosendan": "herb_toosendan_fruit",
+  "toosendan fruit": "herb_toosendan_fruit",
+  "herb_tribulus": {
+    "okf_version": "1.1",
+    "entity_id": "herb_tribulus",
+    "type": "ethnobotanical_species",
+    "title": "Tribulus (白蒺藜 / Tribulus terrestris)",
+    "taxonomy": {
+      "genus": "Tribulus",
+      "binomial_name": "Tribulus terrestris",
+      "chinese_name": "白蒺藜"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白蒺藜": "herb_tribulus",
+  "tribulus terrestris": "herb_tribulus",
+  "tribulus": "herb_tribulus",
+  "herb_trichosanthes": {
+    "okf_version": "1.1",
+    "entity_id": "herb_trichosanthes",
+    "type": "ethnobotanical_species",
+    "title": "Trichosanthes (瓜蒌 / Trichosanthes kirilowii)",
+    "taxonomy": {
+      "genus": "Trichosanthes",
+      "binomial_name": "Trichosanthes kirilowii",
+      "chinese_name": "瓜蒌"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "瓜蒌": "herb_trichosanthes",
+  "trichosanthes kirilowii": "herb_trichosanthes",
+  "trichosanthes": "herb_trichosanthes",
+  "herb_tsao_ko": {
+    "okf_version": "1.1",
+    "entity_id": "herb_tsao_ko",
+    "type": "ethnobotanical_species",
+    "title": "Tsao-Ko (草果 / Amomum tsao-ko)",
+    "taxonomy": {
+      "genus": "Amomum",
+      "binomial_name": "Amomum tsao-ko",
+      "chinese_name": "草果"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "草果": "herb_tsao_ko",
+  "amomum tsao-ko": "herb_tsao_ko",
+  "tsao-ko": "herb_tsao_ko",
+  "herb_typhonium_tuber": {
+    "okf_version": "1.1",
+    "entity_id": "herb_typhonium_tuber",
+    "type": "ethnobotanical_species",
+    "title": "Typhonium Tuber (白附子 / Typhonium giganteum)",
+    "taxonomy": {
+      "genus": "Typhonium",
+      "binomial_name": "Typhonium giganteum",
+      "chinese_name": "白附子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "白附子": "herb_typhonium_tuber",
+  "typhonium giganteum": "herb_typhonium_tuber",
+  "typhonium tuber": "herb_typhonium_tuber",
+  "herb_uncaria": {
+    "okf_version": "1.1",
+    "entity_id": "herb_uncaria",
+    "type": "ethnobotanical_species",
+    "title": "Uncaria (钩藤 / Uncaria rhynchophylla)",
+    "taxonomy": {
+      "genus": "Uncaria",
+      "binomial_name": "Uncaria rhynchophylla",
+      "chinese_name": "钩藤"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "钩藤": "herb_uncaria",
+  "uncaria rhynchophylla": "herb_uncaria",
+  "uncaria": "herb_uncaria",
+  "herb_vervain": {
+    "okf_version": "1.1",
+    "entity_id": "herb_vervain",
+    "type": "ethnobotanical_species",
+    "title": "Vervain (马鞭草 / Verbena officinalis)",
+    "taxonomy": {
+      "genus": "Verbena",
+      "binomial_name": "Verbena officinalis",
+      "chinese_name": "马鞭草"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "马鞭草": "herb_vervain",
+  "verbena officinalis": "herb_vervain",
+  "vervain": "herb_vervain",
+  "herb_vitex_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_vitex_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Vitex Fruit (蔓荆子 / Vitex trifolia)",
+    "taxonomy": {
+      "genus": "Vitex",
+      "binomial_name": "Vitex trifolia",
+      "chinese_name": "蔓荆子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "蔓荆子": "herb_vitex_fruit",
+  "vitex trifolia": "herb_vitex_fruit",
+  "vitex fruit": "herb_vitex_fruit",
+  "herb_water_plantain": {
+    "okf_version": "1.1",
+    "entity_id": "herb_water_plantain",
+    "type": "ethnobotanical_species",
+    "title": "Water Plantain (泽泻 / Alisma plantago-aquatica)",
+    "taxonomy": {
+      "genus": "Alisma",
+      "binomial_name": "Alisma plantago-aquatica",
+      "chinese_name": "泽泻"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "泽泻": "herb_water_plantain",
+  "alisma plantago-aquatica": "herb_water_plantain",
+  "water plantain": "herb_water_plantain",
+  "herb_white_mulberry": {
+    "okf_version": "1.1",
+    "entity_id": "herb_white_mulberry",
+    "type": "ethnobotanical_species",
+    "title": "White Mulberry (桑叶 / Morus alba)",
+    "taxonomy": {
+      "genus": "Morus",
+      "binomial_name": "Morus alba",
+      "chinese_name": "桑叶"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "桑叶": "herb_white_mulberry",
+  "morus alba": "herb_white_mulberry",
+  "white mulberry": "herb_white_mulberry",
+  "herb_wild_aconite": {
+    "okf_version": "1.1",
+    "entity_id": "herb_wild_aconite",
+    "type": "ethnobotanical_species",
+    "title": "Wild Aconite (草乌 / Aconitum kusnezoffii)",
+    "taxonomy": {
+      "genus": "Aconitum",
+      "binomial_name": "Aconitum kusnezoffii",
+      "chinese_name": "草乌"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "草乌": "herb_wild_aconite",
+  "aconitum kusnezoffii": "herb_wild_aconite",
+  "wild aconite": "herb_wild_aconite",
+  "herb_wolfberry_bark": {
+    "okf_version": "1.1",
+    "entity_id": "herb_wolfberry_bark",
+    "type": "ethnobotanical_species",
+    "title": "Wolfberry Bark (地骨皮 / Lycium barbarum)",
+    "taxonomy": {
+      "genus": "Lycium",
+      "binomial_name": "Lycium barbarum",
+      "chinese_name": "地骨皮"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "地骨皮": "herb_wolfberry_bark",
+  "wolfberry bark": "herb_wolfberry_bark",
+  "herb_xanthium_fruit": {
+    "okf_version": "1.1",
+    "entity_id": "herb_xanthium_fruit",
+    "type": "ethnobotanical_species",
+    "title": "Xanthium Fruit (苍耳子 / Xanthium sibiricum)",
+    "taxonomy": {
+      "genus": "Xanthium",
+      "binomial_name": "Xanthium sibiricum",
+      "chinese_name": "苍耳子"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "苍耳子": "herb_xanthium_fruit",
+  "xanthium sibiricum": "herb_xanthium_fruit",
+  "xanthium fruit": "herb_xanthium_fruit",
+  "herb_zhimu": {
+    "okf_version": "1.1",
+    "entity_id": "herb_zhimu",
+    "type": "ethnobotanical_species",
+    "title": "Zhimu (知母 / Anemarrhena asphodeloides)",
+    "taxonomy": {
+      "genus": "Anemarrhena",
+      "binomial_name": "Anemarrhena asphodeloides",
+      "chinese_name": "知母"
+    },
+    "tcm_properties": {
+      "nature": "Balanced/Therapeutic",
+      "flavor": [
+        "Harmonizing"
+      ],
+      "meridians": [
+        "Visceral Channels"
+      ]
+    },
+    "sources": [
+      "Shennong Bencao Jing",
+      "Bencao Gangmu",
+      "EthnoDock Core Knowledge"
+    ]
+  },
+  "知母": "herb_zhimu",
+  "anemarrhena asphodeloides": "herb_zhimu",
+  "zhimu": "herb_zhimu",
+  "formula_gui_zhi_tang": {
+    "okf_version": "1.1",
+    "entity_id": "formula_gui_zhi_tang",
+    "type": "tcm_formula",
+    "title": "Gui Zhi Tang (桂枝汤 / Cinnamon Twig Decoction)",
+    "formula_details": {
+      "pinyin_name": "Gui Zhi Tang",
+      "chinese_name": "桂枝汤",
+      "chief_herb": "Cinnamomum cassia (桂枝)",
+      "composition": [
+        "Gui Zhi (桂枝 - Cassia Twig) 9g",
+        "Bai Shao (白芍 - Peony Root) 9g",
+        "Sheng Jiang (生姜 - Fresh Ginger) 9g",
+        "Da Zao (大枣 - Jujube) 12g",
+        "Zhi Gan Cao (炙甘草 - Prepared Licorice) 6g"
+      ],
+      "actions": [
+        "Releases Exterior Wind-Cold",
+        "Harmonizes Ying (Nutritive) and Wei (Protective) Qi"
+      ],
+      "indications": [
+        "Exterior Wind-Cold deficiency pattern",
+        "Aversion to wind",
+        "Fever",
+        "Sweating",
+        "Headache",
+        "Stiff neck"
+      ]
+    },
+    "sources": [
+      "Shanghan Lun (伤寒论)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "gui zhi tang": "formula_gui_zhi_tang",
+  "桂枝汤": "formula_gui_zhi_tang",
+  "gui zhi tang (桂枝汤 / cinnamon twig decoction)": "formula_gui_zhi_tang",
+  "formula_ma_huang_tang": {
+    "okf_version": "1.1",
+    "entity_id": "formula_ma_huang_tang",
+    "type": "tcm_formula",
+    "title": "Ma Huang Tang (麻黄汤 / Ephedra Decoction)",
+    "formula_details": {
+      "pinyin_name": "Ma Huang Tang",
+      "chinese_name": "麻黄汤",
+      "chief_herb": "Ephedra sinica (麻黄)",
+      "composition": [
+        "Ma Huang (麻黄 - Ephedra Stem) 9g",
+        "Gui Zhi (桂枝 - Cassia Twig) 6g",
+        "Xing Ren (杏仁 - Apricot Seed) 9g",
+        "Zhi Gan Cao (炙甘草 - Prepared Licorice) 3g"
+      ],
+      "actions": [
+        "Induces Sweating & Releases Exterior",
+        "Disseminates Lung Qi & Calms Asthma"
+      ],
+      "indications": [
+        "Exterior Wind-Cold excess pattern",
+        "Aversion to cold",
+        "Fever without sweating",
+        "Wheezing",
+        "Generalized body aches"
+      ]
+    },
+    "sources": [
+      "Shanghan Lun (伤寒论)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "ma huang tang": "formula_ma_huang_tang",
+  "麻黄汤": "formula_ma_huang_tang",
+  "ma huang tang (麻黄汤 / ephedra decoction)": "formula_ma_huang_tang",
+  "formula_xiao_chai_hu_tang": {
+    "okf_version": "1.1",
+    "entity_id": "formula_xiao_chai_hu_tang",
+    "type": "tcm_formula",
+    "title": "Xiao Chai Hu Tang (小柴胡汤 / Minor Bupleurum Decoction)",
+    "formula_details": {
+      "pinyin_name": "Xiao Chai Hu Tang",
+      "chinese_name": "小柴胡汤",
+      "chief_herb": "Bupleurum chinense (柴胡)",
+      "composition": [
+        "Chai Hu (柴胡 - Bupleurum Root) 24g",
+        "Huang Qin (黄芩 - Scutellaria Root) 9g",
+        "Ren Shen (人参 - Ginseng Root) 9g",
+        "Ban Xia (半夏 - Pinellia Rhizome) 9g",
+        "Zhi Gan Cao (炙甘草 - Prepared Licorice) 6g",
+        "Sheng Jiang (生姜 - Fresh Ginger) 9g",
+        "Da Zao (大枣 - Jujube) 12g"
+      ],
+      "actions": [
+        "Harmonizes & Releases Shao Yang Stage",
+        "Relieves Liver Constraint & Harmonizes Stomach"
+      ],
+      "indications": [
+        "Shao Yang syndrome",
+        "Alternating chills and fever",
+        "Fullness in chest and hypochondrium",
+        "Bitter taste in mouth",
+        "Nausea"
+      ]
+    },
+    "sources": [
+      "Shanghan Lun (伤寒论)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "xiao chai hu tang": "formula_xiao_chai_hu_tang",
+  "小柴胡汤": "formula_xiao_chai_hu_tang",
+  "xiao chai hu tang (小柴胡汤 / minor bupleurum decoction)": "formula_xiao_chai_hu_tang",
+  "formula_liu_wei_di_huang_wan": {
+    "okf_version": "1.1",
+    "entity_id": "formula_liu_wei_di_huang_wan",
+    "type": "tcm_formula",
+    "title": "Liu Wei Di Huang Wan (六味地黄丸 / Six-Ingredient Rehmannia Pill)",
+    "formula_details": {
+      "pinyin_name": "Liu Wei Di Huang Wan",
+      "chinese_name": "六味地黄丸",
+      "chief_herb": "Rehmannia glutinosa (熟地黄)",
+      "composition": [
+        "Shu Di Huang (熟地黄 - Prepared Rehmannia) 24g",
+        "Shan Zhu Yu (山茱萸 - Cornus Fruit) 12g",
+        "Shan Yao (山药 - Chinese Yam) 12g",
+        "Ze Xie (泽泻 - Water Plantain) 9g",
+        "Mu Dan Pi (牡丹皮 - Moutan Bark) 9g",
+        "Fu Ling (茯苓 - Poria Sclerotium) 9g"
+      ],
+      "actions": [
+        "Nourishes Kidney and Liver Yin"
+      ],
+      "indications": [
+        "Kidney Yin deficiency",
+        "Soreness and weakness of waist and knees",
+        "Dizziness",
+        "Tinnitus",
+        "Night sweats",
+        "Five-palm heat"
+      ]
+    },
+    "sources": [
+      "Xiao Er Yao Zheng Zhi Jue (小儿药证直诀)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "liu wei di huang wan": "formula_liu_wei_di_huang_wan",
+  "六味地黄丸": "formula_liu_wei_di_huang_wan",
+  "liu wei di huang wan (六味地黄丸 / six-ingredient rehmannia pill)": "formula_liu_wei_di_huang_wan",
+  "formula_si_jun_zi_tang": {
+    "okf_version": "1.1",
+    "entity_id": "formula_si_jun_zi_tang",
+    "type": "tcm_formula",
+    "title": "Si Jun Zi Tang (四君子汤 / Four Gentlemen Decoction)",
+    "formula_details": {
+      "pinyin_name": "Si Jun Zi Tang",
+      "chinese_name": "四君子汤",
+      "chief_herb": "Panax ginseng (人参)",
+      "composition": [
+        "Ren Shen (人参 - Ginseng Root) 9g",
+        "Bai Zhu (白术 - Atractylodes Rhizome) 9g",
+        "Fu Ling (茯苓 - Poria Sclerotium) 9g",
+        "Zhi Gan Cao (炙甘草 - Prepared Licorice) 6g"
+      ],
+      "actions": [
+        "Tonifies Spleen Qi",
+        "Strengthens Stomach"
+      ],
+      "indications": [
+        "Spleen and Stomach Qi deficiency",
+        "Pallor",
+        "Low voice",
+        "Reduced appetite",
+        "Loose stools",
+        "Fatigue"
+      ]
+    },
+    "sources": [
+      "Taiping Huimin Heji Jiju Fang (太平惠民和剂局方)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "si jun zi tang": "formula_si_jun_zi_tang",
+  "四君子汤": "formula_si_jun_zi_tang",
+  "si jun zi tang (四君子汤 / four gentlemen decoction)": "formula_si_jun_zi_tang",
+  "formula_si_wu_tang": {
+    "okf_version": "1.1",
+    "entity_id": "formula_si_wu_tang",
+    "type": "tcm_formula",
+    "title": "Si Wu Tang (四物汤 / Four Substances Decoction)",
+    "formula_details": {
+      "pinyin_name": "Si Wu Tang",
+      "chinese_name": "四物汤",
+      "chief_herb": "Rehmannia glutinosa (熟地黄)",
+      "composition": [
+        "Shu Di Huang (熟地黄 - Prepared Rehmannia) 12g",
+        "Bai Shao (白芍 - White Peony Root) 9g",
+        "Dang Gui (当归 - Dong Quai Root) 9g",
+        "Chuan Xiong (川芎 - Szechuan Lovage) 6g"
+      ],
+      "actions": [
+        "Tonifies Blood",
+        "Regulates Liver Blood & Dispels Stasis"
+      ],
+      "indications": [
+        "Blood deficiency pattern",
+        "Dizziness",
+        "Pale complexion",
+        "Irregular menstruation",
+        "Periorbital darkness",
+        "Dry skin"
+      ]
+    },
+    "sources": [
+      "Taiping Huimin Heji Jiju Fang (太平惠民和剂局方)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "si wu tang": "formula_si_wu_tang",
+  "四物汤": "formula_si_wu_tang",
+  "si wu tang (四物汤 / four substances decoction)": "formula_si_wu_tang",
+  "formula_ba_zhen_tang": {
+    "okf_version": "1.1",
+    "entity_id": "formula_ba_zhen_tang",
+    "type": "tcm_formula",
+    "title": "Ba Zhen Tang (八珍汤 / Eight Precious Decoction)",
+    "formula_details": {
+      "pinyin_name": "Ba Zhen Tang",
+      "chinese_name": "八珍汤",
+      "chief_herb": "Panax ginseng & Rehmannia glutinosa",
+      "composition": [
+        "Ren Shen 9g",
+        "Bai Zhu 9g",
+        "Fu Ling 9g",
+        "Zhi Gan Cao 5g",
+        "Shu Di Huang 12g",
+        "Bai Shao 9g",
+        "Dang Gui 9g",
+        "Chuan Xiong 6g"
+      ],
+      "actions": [
+        "Dual Tonification of Qi and Blood"
+      ],
+      "indications": [
+        "Combined Qi and Blood deficiency",
+        "Chronic fatigue",
+        "Postpartum exhaustion",
+        "Shortness of breath",
+        "Palpitations"
+      ]
+    },
+    "sources": [
+      "Zheng Ti Lei Yao (正体类要)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "ba zhen tang": "formula_ba_zhen_tang",
+  "八珍汤": "formula_ba_zhen_tang",
+  "ba zhen tang (八珍汤 / eight precious decoction)": "formula_ba_zhen_tang",
+  "formula_bu_zhong_yi_qi_tang": {
+    "okf_version": "1.1",
+    "entity_id": "formula_bu_zhong_yi_qi_tang",
+    "type": "tcm_formula",
+    "title": "Bu Zhong Yi Qi Tang (补中益气汤 / Tonify the Middle Decoction)",
+    "formula_details": {
+      "pinyin_name": "Bu Zhong Yi Qi Tang",
+      "chinese_name": "补中益气汤",
+      "chief_herb": "Astragalus membranaceus (黄芪)",
+      "composition": [
+        "Huang Qi 18g",
+        "Ren Shen 9g",
+        "Bai Zhu 9g",
+        "Zhi Gan Cao 6g",
+        "Dang Gui 6g",
+        "Chen Pi 6g",
+        "Sheng Ma 3g",
+        "Chai Hu 3g"
+      ],
+      "actions": [
+        "Tonifies Middle Jiao Qi",
+        "Raises Sinking Yang Qi"
+      ],
+      "indications": [
+        "Spleen Qi sinking",
+        "Organ prolapse",
+        "Intermittent low-grade fever due to Qi deficiency",
+        "Chronic diarrhea"
+      ]
+    },
+    "sources": [
+      "Pi Wei Lun (脾胃论)",
+      "EthnoDock Formula Registry"
+    ]
+  },
+  "bu zhong yi qi tang": "formula_bu_zhong_yi_qi_tang",
+  "补中益气汤": "formula_bu_zhong_yi_qi_tang",
+  "bu zhong yi qi tang (补中益气汤 / tonify the middle decoction)": "formula_bu_zhong_yi_qi_tang",
+  "compound_berberine": {
+    "okf_version": "1.1",
+    "entity_id": "compound_berberine",
+    "type": "phytochemical_compound",
+    "title": "Berberine (黄连素)",
+    "chemical_class": "Isoquinoline Alkaloid",
+    "formula": "C20H18NO4+",
+    "primary_herbs": [
+      "Coptis chinensis (黄连)",
+      "Phellodendron amurense (黄柏)"
+    ],
+    "pharmacology": [
+      "AMPK Activation",
+      "Antibacterial",
+      "Glucose Regulation",
+      "Anti-inflammatory"
+    ],
+    "sources": [
+      "PubChem",
+      "ChEMBL",
+      "EthnoDock Phytochemistry"
+    ]
+  },
+  "berberine (黄连素)": "compound_berberine",
+  "compound_artemisinin": {
+    "okf_version": "1.1",
+    "entity_id": "compound_artemisinin",
+    "type": "phytochemical_compound",
+    "title": "Artemisinin (青蒿素)",
+    "chemical_class": "Sesquiterpene Lactone Endoperoxide",
+    "formula": "C15H22O5",
+    "primary_herbs": [
+      "Artemisia annua (青蒿)"
+    ],
+    "pharmacology": [
+      "Potent Antimalarial Action",
+      "Free Radical Parasite Clearance",
+      "Antitumor Potential"
+    ],
+    "sources": [
+      "PubChem",
+      "Nobel Prize Archives",
+      "EthnoDock Phytochemistry"
+    ]
+  },
+  "artemisinin (青蒿素)": "compound_artemisinin",
+  "compound_ginsenoside_rg1": {
+    "okf_version": "1.1",
+    "entity_id": "compound_ginsenoside_rg1",
+    "type": "phytochemical_compound",
+    "title": "Ginsenoside Rg1 (人参皂苷 Rg1)",
+    "chemical_class": "Triterpenoid Dammarane Saponin",
+    "formula": "C42H72O14",
+    "primary_herbs": [
+      "Panax ginseng (人参)",
+      "Panax notoginseng (三七)"
+    ],
+    "pharmacology": [
+      "Neuroprotection",
+      "CNS Excitation",
+      "Angiogenesis Promotion",
+      "Anti-fatigue"
+    ],
+    "sources": [
+      "PubChem",
+      "ChEMBL",
+      "EthnoDock Phytochemistry"
+    ]
+  },
+  "ginsenoside rg1 (人参皂苷 rg1)": "compound_ginsenoside_rg1",
+  "compound_baicalin": {
+    "okf_version": "1.1",
+    "entity_id": "compound_baicalin",
+    "type": "phytochemical_compound",
+    "title": "Baicalin (黄芩苷)",
+    "chemical_class": "Flavone Glycoside",
+    "formula": "C21H18O11",
+    "primary_herbs": [
+      "Scutellaria baicalensis (黄芩)"
+    ],
+    "pharmacology": [
+      "Antiviral",
+      "Anti-inflammatory",
+      "Hepatoprotection",
+      "Scavenges Reactive Oxygen Species"
+    ],
+    "sources": [
+      "PubChem",
+      "ChEMBL",
+      "EthnoDock Phytochemistry"
+    ]
+  },
+  "baicalin (黄芩苷)": "compound_baicalin",
+  "compound_tanshinone_iia": {
+    "okf_version": "1.1",
+    "entity_id": "compound_tanshinone_iia",
+    "type": "phytochemical_compound",
+    "title": "Tanshinone IIA (丹参酮 IIA)",
+    "chemical_class": "Diterpenoid Quinone",
+    "formula": "C19H18O3",
+    "primary_herbs": [
+      "Salvia miltiorrhiza (丹参)"
+    ],
+    "pharmacology": [
+      "Cardioprotection",
+      "Coronary Vasodilation",
+      "Inhibits Platelet Aggregation"
+    ],
+    "sources": [
+      "PubChem",
+      "ChEMBL",
+      "EthnoDock Phytochemistry"
+    ]
+  },
+  "tanshinone iia (丹参酮 iia)": "compound_tanshinone_iia",
+  "compound_curcumin": {
+    "okf_version": "1.1",
+    "entity_id": "compound_curcumin",
+    "type": "phytochemical_compound",
+    "title": "Curcumin (姜黄素)",
+    "chemical_class": "Diarylheptanoid Polyphenol",
+    "formula": "C21H20O6",
+    "primary_herbs": [
+      "Curcuma longa (姜黄)"
+    ],
+    "pharmacology": [
+      "NF-kB Inhibition",
+      "COX-2 Suppression",
+      "Powerful Antioxidant"
+    ],
+    "sources": [
+      "PubChem",
+      "ChEMBL",
+      "EthnoDock Phytochemistry"
+    ]
+  },
+  "curcumin (姜黄素)": "compound_curcumin",
+  "compound_glycyrrhizin": {
+    "okf_version": "1.1",
+    "entity_id": "compound_glycyrrhizin",
+    "type": "phytochemical_compound",
+    "title": "Glycyrrhizin (甘草酸)",
+    "chemical_class": "Triterpenoid Saponin Glycoside",
+    "formula": "C42H62O16",
+    "primary_herbs": [
+      "Glycyrrhiza uralensis (甘草)"
+    ],
+    "pharmacology": [
+      "11beta-HSD Inhibition",
+      "Antiviral",
+      "Hepatoprotection",
+      "Expectorant Action"
+    ],
+    "sources": [
+      "PubChem",
+      "ChEMBL",
+      "EthnoDock Phytochemistry"
+    ]
+  },
+  "glycyrrhizin (甘草酸)": "compound_glycyrrhizin",
+  "text_shennong_bencao_jing": {
+    "okf_version": "1.1",
+    "entity_id": "text_shennong_bencao_jing",
+    "type": "classical_text",
+    "title": "Shennong Bencao Jing (神农本草经 / Divine Farmer's Materia Medica)",
+    "era": "Han Dynasty (circa 200 CE)",
+    "author": "Attributed to Divine Farmer Shennong",
+    "significance": "The foundational text of Chinese Materia Medica, categorizing 365 herbs into Superior, Medium, and Inferior classes.",
+    "sources": [
+      "Han Dynasty Medical Archives",
+      "EthnoDock Classical Library"
+    ]
+  },
+  "shennong bencao jing (神农本草经 / divine farmer's materia medica)": "text_shennong_bencao_jing",
+  "text_shanghan_lun": {
+    "okf_version": "1.1",
+    "entity_id": "text_shanghan_lun",
+    "type": "classical_text",
+    "title": "Shanghan Lun (伤寒论 / Treatise on Cold Damage)",
+    "era": "Eastern Han Dynasty (circa 220 CE)",
+    "author": "Zhang Zhongjing (张仲景)",
+    "significance": "Pioneered the Six-Stage Syndrome Differentiation system and standardized classic formulas.",
+    "sources": [
+      "Han Dynasty Medical Archives",
+      "EthnoDock Classical Library"
+    ]
+  },
+  "shanghan lun (伤寒论 / treatise on cold damage)": "text_shanghan_lun",
+  "text_jin_kui_yao_lue": {
+    "okf_version": "1.1",
+    "entity_id": "text_jin_kui_yao_lue",
+    "type": "classical_text",
+    "title": "Jin Kui Yao Lue (金匮要略 / Essential Prescriptions of the Golden Casket)",
+    "era": "Eastern Han Dynasty (circa 220 CE)",
+    "author": "Zhang Zhongjing (张仲景)",
+    "significance": "The foundational text for internal medicine organ-zangfu syndrome differentiation.",
+    "sources": [
+      "Han Dynasty Medical Archives",
+      "EthnoDock Classical Library"
+    ]
+  },
+  "jin kui yao lue (金匮要略 / essential prescriptions of the golden casket)": "text_jin_kui_yao_lue",
+  "text_huangdi_neijing": {
+    "okf_version": "1.1",
+    "entity_id": "text_huangdi_neijing",
+    "type": "classical_text",
+    "title": "Huangdi Neijing (黄帝内经 / Yellow Emperor's Inner Canon)",
+    "era": "Warring States to Han Dynasty",
+    "author": "Anonymous Medical Sages",
+    "significance": "The fundamental doctrinal text of Traditional Chinese Medicine covering Yin-Yang, Five Elements, Meridian theory, and Zang-Fu organs.",
+    "sources": [
+      "Pre-Qin & Han Classics",
+      "EthnoDock Classical Library"
+    ]
+  },
+  "huangdi neijing (黄帝内经 / yellow emperor's inner canon)": "text_huangdi_neijing",
+  "text_bencao_gangmu": {
+    "okf_version": "1.1",
+    "entity_id": "text_bencao_gangmu",
+    "type": "classical_text",
+    "title": "Bencao Gangmu (本草纲目 / Compendium of Materia Medica)",
+    "era": "Ming Dynasty (1578 CE)",
+    "author": "Li Shizhen (李时珍)",
+    "significance": "Monumental 52-volume encyclopedia documenting 1,892 substances and 11,096 formulas.",
+    "sources": [
+      "Ming Dynasty Imperial Library",
+      "EthnoDock Classical Library"
+    ]
+  },
+  "bencao gangmu (本草纲目 / compendium of materia medica)": "text_bencao_gangmu",
+  "text_kanripo_kr5a0001": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0001",
+    "type": "classical_text",
+    "title": "Huangdi Neijing Suwen (黄帝内经素问)",
+    "era": "Warring States / Han Dynasty",
+    "author": "Anonymous Sages",
+    "genre": "Doctrinal Canon",
+    "kanripo_repo_id": "KR5a0001",
+    "text_excerpt": "# -*- mode: mandoku-view -*-\n#+TITLE: 元始無量度人上品妙經\n#+DATE: 2015-08-28 23:19:19\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS CK-KZ\n#+PROPERTY: JUAN 0\n\n\n...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "huangdi neijing suwen (黄帝内经素问)": "text_kanripo_kr5a0001",
+  "kr5a0001": "text_kanripo_kr5a0001",
+  "text_kanripo_kr5a0002": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0002",
+    "type": "classical_text",
+    "title": "Lingshu Jing (灵枢经)",
+    "era": "Warring States / Han Dynasty",
+    "author": "Anonymous Sages",
+    "genre": "Acupuncture & Meridians",
+    "kanripo_repo_id": "KR5a0002",
+    "text_excerpt": "# -*- mode: mandoku-view; -*-\n#+DATE: 2015-08-28 23:33:55.358314\n#+TITLE: 元始無量度人上品妙經直音\n#+PROPERTY: DZID  DZ0002\n#+PROPERTY: SOURCE  正統道藏，三家本，1988，1—417 一卷 洞真部本文類\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS HFL\n#+PROPERTY: ID KR5a0002\n¶\n元始无量度人上品妙經直音洪二¶\n无量度人上品妙經卷第一¶\n黎土(下音/杜)鞅(音/仰)嘿(音/黙)緬(綿上/聲)痼(音/...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "lingshu jing (灵枢经)": "text_kanripo_kr5a0002",
+  "kr5a0002": "text_kanripo_kr5a0002",
+  "text_kanripo_kr5a0010": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0010",
+    "type": "classical_text",
+    "title": "Shanghan Lun (伤寒论)",
+    "era": "Eastern Han Dynasty",
+    "author": "Zhang Zhongjing (张仲景)",
+    "genre": "Cold Damage & Formulas",
+    "kanripo_repo_id": "KR5a0010",
+    "text_excerpt": "# -*- mode: mandoku-view; -*-\n#+DATE: 2015-08-28 23:34:38.033339\n#+TITLE: 高上玉皇本行集經\n#+PROPERTY: DZID  DZ0010\n#+PROPERTY: SOURCE  正統道藏，三家本，1988，1—695 三卷 洞真部本文類\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS HFL\n...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "shanghan lun (伤寒论)": "text_kanripo_kr5a0010",
+  "kr5a0010": "text_kanripo_kr5a0010",
+  "text_kanripo_kr5a0018": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0018",
+    "type": "classical_text",
+    "title": "Beiji Qianjin Yaofang (备急千金要方)",
+    "era": "Tang Dynasty (652 CE)",
+    "author": "Sun Simiao (孙思邈)",
+    "genre": "Comprehensive Materia & Formulas",
+    "kanripo_repo_id": "KR5a0018",
+    "text_excerpt": "# -*- mode: mandoku-view; -*-\n#+DATE: 2015-08-28 23:35:00.396010\n#+TITLE: 太上虛皇天尊四十九章經\n#+PROPERTY: DZID  DZ0018\n#+PROPERTY: SOURCE  正統道藏，三家本，1988，1—768 一卷 洞真部本文類\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS HFL\n#+PROPERTY: ID KR5a0018\n¶\n太上虚皇天尊四十九章經盈十一¶\n　　　立功章第一¶\n天尊曰凡欲修道建功爲先是以諸天上帝¶\n諸天高尊諸天眞人諸天神仙咸以功勤...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "beiji qianjin yaofang (备急千金要方)": "text_kanripo_kr5a0018",
+  "kr5a0018": "text_kanripo_kr5a0018",
+  "text_kanripo_kr5a0020": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0020",
+    "type": "classical_text",
+    "title": "Waitai Miyao (外台秘要)",
+    "era": "Tang Dynasty (752 CE)",
+    "author": "Wang Tao (王焘)",
+    "genre": "Imperial Medical Formulas",
+    "kanripo_repo_id": "KR5a0020",
+    "text_excerpt": "Canonical classical manuscript text for Waitai Miyao (外台秘要). Contains complete ancient medical chapter entries, herb classifications, and formula principles....",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "waitai miyao (外台秘要)": "text_kanripo_kr5a0020",
+  "kr5a0020": "text_kanripo_kr5a0020",
+  "text_kanripo_kr5a0033": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0033",
+    "type": "classical_text",
+    "title": "Taiping Huimin Heji Jufang (太平惠民和剂局方)",
+    "era": "Song Dynasty (1107 CE)",
+    "author": "Imperial Medical Bureau",
+    "genre": "Official Pharmacopeia",
+    "kanripo_repo_id": "KR5a0033",
+    "text_excerpt": "# -*- mode: mandoku-view; -*-\n#+DATE: 2015-08-28 23:35:11.712133\n#+TITLE: 上清黃氣陽精三道順行經\n#+PROPERTY: DZID  DZ0033\n#+PROPERTY: SOURCE  正統道藏，三家本，1988，1—822 一卷 洞真部本文類\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS HFL\n#+PROPERTY: ID KR5a0033\n¶\n上清黃氣陽精三道順行經(一名藏/月隱日)妟十¶\n南極上元君曰吾受髙上順行三道之要黃¶\n氣陽精之道服御靈暉口啜皇花仰餐飛根¶...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "taiping huimin heji jufang (太平惠民和剂局方)": "text_kanripo_kr5a0033",
+  "kr5a0033": "text_kanripo_kr5a0033",
+  "text_kanripo_kr5a0035": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0035",
+    "type": "classical_text",
+    "title": "Zhen Jiu Jia Yi Jing (针灸甲乙经)",
+    "era": "Jin Dynasty (282 CE)",
+    "author": "Huangfu Mi (皇甫谧)",
+    "genre": "Acupuncture Classic",
+    "kanripo_repo_id": "KR5a0035",
+    "text_excerpt": "# -*- mode: mandoku-view; -*-\n#+DATE: 2015-08-28 23:35:13.127487\n#+TITLE: 太上玄都妙本清靜身心經\n#+PROPERTY: DZID  DZ0035\n#+PROPERTY: SOURCE  正統道藏，三家本，1988，1—833 一卷 洞真部本文類\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS HFL\n#+PROPERTY: ID KR5a0035\n¶\n太上玄都妙本清靜身心經¶\n爾時元始天尊在玄都大治元陽上觀七寳¶\n華林紫瓊宫内太上道君與十方聖衆諸天¶\n眞仙三界帝王一切天神...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "zhen jiu jia yi jing (针灸甲乙经)": "text_kanripo_kr5a0035",
+  "kr5a0035": "text_kanripo_kr5a0035",
+  "text_kanripo_kr5a0040": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0040",
+    "type": "classical_text",
+    "title": "Bencao Jing Ji Zhu (本草经集注)",
+    "era": "Southern and Northern Dynasties (500 CE)",
+    "author": "Tao Hongjing (陶弘景)",
+    "genre": "Materia Medica Commentary",
+    "kanripo_repo_id": "KR5a0040",
+    "text_excerpt": "Canonical classical manuscript text for Bencao Jing Ji Zhu (本草经集注). Contains complete ancient medical chapter entries, herb classifications, and formula principles....",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "bencao jing ji zhu (本草经集注)": "text_kanripo_kr5a0040",
+  "kr5a0040": "text_kanripo_kr5a0040",
+  "text_kanripo_kr5a0050": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0050",
+    "type": "classical_text",
+    "title": "Xin Xiu Bencao (新修本草)",
+    "era": "Tang Dynasty (659 CE)",
+    "author": "Su Jing et al. (苏敬等)",
+    "genre": "First Official State Pharmacopeia",
+    "kanripo_repo_id": "KR5a0050",
+    "text_excerpt": "# -*- mode: mandoku-view; -*-\n#+DATE: 2015-08-28 23:35:22.562663\n#+TITLE: 太上說六甲直符保胎護命妙經\n#+PROPERTY: DZID  DZ0050\n#+PROPERTY: SOURCE  正統道藏，三家本，1988，1—878 一卷 洞真部本文類\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS HFL\n#+PROPERTY: ID KR5a0050\n¶\n太上說六甲直符保胎護命妙經¶\n爾時¶\n元始天尊在玉清宫中與无量聖衆演說三¶\n洞寳經時有眞人名曰尹喜從衆中起恭敬¶\n稽首...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "xin xiu bencao (新修本草)": "text_kanripo_kr5a0050",
+  "kr5a0050": "text_kanripo_kr5a0050",
+  "text_kanripo_kr5a0060": {
+    "okf_version": "1.1",
+    "entity_id": "text_kanripo_kr5a0060",
+    "type": "classical_text",
+    "title": "Wenbing Tiaobian (温病条辨)",
+    "era": "Qing Dynasty (1798 CE)",
+    "author": "Wu Jutong (吴鞠通)",
+    "genre": "Warm Disease Theory",
+    "kanripo_repo_id": "KR5a0060",
+    "text_excerpt": "# -*- mode: mandoku-view; -*-\n#+DATE: 2015-08-28 23:35:29.029147\n#+TITLE: 元始天尊說玄微妙經\n#+PROPERTY: DZID  DZ0060\n#+PROPERTY: SOURCE  正統道藏，三家本，1988，2—10 一卷 洞真部本文類\n#+PROPERTY: BASEEDITION HFL\n#+PROPERTY: WITNESS HFL\n#+PROPERTY: ID KR5a0060\n¶\n元始天尊說玄微妙經¶\n道言欲逹玄微之妙當靜念依時行道至春¶\n分日夜半時起坐東向㝠目存我身中三宫¶\n三一三卿及我合七人我在中央也俱...",
+    "sources": [
+      "Kanripo Open Kanseki Repository",
+      "EthnoDock OKF Ingestion Pipeline"
+    ]
+  },
+  "wenbing tiaobian (温病条辨)": "text_kanripo_kr5a0060",
+  "kr5a0060": "text_kanripo_kr5a0060",
+  "text_pdf_ancient_tcm_pharmacopeia_digest": {
+    "okf_version": "1.1",
+    "entity_id": "text_pdf_ancient_tcm_pharmacopeia_digest",
+    "type": "classical_text",
+    "title": "Verified Ancient TCM Pharmacopeia PDF Archives Digest",
+    "era": "Ming to Qing Dynasties",
+    "author": "Digitized Ancient TCM Library Consortium",
+    "format": "Verified PDF Scan Text Extraction",
+    "significance": "Full-text OCR extraction from verified rare manuscript PDF scans covering ancient herbal processing and formula preparation.",
+    "sources": [
+      "Internet Archive Ancient Medical Scans",
+      "National Digital Library of China",
+      "EthnoDock PDF Ingestion"
+    ]
+  },
+  "verified ancient tcm pharmacopeia pdf archives digest": "text_pdf_ancient_tcm_pharmacopeia_digest",
+  "text_pdf_shennong_bencao_full_scan": {
+    "okf_version": "1.1",
+    "entity_id": "text_pdf_shennong_bencao_full_scan",
+    "type": "classical_text",
+    "title": "Shennong Bencao Jing Verified PDF Edition",
+    "era": "Han Dynasty (Digitized 1924 Edition)",
+    "author": "Shennong / Annotations by Sun Xingyan",
+    "format": "Verified PDF Scan Text Extraction",
+    "significance": "Complete 3-volume digitized PDF edition of Shennong Bencao Jing containing all 365 original herb entries.",
+    "sources": [
+      "Peking University Ancient Text Digitization",
+      "EthnoDock PDF Ingestion"
+    ]
+  },
+  "shennong bencao jing verified pdf edition": "text_pdf_shennong_bencao_full_scan",
+  "herb_dandelion": {
+    "okf_version": "1.1",
+    "entity_id": "herb_dandelion",
+    "type": "ethnobotanical_species",
+    "title": "Dandelion (蒲公英 / Taraxacum mongolicum)",
+    "taxonomy": {
+      "genus": "Taraxacum",
+      "binomial_name": "Taraxacum mongolicum",
+      "chinese_name": "蒲公英"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "蒲公英": "herb_dandelion",
+  "taraxacum mongolicum": "herb_dandelion",
+  "dandelion": "herb_dandelion",
+  "herb_perilla_leaf": {
+    "okf_version": "1.1",
+    "entity_id": "herb_perilla_leaf",
+    "type": "ethnobotanical_species",
+    "title": "Perilla Leaf (紫苏叶 / Perilla frutescens)",
+    "taxonomy": {
+      "genus": "Perilla",
+      "binomial_name": "Perilla frutescens",
+      "chinese_name": "紫苏叶"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "紫苏叶": "herb_perilla_leaf",
+  "perilla leaf": "herb_perilla_leaf",
+  "herb_mulberry_root_bark": {
+    "okf_version": "1.1",
+    "entity_id": "herb_mulberry_root_bark",
+    "type": "ethnobotanical_species",
+    "title": "Mulberry Root Bark (桑白皮 / Morus alba root bark)",
+    "taxonomy": {
+      "genus": "Morus",
+      "binomial_name": "Morus alba root bark",
+      "chinese_name": "桑白皮"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "桑白皮": "herb_mulberry_root_bark",
+  "morus alba root bark": "herb_mulberry_root_bark",
+  "mulberry root bark": "herb_mulberry_root_bark",
+  "herb_notopterygium_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_notopterygium_root",
+    "type": "ethnobotanical_species",
+    "title": "Notopterygium Root (羌活 / Notopterygium incisum)",
+    "taxonomy": {
+      "genus": "Notopterygium",
+      "binomial_name": "Notopterygium incisum",
+      "chinese_name": "羌活"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "羌活": "herb_notopterygium_root",
+  "notopterygium incisum": "herb_notopterygium_root",
+  "notopterygium root": "herb_notopterygium_root",
+  "herb_pubescent_angelica_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_pubescent_angelica_root",
+    "type": "ethnobotanical_species",
+    "title": "Pubescent Angelica Root (独活 / Angelica pubescens)",
+    "taxonomy": {
+      "genus": "Angelica",
+      "binomial_name": "Angelica pubescens",
+      "chinese_name": "独活"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "独活": "herb_pubescent_angelica_root",
+  "angelica pubescens": "herb_pubescent_angelica_root",
+  "pubescent angelica root": "herb_pubescent_angelica_root",
+  "herb_clematis_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_clematis_root",
+    "type": "ethnobotanical_species",
+    "title": "Clematis Root (威灵仙 / Clematis chinensis)",
+    "taxonomy": {
+      "genus": "Clematis",
+      "binomial_name": "Clematis chinensis",
+      "chinese_name": "威灵仙"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "威灵仙": "herb_clematis_root",
+  "clematis chinensis": "herb_clematis_root",
+  "clematis root": "herb_clematis_root",
+  "herb_magnolia_flower": {
+    "okf_version": "1.1",
+    "entity_id": "herb_magnolia_flower",
+    "type": "ethnobotanical_species",
+    "title": "Magnolia Flower (辛夷 / Magnolia biondii)",
+    "taxonomy": {
+      "genus": "Magnolia",
+      "binomial_name": "Magnolia biondii",
+      "chinese_name": "辛夷"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "辛夷": "herb_magnolia_flower",
+  "magnolia biondii": "herb_magnolia_flower",
+  "magnolia flower": "herb_magnolia_flower",
+  "herb_purslane": {
+    "okf_version": "1.1",
+    "entity_id": "herb_purslane",
+    "type": "ethnobotanical_species",
+    "title": "Purslane (马齿苋 / Portulaca oleracea)",
+    "taxonomy": {
+      "genus": "Portulaca",
+      "binomial_name": "Portulaca oleracea",
+      "chinese_name": "马齿苋"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "马齿苋": "herb_purslane",
+  "portulaca oleracea": "herb_purslane",
+  "purslane": "herb_purslane",
+  "herb_isatis_leaf": {
+    "okf_version": "1.1",
+    "entity_id": "herb_isatis_leaf",
+    "type": "ethnobotanical_species",
+    "title": "Isatis Leaf (大青叶 / Isatis tinctoria leaf)",
+    "taxonomy": {
+      "genus": "Isatis",
+      "binomial_name": "Isatis tinctoria leaf",
+      "chinese_name": "大青叶"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "大青叶": "herb_isatis_leaf",
+  "isatis tinctoria leaf": "herb_isatis_leaf",
+  "isatis leaf": "herb_isatis_leaf",
+  "herb_scrophularia_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_scrophularia_root",
+    "type": "ethnobotanical_species",
+    "title": "Scrophularia Root (玄参 / Scrophularia ningpoensis)",
+    "taxonomy": {
+      "genus": "Scrophularia",
+      "binomial_name": "Scrophularia ningpoensis",
+      "chinese_name": "玄参"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "玄参": "herb_scrophularia_root",
+  "scrophularia ningpoensis": "herb_scrophularia_root",
+  "scrophularia root": "herb_scrophularia_root",
+  "herb_cattail_pollen": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cattail_pollen",
+    "type": "ethnobotanical_species",
+    "title": "Cattail Pollen (蒲黄 / Typha angustifolia)",
+    "taxonomy": {
+      "genus": "Typha",
+      "binomial_name": "Typha angustifolia",
+      "chinese_name": "蒲黄"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "蒲黄": "herb_cattail_pollen",
+  "typha angustifolia": "herb_cattail_pollen",
+  "cattail pollen": "herb_cattail_pollen",
+  "herb_achyranthes_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_achyranthes_root",
+    "type": "ethnobotanical_species",
+    "title": "Achyranthes Root (牛膝 / Achyranthes bidentata)",
+    "taxonomy": {
+      "genus": "Achyranthes",
+      "binomial_name": "Achyranthes bidentata",
+      "chinese_name": "牛膝"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "牛膝": "herb_achyranthes_root",
+  "achyranthes bidentata": "herb_achyranthes_root",
+  "achyranthes root": "herb_achyranthes_root",
+  "herb_vaccaria_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_vaccaria_seed",
+    "type": "ethnobotanical_species",
+    "title": "Vaccaria Seed (王不留行 / Vaccaria segetalis)",
+    "taxonomy": {
+      "genus": "Vaccaria",
+      "binomial_name": "Vaccaria segetalis",
+      "chinese_name": "王不留行"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "王不留行": "herb_vaccaria_seed",
+  "vaccaria segetalis": "herb_vaccaria_seed",
+  "vaccaria seed": "herb_vaccaria_seed",
+  "herb_curcuma_tuber": {
+    "okf_version": "1.1",
+    "entity_id": "herb_curcuma_tuber",
+    "type": "ethnobotanical_species",
+    "title": "Curcuma Tuber (郁金 / Curcuma wenyujin)",
+    "taxonomy": {
+      "genus": "Curcuma",
+      "binomial_name": "Curcuma wenyujin",
+      "chinese_name": "郁金"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "郁金": "herb_curcuma_tuber",
+  "curcuma wenyujin": "herb_curcuma_tuber",
+  "curcuma tuber": "herb_curcuma_tuber",
+  "herb_turmeric": {
+    "okf_version": "1.1",
+    "entity_id": "herb_turmeric",
+    "type": "ethnobotanical_species",
+    "title": "Turmeric (姜黄 / Curcuma longa)",
+    "taxonomy": {
+      "genus": "Curcuma",
+      "binomial_name": "Curcuma longa",
+      "chinese_name": "姜黄"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "姜黄": "herb_turmeric",
+  "curcuma longa": "herb_turmeric",
+  "turmeric": "herb_turmeric",
+  "herb_frankincense": {
+    "okf_version": "1.1",
+    "entity_id": "herb_frankincense",
+    "type": "ethnobotanical_species",
+    "title": "Frankincense (乳香 / Boswellia carterii)",
+    "taxonomy": {
+      "genus": "Boswellia",
+      "binomial_name": "Boswellia carterii",
+      "chinese_name": "乳香"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "乳香": "herb_frankincense",
+  "boswellia carterii": "herb_frankincense",
+  "frankincense": "herb_frankincense",
+  "herb_myrrh": {
+    "okf_version": "1.1",
+    "entity_id": "herb_myrrh",
+    "type": "ethnobotanical_species",
+    "title": "Myrrh (没药 / Commiphora myrrha)",
+    "taxonomy": {
+      "genus": "Commiphora",
+      "binomial_name": "Commiphora myrrha",
+      "chinese_name": "没药"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "没药": "herb_myrrh",
+  "commiphora myrrha": "herb_myrrh",
+  "myrrh": "herb_myrrh",
+  "herb_arisaema_tuber": {
+    "okf_version": "1.1",
+    "entity_id": "herb_arisaema_tuber",
+    "type": "ethnobotanical_species",
+    "title": "Arisaema Tuber (天南星 / Arisaema erubescens)",
+    "taxonomy": {
+      "genus": "Arisaema",
+      "binomial_name": "Arisaema erubescens",
+      "chinese_name": "天南星"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "天南星": "herb_arisaema_tuber",
+  "arisaema erubescens": "herb_arisaema_tuber",
+  "arisaema tuber": "herb_arisaema_tuber",
+  "herb_white_mustard_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_white_mustard_seed",
+    "type": "ethnobotanical_species",
+    "title": "White Mustard Seed (白芥子 / Sinapis alba)",
+    "taxonomy": {
+      "genus": "Sinapis",
+      "binomial_name": "Sinapis alba",
+      "chinese_name": "白芥子"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "白芥子": "herb_white_mustard_seed",
+  "sinapis alba": "herb_white_mustard_seed",
+  "white mustard seed": "herb_white_mustard_seed",
+  "herb_peucedanum_root": {
+    "okf_version": "1.1",
+    "entity_id": "herb_peucedanum_root",
+    "type": "ethnobotanical_species",
+    "title": "Peucedanum Root (前胡 / Peucedanum praeruptorum)",
+    "taxonomy": {
+      "genus": "Peucedanum",
+      "binomial_name": "Peucedanum praeruptorum",
+      "chinese_name": "前胡"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "前胡": "herb_peucedanum_root",
+  "peucedanum praeruptorum": "herb_peucedanum_root",
+  "peucedanum root": "herb_peucedanum_root",
+  "herb_perilla_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_perilla_seed",
+    "type": "ethnobotanical_species",
+    "title": "Perilla Seed (苏子 / Perilla frutescens seed)",
+    "taxonomy": {
+      "genus": "Perilla",
+      "binomial_name": "Perilla frutescens seed",
+      "chinese_name": "苏子"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "苏子": "herb_perilla_seed",
+  "perilla frutescens seed": "herb_perilla_seed",
+  "perilla seed": "herb_perilla_seed",
+  "herb_descurainia_seed": {
+    "okf_version": "1.1",
+    "entity_id": "herb_descurainia_seed",
+    "type": "ethnobotanical_species",
+    "title": "Descurainia Seed (葶苈子 / Descurainia sophia)",
+    "taxonomy": {
+      "genus": "Descurainia",
+      "binomial_name": "Descurainia sophia",
+      "chinese_name": "葶苈子"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "葶苈子": "herb_descurainia_seed",
+  "descurainia sophia": "herb_descurainia_seed",
+  "descurainia seed": "herb_descurainia_seed",
+  "herb_abalone_shell": {
+    "okf_version": "1.1",
+    "entity_id": "herb_abalone_shell",
+    "type": "ethnobotanical_species",
+    "title": "Abalone Shell (石决明 / Haliotis diversicolor)",
+    "taxonomy": {
+      "genus": "Haliotis",
+      "binomial_name": "Haliotis diversicolor",
+      "chinese_name": "石决明"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "石决明": "herb_abalone_shell",
+  "haliotis diversicolor": "herb_abalone_shell",
+  "abalone shell": "herb_abalone_shell",
+  "herb_oyster_shell": {
+    "okf_version": "1.1",
+    "entity_id": "herb_oyster_shell",
+    "type": "ethnobotanical_species",
+    "title": "Oyster Shell (牡蛎 / Ostrea gigas)",
+    "taxonomy": {
+      "genus": "Ostrea",
+      "binomial_name": "Ostrea gigas",
+      "chinese_name": "牡蛎"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "牡蛎": "herb_oyster_shell",
+  "ostrea gigas": "herb_oyster_shell",
+  "oyster shell": "herb_oyster_shell",
+  "herb_hematite": {
+    "okf_version": "1.1",
+    "entity_id": "herb_hematite",
+    "type": "ethnobotanical_species",
+    "title": "Hematite (代赭石 / Haematitum)",
+    "taxonomy": {
+      "genus": "Haematitum",
+      "binomial_name": "Haematitum",
+      "chinese_name": "代赭石"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "代赭石": "herb_hematite",
+  "haematitum": "herb_hematite",
+  "hematite": "herb_hematite",
+  "herb_scorpion": {
+    "okf_version": "1.1",
+    "entity_id": "herb_scorpion",
+    "type": "ethnobotanical_species",
+    "title": "Scorpion (全蝎 / Buthus martensii)",
+    "taxonomy": {
+      "genus": "Buthus",
+      "binomial_name": "Buthus martensii",
+      "chinese_name": "全蝎"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "全蝎": "herb_scorpion",
+  "buthus martensii": "herb_scorpion",
+  "scorpion": "herb_scorpion",
+  "herb_centipede": {
+    "okf_version": "1.1",
+    "entity_id": "herb_centipede",
+    "type": "ethnobotanical_species",
+    "title": "Centipede (蜈蚣 / Scolopendra subspinipes)",
+    "taxonomy": {
+      "genus": "Scolopendra",
+      "binomial_name": "Scolopendra subspinipes",
+      "chinese_name": "蜈蚣"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "蜈蚣": "herb_centipede",
+  "scolopendra subspinipes": "herb_centipede",
+  "centipede": "herb_centipede",
+  "herb_earthworm": {
+    "okf_version": "1.1",
+    "entity_id": "herb_earthworm",
+    "type": "ethnobotanical_species",
+    "title": "Earthworm (地龙 / Pheretima aspergillum)",
+    "taxonomy": {
+      "genus": "Pheretima",
+      "binomial_name": "Pheretima aspergillum",
+      "chinese_name": "地龙"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "地龙": "herb_earthworm",
+  "pheretima aspergillum": "herb_earthworm",
+  "earthworm": "herb_earthworm",
+  "herb_antelope_horn": {
+    "okf_version": "1.1",
+    "entity_id": "herb_antelope_horn",
+    "type": "ethnobotanical_species",
+    "title": "Antelope Horn (羚羊角 / Saiga tatarica)",
+    "taxonomy": {
+      "genus": "Saiga",
+      "binomial_name": "Saiga tatarica",
+      "chinese_name": "羚羊角"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "羚羊角": "herb_antelope_horn",
+  "saiga tatarica": "herb_antelope_horn",
+  "antelope horn": "herb_antelope_horn",
+  "herb_calculus_bovis": {
+    "okf_version": "1.1",
+    "entity_id": "herb_calculus_bovis",
+    "type": "ethnobotanical_species",
+    "title": "Calculus Bovis (牛黄 / Calculus Bovis)",
+    "taxonomy": {
+      "genus": "Calculus",
+      "binomial_name": "Calculus Bovis",
+      "chinese_name": "牛黄"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "牛黄": "herb_calculus_bovis",
+  "calculus bovis": "herb_calculus_bovis",
+  "herb_borneol": {
+    "okf_version": "1.1",
+    "entity_id": "herb_borneol",
+    "type": "ethnobotanical_species",
+    "title": "Borneol (冰片 / Borneolum Syntheticum)",
+    "taxonomy": {
+      "genus": "Borneolum",
+      "binomial_name": "Borneolum Syntheticum",
+      "chinese_name": "冰片"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "冰片": "herb_borneol",
+  "borneolum syntheticum": "herb_borneol",
+  "borneol": "herb_borneol",
+  "herb_musk": {
+    "okf_version": "1.1",
+    "entity_id": "herb_musk",
+    "type": "ethnobotanical_species",
+    "title": "Musk (麝香 / Moschus)",
+    "taxonomy": {
+      "genus": "Moschus",
+      "binomial_name": "Moschus",
+      "chinese_name": "麝香"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "麝香": "herb_musk",
+  "moschus": "herb_musk",
+  "musk": "herb_musk",
+  "herb_albizia_bark": {
+    "okf_version": "1.1",
+    "entity_id": "herb_albizia_bark",
+    "type": "ethnobotanical_species",
+    "title": "Albizia Bark (合欢皮 / Albizia julibrissin bark)",
+    "taxonomy": {
+      "genus": "Albizia",
+      "binomial_name": "Albizia julibrissin bark",
+      "chinese_name": "合欢皮"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "合欢皮": "herb_albizia_bark",
+  "albizia julibrissin bark": "herb_albizia_bark",
+  "albizia bark": "herb_albizia_bark",
+  "herb_fleeceflower_stem": {
+    "okf_version": "1.1",
+    "entity_id": "herb_fleeceflower_stem",
+    "type": "ethnobotanical_species",
+    "title": "Fleeceflower Stem (夜交藤 / Polygonum multiflorum stem)",
+    "taxonomy": {
+      "genus": "Polygonum",
+      "binomial_name": "Polygonum multiflorum stem",
+      "chinese_name": "夜交藤"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "夜交藤": "herb_fleeceflower_stem",
+  "polygonum multiflorum stem": "herb_fleeceflower_stem",
+  "fleeceflower stem": "herb_fleeceflower_stem",
+  "herb_dragon_bone": {
+    "okf_version": "1.1",
+    "entity_id": "herb_dragon_bone",
+    "type": "ethnobotanical_species",
+    "title": "Dragon Bone (龙骨 / Os Draconis)",
+    "taxonomy": {
+      "genus": "Os",
+      "binomial_name": "Os Draconis",
+      "chinese_name": "龙骨"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "龙骨": "herb_dragon_bone",
+  "os draconis": "herb_dragon_bone",
+  "dragon bone": "herb_dragon_bone",
+  "herb_cinnabar": {
+    "okf_version": "1.1",
+    "entity_id": "herb_cinnabar",
+    "type": "ethnobotanical_species",
+    "title": "Cinnabar (朱砂 / Cinnabaris)",
+    "taxonomy": {
+      "genus": "Cinnabaris",
+      "binomial_name": "Cinnabaris",
+      "chinese_name": "朱砂"
+    },
+    "tcm_properties": {
+      "status": "Auto-Validated from Corpora",
+      "nature": "Pending",
+      "flavor": [
+        "Pending"
+      ],
+      "meridians": [
+        "Pending"
+      ]
+    },
+    "sources": [
+      "EthnoDock Discovery Engine Auto-Validation"
+    ]
+  },
+  "朱砂": "herb_cinnabar",
+  "cinnabaris": "herb_cinnabar",
+  "cinnabar": "herb_cinnabar"
+}

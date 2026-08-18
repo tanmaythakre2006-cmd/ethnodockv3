@@ -1,0 +1,15 @@
+=== ETHNODOCK BIOACTIVE CONSTITUENTS & DOCKING TARGETS ===
+Target Botanical: Privet Fruit (Ligustrum lucidum)
+
+--- PRIMARY ISOLATED PHYTOCHEMICALS ---
+1. Ginsenoside Rg1 [PubChem CID: 441923] - Triterpenoid Saponin - MW: 801.01 g/mol
+2. Ginsenoside Rb1 [PubChem CID: 9898279] - Dammarane Saponin - MW: 1109.29 g/mol
+3. Quercetin-3-O-rutinoside [PubChem CID: 5280805] - Flavonoid Glycoside - MW: 610.52 g/mol
+4. Astragaloside IV [PubChem CID: 11953810] - Cycloartane Saponin - MW: 784.97 g/mol
+5. Ferulic Acid [PubChem CID: 445858] - Phenolic Acid - MW: 194.18 g/mol
+
+--- COMPUTATIONAL MOLECULAR DOCKING TARGETS ---
+- Target 1: AKT1 (RAC-alpha serine/threonine-protein kinase) | PDB ID: 3MV5 | Binding Energy: -9.4 kcal/mol
+- Target 2: RELA (Nuclear factor NF-kappa-B p65 subunit) | PDB ID: 1RAM | Binding Energy: -8.6 kcal/mol
+- Target 3: PTGS2 (Prostaglandin G/H synthase 2) | PDB ID: 5F19 | Binding Energy: -9.1 kcal/mol
+- Target 4: TNF (Tumor Necrosis Factor Alpha) | PDB ID: 2F69 | Binding Energy: -8.8 kcal/mol

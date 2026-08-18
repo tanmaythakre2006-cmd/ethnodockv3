@@ -1,0 +1,7 @@
+# -*- mode: mandoku-view; -*-
+#+DATE: 2015-08-28 23:35:15.277948
+#+TITLE: 太上升玄三一融神變化妙經
+#+PROPERTY: DZID  DZ0038
+#+PROPERTY: SOURCE  正統道藏，三家本，1988，1—851 二卷 洞真部本文類
+#+PROPERTY: BASEEDITION HFL
+#+PROPERTY: WITNESS HFL

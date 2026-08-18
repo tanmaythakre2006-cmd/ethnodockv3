@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Open Knowledge Format (OKF) Specimen Schema v1.1",
+  "type": "object",
+  "required": [
+    "okf_version",
+    "entity_id",
+    "type",
+    "title"
+  ],
+  "properties": {
+    "okf_version": {
+      "type": "string",
+      "example": "1.1"
+    },
+    "entity_id": {
+      "type": "string",
+      "example": "herb_panax_ginseng"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["ethnobotanical_species", "classical_text", "phytochemical_compound", "tcm_formula"]
+    },
+    "title": {
+      "type": "string"
+    },
+    "taxonomy": {
+      "type": "object",
+      "properties": {
+        "genus": {"type": "string"},
+        "species": {"type": "string"},
+        "binomial_name": {"type": "string"},
+        "chinese_name": {"type": "string"},
+        "pinyin": {"type": "string"}
+      }
+    },
+    "formula_details": {
+      "type": "object",
+      "properties": {
+        "pinyin_name": {"type": "string"},
+        "chinese_name": {"type": "string"},
+        "chief_herb": {"type": "string"},
+        "composition": {"type": "array", "items": {"type": "string"}},
+        "actions": {"type": "array", "items": {"type": "string"}},
+        "indications": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "tcm_properties": {
+      "type": "object",
+      "properties": {
+        "nature": {"type": "string"},
+        "flavor": {"type": "array", "items": {"type": "string"}},
+        "meridians": {"type": "array", "items": {"type": "string"}},
+        "primary_actions": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "phytochemistry": {
+      "type": "object",
+      "properties": {
+        "primary_compounds": {"type": "array", "items": {"type": "string"}},
+        "target_pathways": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}

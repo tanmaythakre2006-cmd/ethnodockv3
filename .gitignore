@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.pdb
+*.pdbqt
+active_ligand*
+var_ligand*
+.streamlit/secrets.toml
+.system_generated/
+*.log

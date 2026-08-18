@@ -24,99 +24,168 @@ import ethnodock_paozhi_engine as paozhi_eng
 
 # --- Page Configuration ---
 st.set_page_config(
-    page_title="EthnoDock Pro • In-Silico Pharmacognosy",
+    page_title="EthnoDock Pro • Computational Pharmacognosy",
     page_icon="🌿",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# --- Apple macOS / iOS Premium Glassmorphic Design System ---
+# --- Ultra-Premium Apple / Linear Glassmorphic Design System ---
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-    /* Base Reset & Apple Typography */
+    /* Global Base Reset */
     html, body, [class*="css"], .stApp {
-        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif !important;
-        background: #08090C !important;
-        color: #F5F5F7 !important;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        background: #050608 !important;
+        color: #F1F5F9 !important;
         letter-spacing: -0.015em;
     }
 
-    /* Ambient Hero Glow */
-    .hero-container {
+    /* Ambient Aurora Glow */
+    .aurora-hero {
         position: relative;
-        background: radial-gradient(circle at 50% 0%, rgba(48, 209, 88, 0.15) 0%, rgba(10, 132, 255, 0.08) 35%, rgba(8, 9, 12, 0.95) 75%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        padding: 50px 40px;
+        background: radial-gradient(circle at 50% -20%, rgba(48, 209, 88, 0.22) 0%, rgba(10, 132, 255, 0.12) 40%, rgba(5, 6, 8, 0.98) 75%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 28px;
+        padding: 56px 40px 48px 40px;
         text-align: center;
-        margin-bottom: 30px;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        margin-bottom: 35px;
+        box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6);
+        overflow: hidden;
     }
-    
-    .hero-pill {
+
+    .aurora-hero::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 20%; right: 20%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(48, 209, 88, 0.6), rgba(100, 210, 255, 0.6), transparent);
+    }
+
+    /* Floating Pill Badges */
+    .pill-badge {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 6px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 6px 18px;
         border-radius: 30px;
-        font-size: 0.8rem;
-        font-weight: 600;
+        font-size: 0.78rem;
+        font-weight: 700;
         color: #30D158;
-        letter-spacing: 0.8px;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(48, 209, 88, 0.15);
     }
 
-    .hero-title {
-        font-size: 3.1rem;
+    .hero-main-title {
+        font-size: 3.4rem;
         font-weight: 800;
-        letter-spacing: -0.035em;
-        line-height: 1.15;
-        margin: 0 0 16px 0;
-        background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A6 100%);
+        letter-spacing: -0.04em;
+        line-height: 1.12;
+        margin: 0 0 18px 0;
+        background: linear-gradient(180deg, #FFFFFF 20%, #94A3B8 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    .hero-subtitle {
-        font-size: 1.15rem;
-        color: #A1A1A6;
-        max-width: 760px;
-        margin: 0 auto 24px auto;
+    .hero-gradient-text {
+        background: linear-gradient(135deg, #30D158 0%, #64D2FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-main-desc {
+        font-size: 1.18rem;
+        color: #94A3B8;
+        max-width: 780px;
+        margin: 0 auto 28px auto;
         line-height: 1.6;
         font-weight: 400;
+    }
+
+    /* Interactive Specimen Gallery Strip */
+    .gallery-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 35px;
+    }
+    .gallery-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 14px;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+    }
+    .gallery-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(48, 209, 88, 0.4);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    }
+    .gallery-img-box {
+        height: 140px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #000;
+        margin-bottom: 10px;
+    }
+    .gallery-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    .gallery-item:hover .gallery-img-box img {
+        transform: scale(1.06);
+    }
+
+    /* Command Center Search Box */
+    .search-hub-card {
+        background: rgba(255, 255, 255, 0.035);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 24px;
+        padding: 32px 36px;
+        margin-bottom: 40px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
     }
 
     /* 4-Step Scientific Pipeline Grid */
     .pipeline-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
-        max-width: 920px;
+        gap: 16px;
+        max-width: 960px;
         margin: 0 auto;
-        padding-top: 24px;
+        padding-top: 28px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
     .pipeline-card {
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.025);
         border: 1px solid rgba(255, 255, 255, 0.07);
-        border-radius: 14px;
-        padding: 16px 14px;
+        border-radius: 16px;
+        padding: 18px 16px;
         text-align: left;
-        transition: all 0.2s ease;
+        transition: all 0.25s ease;
     }
     .pipeline-card:hover {
         background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.18);
         transform: translateY(-2px);
     }
     .pipeline-step-badge {
-        font-size: 0.68rem;
+        font-size: 0.7rem;
         font-weight: 700;
         letter-spacing: 0.8px;
         text-transform: uppercase;
@@ -124,7 +193,7 @@ st.markdown(
         margin-bottom: 6px;
     }
     .pipeline-step-title {
-        font-size: 0.95rem;
+        font-size: 1rem;
         font-weight: 700;
         color: #FFFFFF;
         margin-bottom: 4px;
@@ -133,21 +202,28 @@ st.markdown(
         gap: 6px;
     }
     .pipeline-step-desc {
-        font-size: 0.78rem;
+        font-size: 0.8rem;
         color: #86868B;
-        line-height: 1.4;
+        line-height: 1.45;
     }
 
-    /* Command Search Card */
-    .search-card-container {
-        background: rgba(255, 255, 255, 0.04);
-        backdrop-filter: blur(35px);
-        -webkit-backdrop-filter: blur(35px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Dual Paradigm Synthesis Cards */
+    .synthesis-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 40px;
+    }
+    .synthesis-card {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 20px;
         padding: 28px;
-        margin-bottom: 35px;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+        transition: all 0.25s ease;
+    }
+    .synthesis-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.15);
     }
 
     /* Glass Cards */
@@ -168,42 +244,6 @@ st.markdown(
         border-radius: 14px;
         padding: 16px 20px;
         margin-bottom: 14px;
-    }
-
-    /* Mission Grid */
-    .mission-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin-bottom: 35px;
-    }
-    .mission-box {
-        background: rgba(255, 255, 255, 0.025);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 16px;
-        padding: 26px;
-        transition: all 0.2s ease;
-    }
-    .mission-box:hover {
-        background: rgba(255, 255, 255, 0.04);
-        border-color: rgba(255, 255, 255, 0.12);
-        transform: translateY(-3px);
-    }
-    .mission-icon {
-        font-size: 2rem;
-        margin-bottom: 12px;
-        display: inline-block;
-    }
-    .mission-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #FFFFFF;
-        margin-bottom: 8px;
-    }
-    .mission-desc {
-        font-size: 0.88rem;
-        color: #86868B;
-        line-height: 1.55;
     }
 
     /* Apple Pill Badges */
@@ -316,25 +356,27 @@ st.markdown(
         box-shadow: 0 6px 20px rgba(10, 132, 255, 0.5) !important;
     }
 
-    /* Segmented Tab Headers */
+    /* Segmented Tabs */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
         background: rgba(255, 255, 255, 0.03);
         padding: 6px;
-        border-radius: 16px;
+        border-radius: 18px;
         border: 1px solid rgba(255, 255, 255, 0.08);
-        margin-bottom: 24px;
+        margin-bottom: 28px;
     }
     .stTabs [data-baseweb="tab"] {
         border-radius: 12px;
         color: #86868B;
         font-weight: 600;
-        padding: 8px 20px;
+        padding: 10px 24px;
         border: none;
+        font-size: 0.92rem;
     }
     .stTabs [aria-selected="true"] {
         background: #0A84FF !important;
         color: #FFFFFF !important;
+        box-shadow: 0 4px 14px rgba(10, 132, 255, 0.3);
     }
     </style>
     """,
@@ -416,26 +458,30 @@ def load_tcm_master():
 df = load_tcm_master()
 
 # ==========================================
-# 🧭 TOP SEGMENTED NAVIGATION
+# 🧭 TOP NAVIGATION TABS
 # ==========================================
 tab_intro, tab_workbench = st.tabs([
-    "🏛️ Project Introduction & Discovery",
-    "🔬 In-Silico Molecular Workbench"
+    "✨ 01 • Project Vision & Discovery Portal",
+    "🔬 02 • In-Silico Molecular Workbench"
 ])
 
 # ==========================================
-# 🌟 TAB 1: DEDICATED INTRODUCTION & SEARCH
+# 🌟 TAB 1: EYE-CATCHING HERO & DISCOVERY
 # ==========================================
 with tab_intro:
-    # 1. Hero Introduction
+    # 1. Radiant Hero Header
     st.markdown("""
-    <div class="hero-container">
-        <span class="hero-pill">🌿 EthnoDock Pro • In-Silico Pharmacognosy Initiative</span>
-        <h1 class="hero-title">Bridging 2,000 Years of Botanical Wisdom<br>with Western Structural Pharmacology</h1>
-        <p class="hero-subtitle">
-            EthnoDock is a world-first computational ethnopharmacology suite. We digitize canonical Traditional Chinese Medicine (TCM) pharmacopoeias—from the Han Dynasty's <i>Shennong Bencaojing</i> to the Ming Dynasty's <i>Bencao Gangmu</i>—and systematically validate their active phytochemical mechanisms against verified human macromolecular drug targets using rigorous empirical molecular docking.
+    <div class="aurora-hero">
+        <span class="pill-badge">🌿 ETHNODOCK PRO • COMPUTATIONAL PHARMACOGNOSY</span>
+        <h1 class="hero-main-title">
+            Bridging 2,000 Years of Botanical Canon<br>
+            with <span class="hero-gradient-text">Modern Structural Biophysics</span>
+        </h1>
+        <p class="hero-main-desc">
+            EthnoDock digitizes classical dynastic pharmacopoeias (<i>Shennong Bencaojing, Bencao Gangmu</i>) to uncover the molecular mechanisms of ancient phytotherapy—validating active phytochemicals against human disease drug targets via empirical AutoDock Vina simulation.
         </p>
-        
+
+        <!-- 4-Step Scientific Pipeline -->
         <div class="pipeline-grid">
             <div class="pipeline-card">
                 <div class="pipeline-step-badge">Phase 01</div>
@@ -461,13 +507,48 @@ with tab_intro:
     </div>
     """, unsafe_allow_html=True)
 
-    # 2. Main Search & Catalog Explorer
+    # 2. Curated Specimen Showcase Reel
     st.markdown("""
-    <div class="search-card-container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <div>
+            <h3 style="margin:0; font-size:1.25rem; font-weight:700; color:#FFFFFF;">🌿 Curated Botanical Specimen Gallery</h3>
+            <p style="margin:2px 0 0 0; font-size:0.85rem; color:#86868B;">Explore high-resolution field photographs of iconic medicinal species in our verified pharmacopeia.</p>
+        </div>
+        <span class="apple-badge apple-badge-gold">Kew Verified</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col_g1, col_g2, col_g3, col_g4 = st.columns(4, gap="small")
+    showcase_herbs = [
+        ("Sweet Wormwood (Qinghao)", "Artemisia annua", "Artemisinin", "SARS-CoV-2 Mpro"),
+        ("Baikal Skullcap (Huangqin)", "Scutellaria baicalensis", "Baicalein", "COX-2 Kinase"),
+        ("Ginseng (Renshen)", "Panax ginseng", "Ginsenoside Rg1", "Estrogen Receptor"),
+        ("Red Sage (Danshen)", "Salvia miltiorrhiza", "Tanshinone IIA", "EGFR Kinase")
+    ]
+
+    for col, (cname, bname, comp, target) in zip([col_g1, col_g2, col_g3, col_g4], showcase_herbs):
+        with col:
+            photo_b64 = get_species_photo_b64(cname, bname)
+            img_tag = f'<img src="{photo_b64}"/>' if photo_b64 else '<div style="height:140px; background:#111;"></div>'
+            st.markdown(f"""
+            <div class="gallery-item">
+                <div class="gallery-img-box">
+                    {img_tag}
+                </div>
+                <div style="font-weight:700; font-size:13px; color:#FFF;">{cname}</div>
+                <div style="font-size:11px; color:#30D158; margin-top:2px;">{comp} &bull; {target}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # 3. Interactive Command Search Center
+    st.markdown("""
+    <div class="search-hub-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
             <div>
-                <h3 style="margin:0; font-size:1.3rem; font-weight:700; color:#FFFFFF;">🔍 Pharmacognosy Catalog & Target Search</h3>
-                <p style="margin:2px 0 0 0; font-size:0.88rem; color:#86868B;">Select any medicinal plant, therapeutic protein target, or phytochemical to inspect its molecular identity.</p>
+                <h3 style="margin:0; font-size:1.35rem; font-weight:700; color:#FFFFFF;">🔍 Interactive Molecular Discovery Hub</h3>
+                <p style="margin:4px 0 0 0; font-size:0.9rem; color:#86868B;">Select any medicinal plant, therapeutic protein target, or phytochemical to inspect its molecular identity.</p>
             </div>
             <span class="apple-badge apple-badge-blue">Live Query</span>
         </div>
@@ -498,7 +579,7 @@ with tab_intro:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 3. Selected Herb Spotlight Card
+    # 4. Selected Herb Spotlight Card
     selected_data = df[df[search_by] == selected_option]
 
     if not selected_data.empty:
@@ -512,27 +593,27 @@ with tab_intro:
             if plant_photo_b64:
                 st.markdown(f"""
                 <div class="apple-card" style="padding:14px; text-align:center; height:100%;">
-                    <div style="border-radius:12px; overflow:hidden; height:190px; background:#000;">
+                    <div style="border-radius:12px; overflow:hidden; height:200px; background:#000;">
                         <img src="{plant_photo_b64}" style="width:100%; height:100%; object-fit:cover;"/>
                     </div>
                     <div style="margin-top:12px;">
                         <span class="apple-badge">Verified Field Specimen</span>
-                        <div style="font-weight:600; font-size:15px; margin-top:4px;">{row['Common Name']}</div>
+                        <div style="font-weight:700; font-size:15px; margin-top:4px;">{row['Common Name']}</div>
                         <div style="font-size:12px; color:#86868B; font-style:italic;">{row['Botanical Name']}</div>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
 
         with col_p2:
-            img_tag = f'<img src="data:image/png;base64,{img_b64}" style="width:100%; height:190px; object-fit:contain;"/>' if img_b64 else '<p>2D Topology</p>'
+            img_tag = f'<img src="data:image/png;base64,{img_b64}" style="width:100%; height:200px; object-fit:contain;"/>' if img_b64 else '<p>2D Topology</p>'
             st.markdown(f"""
             <div class="apple-card" style="padding:14px; text-align:center; height:100%;">
-                <div style="background:#000000; border-radius:12px; padding:6px; height:190px; display:flex; align-items:center; justify-content:center;">
+                <div style="background:#000000; border-radius:12px; padding:6px; height:200px; display:flex; align-items:center; justify-content:center;">
                     {img_tag}
                 </div>
                 <div style="margin-top:12px;">
                     <span class="apple-badge apple-badge-gold">{row['Chemical Class']}</span>
-                    <div style="font-weight:600; font-size:15px; margin-top:4px; color:#52B788;">{row['Active Phytochemical']}</div>
+                    <div style="font-weight:700; font-size:15px; margin-top:4px; color:#52B788;">{row['Active Phytochemical']}</div>
                     <div style="font-size:11px; color:#86868B;">PubChem CID: {row['PubChem CID']}</div>
                 </div>
             </div>
@@ -540,45 +621,45 @@ with tab_intro:
 
         with col_p3:
             st.markdown(f"""
-            <div class="apple-card" style="padding:20px; height:100%; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="apple-card" style="padding:22px; height:100%; display:flex; flex-direction:column; justify-content:space-between;">
                 <div>
                     <span class="apple-badge apple-badge-purple">{row['Dynasty']} • {row['Classical Source']}</span>
-                    <div style="font-size:14px; color:#F5F5F7; margin-top:8px; font-style:italic; line-height:1.4;">"{row['English Translation']}"</div>
-                    <hr style="border:none; border-top:1px solid rgba(255,255,255,0.06); margin:12px 0;">
-                    <div style="font-size:12px; color:#86868B; text-transform:uppercase;">Primary Drug Target</div>
-                    <div style="font-size:15px; font-weight:700; color:#30D158;">{row['Protein Target']} ({row['Gene Symbol']})</div>
-                    <div style="font-size:12px; color:#A1A1A6; margin-top:2px;"><b>RCSB PDB ID:</b> <span style="color:#64D2FF; font-weight:700;">{row['PDB ID']}</span> • <b>UniProt:</b> {row['UniProt ID']}</div>
+                    <div style="font-size:14px; color:#F5F5F7; margin-top:10px; font-style:italic; line-height:1.45;">"{row['English Translation']}"</div>
+                    <hr style="border:none; border-top:1px solid rgba(255,255,255,0.06); margin:14px 0;">
+                    <div style="font-size:11px; color:#86868B; text-transform:uppercase; letter-spacing:0.5px;">Validated Human Target</div>
+                    <div style="font-size:16px; font-weight:700; color:#30D158; margin-top:2px;">{row['Protein Target']} ({row['Gene Symbol']})</div>
+                    <div style="font-size:12px; color:#A1A1A6; margin-top:4px;"><b>RCSB PDB ID:</b> <span style="color:#64D2FF; font-weight:700;">{row['PDB ID']}</span> &bull; <b>UniProt:</b> {row['UniProt ID']}</div>
                 </div>
-                <div style="margin-top:14px;">
-                    <p style="font-size:12px; color:#86868B; margin:0;">👉 Switch to the <b>In-Silico Molecular Workbench</b> tab above to run the live 3D docking simulation for {row['Common Name']}!</p>
+                <div style="margin-top:16px; background:rgba(10, 132, 255, 0.08); border:1px solid rgba(10, 132, 255, 0.2); border-radius:12px; padding:10px 14px;">
+                    <span style="font-size:12px; color:#64D2FF; font-weight:600;">⚡ Ready for Simulation:</span>
+                    <span style="font-size:12px; color:#CBD5E1;"> Switch to the <b>In-Silico Molecular Workbench</b> tab above to run AutoDock Vina and inspect 3D interactions!</span>
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
-    # 4. Mission Pillars & Methodology (Who We Are & What We Do)
+    # 5. Dual Paradigm Synthesis (Ancient Wisdom vs Modern Biophysics)
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("""
-    <div style="margin-bottom:16px;">
-        <span class="apple-badge apple-badge-gold">Core Methodology</span>
-        <h2 style="margin:8px 0 4px 0; font-size:1.7rem; font-weight:700;">Our Scientific & Philological Architecture</h2>
-        <p style="margin:0; color:#86868B; font-size:0.95rem;">How EthnoDock bridges historical philology with state-of-the-art computational biophysics.</p>
+    <div style="margin-bottom:18px;">
+        <span class="apple-badge apple-badge-gold">Dual-Paradigm Architecture</span>
+        <h2 style="margin:8px 0 4px 0; font-size:1.8rem; font-weight:700;">Harmonizing Ancient Canon with Biophysical Rigor</h2>
+        <p style="margin:0; color:#86868B; font-size:0.95rem;">How EthnoDock validates traditional pharmacognosy using modern computational chemistry.</p>
     </div>
 
-    <div class="mission-grid">
-        <div class="mission-box">
-            <div class="mission-icon">📜</div>
-            <div class="mission-title">1. Classical Corpus Digitization</div>
-            <div class="mission-desc">We extract verbatim clinical indications and formula structures from canonical Chinese medical texts (*Han, Tang, Song, Ming* dynasties) and cross-reference them with Kew Gardens botanical taxonomy.</div>
+    <div class="synthesis-grid">
+        <div class="synthesis-card" style="border-left: 4px solid #FFD60A;">
+            <div style="font-size:1.8rem; margin-bottom:10px;">📜</div>
+            <h3 style="margin:0 0 6px 0; color:#FFD60A; font-size:1.15rem;">Ancient Ethnobotanical Canon</h3>
+            <p style="margin:0; color:#94A3B8; font-size:0.88rem; line-height:1.55;">
+                Extracts verbatim clinical indications, thermal properties (四气五味), and formula synergy principles (君臣佐使) codified over two millennia across the Han, Tang, Song, and Ming dynasties.
+            </p>
         </div>
-        <div class="mission-box">
-            <div class="mission-icon">⚛️</div>
-            <div class="mission-title">2. Empirical Molecular Docking</div>
-            <div class="mission-desc">Using AutoDock Vina v1.2.7 and RDKit ETKDGv3 conformer generation, we model binding affinities (&Delta;G in kcal/mol), RMSD conformational hierarchies, and thermodynamic inhibition constants (Ki).</div>
-        </div>
-        <div class="mission-box">
-            <div class="mission-icon">⚗️</div>
-            <div class="mission-title">3. Paozhi (炮制) Detoxification</div>
-            <div class="mission-desc">We model classical thermal processing alchemy (soaking, wine-steaming, sand-roasting), proving how toxic raw diester alkaloids thermally hydrolyze into safe, non-toxic therapeutic metabolites.</div>
+        <div class="synthesis-card" style="border-left: 4px solid #30D158;">
+            <div style="font-size:1.8rem; margin-bottom:10px;">⚛️</div>
+            <h3 style="margin:0 0 6px 0; color:#30D158; font-size:1.15rem;">Modern Structural Pharmacology</h3>
+            <p style="margin:0; color:#94A3B8; font-size:0.88rem; line-height:1.55;">
+                Employs AutoDock Vina empirical scoring, RDKit 3D conformer minimization (ETKDGv3/UFF), Euclidean contact calculations (<4.0Å), and Lipinski/PAINS toxicological filters.
+            </p>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -901,9 +982,6 @@ with tab_workbench:
                             st.success(f"**Identified:** {len(h_bonds)} Hydrogen/Polar Bonds (Crimson) and {len(interactions_df)-len(h_bonds)} Hydrophobic Contacts (Cyan).")
                         else:
                             st.info("No close contacts (< 4.0 Å) detected for this conformation.")
-
-                        st.markdown("#### 📋 9-Pose Conformational Hierarchy")
-                        st.dataframe(pd.DataFrame(table_data), hide_index=True, use_container_width=True)
 
                     # ==========================================
                     # STAGE 04: BIOISOSTERE LEAD OPTIMIZATION

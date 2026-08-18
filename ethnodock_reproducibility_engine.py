@@ -197,7 +197,19 @@ def create_reproducibility_zip_bundle(
         )
         zf.writestr("citations.bib", bibtex)
         
-        # 5. Comprehensive Scientific Metadata Manifest (JSON)
+        # 5. Publication-Ready PyMOL (.pml) Macro Script
+        try:
+            import ethnodock_figure_engine as fig_eng
+            import pandas as pd
+            df_inter_mock = pd.DataFrame(interactions_summary) if interactions_summary else None
+            pml_script = fig_eng.generate_pymol_pml(
+                "receptor.pdbqt", "ligand.pdbqt", species_name, target_name, pdb_id, compound_name, df_inter_mock, theme="nature"
+            )
+            zf.writestr("publication_figure.pml", pml_script)
+        except Exception as e:
+            print(f"PyMOL bundle note: {e}")
+        
+        # 6. Comprehensive Scientific Metadata Manifest (JSON)
         manifest = {
             "platform": "EthnoDock Pro",
             "version": "3.0.0-scientific",

@@ -25,6 +25,7 @@ import ethnodock_reproducibility_engine as repro_eng
 import ethnodock_chembl_engine as chembl_eng
 import ethnodock_microbiome_engine as micro_eng
 import ethnodock_energetics_engine as energ_eng
+import ethnodock_figure_engine as fig_eng
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -1276,6 +1277,68 @@ else:
                             """, unsafe_allow_html=True)
                         else:
                             st.info("No close contacts (< 4.0 Å) detected for this conformation.")
+
+                    # ==========================================
+                    # 🎨 PUBLICATION-GRADE 3D FIGURE & PYMOL STUDIO
+                    # ==========================================
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    with st.expander("🎨 Publication-Grade 3D Figure Studio & PyMOL (.pml) Generator", expanded=False):
+                        st.markdown("""
+                        <div style="font-size:0.86rem; color:#A1A1A6; margin-bottom:12px;">
+                            Generate publication-ready 300-DPI ray-traced figures, automated PyMOL macro scripts (<code>.pml</code>), and formal manuscript captions formatted according to <i>Nature</i>, <i>Cell</i>, and <i>ACS</i> journal standards.
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        col_fig1, col_fig2 = st.columns([1, 2], gap="medium")
+                        with col_fig1:
+                            journal_theme = st.selectbox(
+                                "Journal Palette Preset:",
+                                ["nature", "cell", "acs", "dark"],
+                                format_func=lambda x: {
+                                    "nature": "Nature / Springer (Clean White & Slate)",
+                                    "cell": "Cell / Elsevier (High Contrast & Gold)",
+                                    "acs": "ACS Journal (Navy & Ruby)",
+                                    "dark": "Presentation / Dark Cyber"
+                                }[x],
+                                key=f"journal_theme_{idx}"
+                            )
+
+                            pml_script_content = fig_eng.generate_pymol_pml(
+                                receptor_filename=f"{row['PDB ID']}.pdbqt",
+                                ligand_filename="active_ligand.pdbqt",
+                                species_name=row['Common Name'],
+                                target_name=row['Protein Target'],
+                                pdb_id=row['PDB ID'],
+                                compound_name=active_compound_name,
+                                interactions_df=interactions_df,
+                                theme=journal_theme
+                            )
+
+                            st.download_button(
+                                label="📜 Download PyMOL Script (.pml)",
+                                data=pml_script_content,
+                                file_name=f"pymol_render_{row['PDB ID']}_{active_compound_name}.pml",
+                                mime="text/plain",
+                                key=f"dl_pml_{idx}",
+                                use_container_width=True
+                            )
+
+                        with col_fig2:
+                            st.markdown("**📝 Automated Journal Manuscript Caption:**")
+                            key_res_list = list(interactions_df["Receptor Residue"].unique()) if not interactions_df.empty else []
+                            caption_md = fig_eng.generate_figure_caption(
+                                species_name=row['Common Name'],
+                                target_name=row['Protein Target'],
+                                pdb_id=row['PDB ID'],
+                                compound_name=active_compound_name,
+                                affinity_kcal=selected_pose_data['Affinity (kcal/mol)'],
+                                key_residues=key_res_list
+                            )
+                            st.markdown(f"""
+                            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; font-size:12px; color:#CBD5E1; line-height:1.6;">
+                                {caption_md}
+                            </div>
+                            """, unsafe_allow_html=True)
 
                     # ==========================================
                     # STAGE 04: BIOISOSTERE LEAD OPTIMIZATION

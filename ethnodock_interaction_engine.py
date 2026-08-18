@@ -81,7 +81,7 @@ def calc_interactions(ligand_lines, receptor_pdbqt_path, cutoff=4.0):
             except ValueError:
                 pass
 
-    # 3. Pairwise Non-Covalent Contact Detection
+    # 3. Pairwise Non-Covalent Contact Detection with Granular Classification
     interactions = []
     seen = set()
 
@@ -94,27 +94,70 @@ def calc_interactions(ligand_lines, receptor_pdbqt_path, cutoff=4.0):
             if dist <= cutoff:
                 key = (rec["res"], lig["id"])
                 if key not in seen:
-                    # Classify interaction type
-                    is_polar = (lig["element"] in ["O", "N", "F", "S", "HD"] and rec["element"] in ["O", "N", "S", "HD"]) or (dist < 3.3)
-                    bond_type = "Hydrogen / Polar Bond" if is_polar else "Hydrophobic Contact"
-                    bond_color = "#FF3366" if is_polar else "#00D2FF"
-
+                    res_code = rec["res"].split("-")[0].upper()
+                    
+                    # Detailed Classification:
+                    if dist <= 3.3 and lig["element"] in ["O", "N", "F", "S", "HD"] and rec["element"] in ["O", "N", "S", "HD"]:
+                        bond_type = "Hydrogen Bond"
+                        bond_color = "#FF3B30"
+                    elif res_code in ["ASP", "GLU", "LYS", "ARG", "HIS"] and dist <= 3.8 and lig["element"] in ["O", "N"]:
+                        bond_type = "Salt Bridge / Electrostatic"
+                        bond_color = "#FFD60A"
+                    elif res_code in ["PHE", "TYR", "TRP", "HIS"] and dist <= 4.0:
+                        bond_type = "π-π / Aromatic Contact"
+                        bond_color = "#BF5AF2"
+                    elif res_code in ["LEU", "ILE", "VAL", "ALA", "PRO", "MET", "CYS"]:
+                        bond_type = "Hydrophobic Aliphatic"
+                        bond_color = "#64D2FF"
+                    else:
+                        bond_type = "Van der Waals Contact"
+                        bond_color = "#30D158"
+                        
                     interactions.append({
                         "Receptor Residue": rec["res"],
                         "Receptor Atom": rec["atom"],
                         "Ligand Atom": lig["id"],
                         "Distance (Å)": round(dist, 2),
                         "Interaction Type": bond_type,
-                        "Color": bond_color,
-                        "Receptor XYZ": [rx, ry, rz],
-                        "Ligand XYZ": [lx, ly, lz]
+                        "color": bond_color,
+                        "lig_xyz": lig["xyz"],
+                        "rec_xyz": rec["xyz"]
                     })
                     seen.add(key)
 
-    df = pd.DataFrame(interactions)
-    if not df.empty and "Distance (Å)" in df.columns:
-        df = df.sort_values(by="Distance (Å)").drop_duplicates(subset=["Receptor Residue"], keep="first")
-    return df
+    df_inter = pd.DataFrame(interactions)
+    if not df_inter.empty:
+        df_inter = df_inter.sort_values(by="Distance (Å)").reset_index(drop=True)
+    return df_inter
+
+def calc_advanced_ligand_efficiency(affinity_kcal, smiles, ki_molar):
+    """
+    Computes rigorous medicinal chemistry efficiency metrics:
+    - Heavy Atom Count (N_heavy)
+    - Ligand Efficiency (LE = -ΔG / N_heavy)
+    - Binding Lipophilicity Efficiency (LipE = pKi - cLogP)
+    """
+    from rdkit import Chem
+    from rdkit.Chem import Descriptors
+    
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return {"n_heavy": 0, "le": 0.0, "lipe": 0.0, "pki": 0.0, "clogp": 0.0}
+        
+    n_heavy = mol.GetNumHeavyAtoms()
+    clogp = Descriptors.MolLogP(mol)
+    
+    le = (-affinity_kcal / n_heavy) if n_heavy > 0 else 0.0
+    pki = -math.log10(max(ki_molar, 1e-15))
+    lipe = pki - clogp
+    
+    return {
+        "n_heavy": n_heavy,
+        "clogp": round(clogp, 2),
+        "pki": round(pki, 2),
+        "le": round(le, 3),
+        "lipe": round(lipe, 2)
+    }
 
 def build_3dmol_html(container_id, receptor_data, ligand_data, interactions_df=None, receptor_style='cartoon', ligand_style='stick', show_surface=False, height=520):
     """

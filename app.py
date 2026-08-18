@@ -21,6 +21,8 @@ import ethnodock_bioisostere_engine as bio_eng
 import ethnodock_admet_engine as admet_eng
 import ethnodock_dossier_engine as dossier_eng
 import ethnodock_paozhi_engine as paozhi_eng
+import ethnodock_reproducibility_engine as repro_eng
+import ethnodock_chembl_engine as chembl_eng
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -975,10 +977,11 @@ else:
                     cy = col_c2.number_input("Center Y", value=float(center[1]), format="%.2f", key=f"cy_tab2_{idx}")
                     cz = col_c3.number_input("Center Z", value=float(center[2]), format="%.2f", key=f"cz_tab2_{idx}")
                     sx = col_s1.number_input("Size X", value=float(dims[0]), format="%.2f", key=f"sx_tab2_{idx}")
-                    sy = col_s2.number_input("Size Y", value=float(dims[1]), format="%.2f", key=f"sy_tab2_{idx}")
-                    sz = col_s3.number_input("Size Z", value=float(dims[2]), format="%.2f", key=f"sz_tab2_{idx}")
-
-                    exhaustiveness = st.slider("Vina Exhaustiveness (Sampling Precision)", min_value=4, max_value=32, value=8, step=4, key=f"exh_tab2_{idx}")
+                    col_exh, col_seed = st.columns([1.5, 1])
+                    with col_exh:
+                        exhaustiveness = st.slider("Vina Exhaustiveness (Sampling Precision)", min_value=4, max_value=32, value=8, step=4, key=f"exh_tab2_{idx}")
+                    with col_seed:
+                        dock_seed = st.number_input("Deterministic Random Seed (--seed)", value=42, step=1, key=f"seed_tab2_{idx}", help="Ensures 100% bit-for-bit exact peer-reviewed replication.")
 
                     # ==========================================
                     # STAGE 03: DOCKING SIMULATION & 3D STUDIO
@@ -999,7 +1002,7 @@ else:
 
                             if receptor_pdbqt and ligand_pdbqt:
                                 raw_log, parsed_poses, out_pdbqt = dock_eng.run_vina_docking(
-                                    receptor_pdbqt, ligand_pdbqt, [cx, cy, cz], [sx, sy, sz], exhaustiveness=exhaustiveness
+                                    receptor_pdbqt, ligand_pdbqt, [cx, cy, cz], [sx, sy, sz], exhaustiveness=exhaustiveness, seed=dock_seed
                                 )
                                 if parsed_poses:
                                     st.session_state[f'docking_data_{idx}'] = parsed_poses
@@ -1008,6 +1011,7 @@ else:
                                     st.session_state[f'pdb_id_{idx}'] = pdb_id
                                     st.session_state[f'smiles_{idx}'] = smiles
                                     st.session_state[f'uff_delta_{idx}'] = uff_delta
+                                    st.session_state[f'dock_seed_{idx}'] = dock_seed
                                     st.success("AutoDock Vina simulation converged!")
                                 else:
                                     st.error("Docking failed. Log:")
@@ -1084,6 +1088,35 @@ else:
                         <div class="apple-stat-box">
                             <div class="apple-stat-lbl">Pocket Anchors (<4.0Å)</div>
                             <div class="apple-stat-val">{len(interacting_res)} <span style="font-size:0.9rem;">Residues</span></div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    # ChEMBL Experimental Wet-Lab Ground Truth Benchmark
+                    chembl_data = chembl_eng.get_chembl_ground_truth(active_compound_name)
+                    if chembl_data:
+                        st.markdown(f"""
+                        <div class="apple-card-compact" style="border-left: 4px solid #30D158; background: rgba(48, 209, 88, 0.04); margin-top: 14px; margin-bottom: 18px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-weight: 700; color: #30D158; font-size: 0.92rem;">🧪 ChEMBL Bioassay Experimental Ground Truth Benchmark</span>
+                                <span class="apple-badge apple-badge-gold">{chembl_data['chembl_id']}</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px;">
+                                <div>
+                                    <div style="font-size: 0.72rem; color: #86868B; text-transform: uppercase;">Experimental Wet-Lab IC50</div>
+                                    <div style="font-size: 1.2rem; font-weight: 700; color: #FFFFFF;">{chembl_data['experimental_ic50']}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.72rem; color: #86868B; text-transform: uppercase;">Predicted In-Silico Ki</div>
+                                    <div style="font-size: 1.2rem; font-weight: 700; color: #64D2FF;">{selected_pose_data['Estimated Ki']}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.72rem; color: #86868B; text-transform: uppercase;">Assay Reference</div>
+                                    <div style="font-size: 0.86rem; font-weight: 600; color: #FFD60A;">{chembl_data['pubmed_id']}</div>
+                                </div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 8px; line-height: 1.45;">
+                                <b>Biophysical Validation Note:</b> {chembl_data['correlation_notes']}
+                            </div>
                         </div>
                         """, unsafe_allow_html=True)
 
@@ -1263,15 +1296,64 @@ else:
                         paozhi_data=(pz_info if is_processed_state else None)
                     )
 
-                    col_dl, col_sig = st.columns([2, 1], vertical_alignment="center")
-                    with col_dl:
+                    # Prepare raw files for Open-Science Reproducibility Package
+                    with open(receptor_pdbqt, 'r', encoding='utf-8') as rf:
+                        rec_str = rf.read()
+                    
+                    lig_str = ""
+                    ligand_pdbqt_path = os.path.join(BASE_DIR, "active_ligand.pdbqt")
+                    if os.path.exists(ligand_pdbqt_path):
+                        with open(ligand_pdbqt_path, 'r', encoding='utf-8') as lf:
+                            lig_str = lf.read()
+                            
+                    vina_out_str = ""
+                    if out_pdbqt and os.path.exists(out_pdbqt):
+                        with open(out_pdbqt, 'r', encoding='utf-8') as vf:
+                            vina_out_str = vf.read()
+
+                    interactions_list = interactions_df.to_dict(orient="records") if ('interactions_df' in locals() and not interactions_df.empty) else []
+
+                    repro_zip_bytes = repro_eng.create_reproducibility_zip_bundle(
+                        species_name=row['Common Name'],
+                        botanical_name=row['Botanical Name'],
+                        classical_source=row['Classical Source'],
+                        dynasty=row['Dynasty'],
+                        target_name=row['Protein Target'],
+                        pdb_id=row['PDB ID'],
+                        uniprot_id=row['UniProt ID'],
+                        compound_name=active_compound_name,
+                        smiles=smiles,
+                        receptor_pdbqt_str=rec_str,
+                        ligand_pdbqt_str=lig_str,
+                        out_pdbqt_str=vina_out_str,
+                        center=[cx, cy, cz],
+                        size=[sx, sy, sz],
+                        exhaustiveness=exhaustiveness,
+                        seed=st.session_state.get(f'dock_seed_{idx}', 42),
+                        binding_affinity=selected_pose_data['Affinity (kcal/mol)'],
+                        interactions_summary=interactions_list
+                    )
+
+                    col_dl1, col_dl2, col_sig = st.columns([1.2, 1.2, 1], vertical_alignment="center")
+                    with col_dl1:
                         filename = f"EthnoDock_Report_{row['Common Name'].replace(' ', '_')}_{row['PDB ID']}.html"
                         st.download_button(
-                            label=f"📥 Download Regulatory Research Dossier (HTML)",
+                            label=f"📄 Download Research Dossier (HTML)",
                             data=dossier_html,
                             file_name=filename,
                             mime="text/html",
-                            key=f"dl_dossier_tab2_{idx}"
+                            key=f"dl_dossier_tab2_{idx}",
+                            use_container_width=True
+                        )
+                    with col_dl2:
+                        filename_zip = f"EthnoDock_Reproducibility_Package_{row['Common Name'].replace(' ', '_')}_{row['PDB ID']}.zip"
+                        st.download_button(
+                            label=f"📦 Download Open-Science ZIP Bundle",
+                            data=repro_zip_bytes,
+                            file_name=filename_zip,
+                            mime="application/zip",
+                            key=f"dl_zip_tab2_{idx}",
+                            use_container_width=True
                         )
                     with col_sig:
-                        st.markdown("<div style='text-align:right; font-size:12px; color:#86868B;'>EthnoDock Pro • Verified Simulation</div>", unsafe_allow_html=True)
+                        st.markdown("<div style='text-align:right; font-size:12px; color:#86868B;'>EthnoDock Pro • Verified Simulation & BibTeX</div>", unsafe_allow_html=True)

@@ -566,38 +566,57 @@ tab_intro, tab_workbench = st.tabs([
 # 🌟 TAB 1: EYE-CATCHING HERO & DISCOVERY
 # ==========================================
 with tab_intro:
-    # 1. Clean Radiant Hero Header
+    # 1. Radiant Hero Header with Executive Scientific Architecture
     st.markdown(
-        """<div style="text-align: center; padding: 25px 10px 15px 10px;">
+        """<div class="aurora-hero">
 <span class="pill-badge">🌿 ETHNODOCK PRO • COMPUTATIONAL PHARMACOGNOSY</span>
 <h1 class="hero-main-title">Bridging 2,000 Years of Botanical Canon<br>with <span class="hero-gradient-text">Modern Structural Biophysics</span></h1>
+
+<div class="executive-manifesto-card">
+<div class="manifesto-header">
+<div style="display:flex; align-items:center; gap:8px;">
+<span class="manifesto-dot"></span>
+<span class="manifesto-tag">Executive Scientific Architecture</span>
+</div>
+<span class="manifesto-id">PROTOCOL // EDK-TCM-2026</span>
+</div>
+
+<div class="manifesto-grid">
+<div class="manifesto-col">
+<div>
+<div class="manifesto-col-title" style="color:#FFD60A;">📜 01. Empirical Dynastic Canon</div>
+<p class="manifesto-p">
+For millennia, canonical pharmacopoeias—from the Han Dynasty's <i>Shennong Bencaojing</i> (神农本草经) to the Ming Dynasty's <i>Bencao Gangmu</i> (本草纲目)—have codified the clinical efficacy of multi-component botanical remedies through centuries of systematic observation.
+</p>
+</div>
+<div class="manifesto-sub-badge">Kew Taxonomy Verified (POWO)</div>
+</div>
+
+<div class="manifesto-divider">
+<span>⚛️</span>
+</div>
+
+<div class="manifesto-col">
+<div>
+<div class="manifesto-col-title" style="color:#30D158;">⚡ 02. In-Silico Molecular Pharmacology</div>
+<p class="manifesto-p">
+<b>EthnoDock Pro</b> translates this ancient literature into atomic-scale structural chemistry. We isolate active metabolites, simulate <b>AutoDock Vina empirical free energy (&Delta;G)</b>, map 3D residue anchor contacts (&lt; 4.0 Å), and audit classical <i>Paozhi</i> (炮制) detoxification pathways.
+</p>
+</div>
+<div class="manifesto-sub-badge" style="border-color:rgba(48,209,88,0.3); color:#30D158;">AutoDock Vina v1.2.7 &bull; RCSB PDB</div>
+</div>
+</div>
+
+<div class="manifesto-footer">
+<span class="manifesto-pill">📜 2,000+ Yrs Codified Canon</span>
+<span class="manifesto-pill">🎯 RCSB Macromolecular Pockets</span>
+<span class="manifesto-pill">⚡ AutoDock Vina Free Energy (&Delta;G)</span>
+<span class="manifesto-pill">⚗️ Paozhi Detoxification Alchemy</span>
+</div>
+</div>
 </div>""",
         unsafe_allow_html=True
     )
-
-    # 2. Executive Research Overview (Clean Native Text Columns)
-    col_phil, col_bio = st.columns(2, gap="large")
-
-    with col_phil:
-        st.markdown("#### 📜 01. Empirical Dynastic Canon")
-        st.markdown(
-            "For millennia, classical Chinese pharmacopoeias—such as the Han Dynasty's *Shennong Bencaojing* (神农本草经) "
-            "and the Ming Dynasty's *Bencao Gangmu* (本草纲目)—have codified the therapeutic efficacy of multi-component "
-            "botanical remedies through centuries of systematic clinical observation over 2,000+ years."
-        )
-        st.caption("🌿 **Taxonomic Standard:** Kew Royal Botanic Gardens (POWO) & World Flora Online verified.")
-
-    with col_bio:
-        st.markdown("#### ⚡ 02. In-Silico Molecular Pharmacology")
-        st.markdown(
-            "**EthnoDock Pro** translates this ancient literature into atomic-scale structural chemistry. "
-            "We isolate active secondary metabolites, simulate **AutoDock Vina empirical free energy (ΔG)**, "
-            "map 3D residue anchor contacts (< 4.0 Å), and audit classical *Paozhi* (炮制) detoxification "
-            "pathways against validated human disease drug targets."
-        )
-        st.caption("🎯 **Biophysical Engine:** AutoDock Vina v1.2.7 & RCSB Protein Data Bank.")
-
-    st.markdown("---")
 
     # 2. Curated Specimen Showcase Reel
     st.markdown("""

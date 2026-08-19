@@ -20,16 +20,39 @@ NATURAL_TOXICOPHORES = [
         "description": "Lethal Nav1.5 channel activator (LD50 ~0.1 mg/kg) causing persistent myocardial depolarization, ventricular tachycardia, and fatal cardiac arrest."
     },
     {
-        "name": "Strychnos Indole Alkaloid (Strychnine-type Neurotoxin)",
+        "name": "Strychnos Indole Alkaloid (Strychnine/Brucine Neurotoxin)",
         "severity": "CRITICAL LETHAL NEUROTOXICITY",
         "target": "Spinal Glycine Receptors (GLRA1)",
         "smiles": [
             "O=C1CC2CN3CCC45C6C3CC2C1C4=CC=CC=C5N6C=O",
-            "O=C1CC2OCC=C3CN4CCC56C7C4CC3C2C5C1=CC=C7N6"
+            "O=C1CC2OCC=C3CN4CCC56C7C4CC3C2C5C1=CC=C7N6",
+            "C1=CC=C2C(=C1)N3C(=O)CC4C25CCN6CC=C(CO4)C7CC56C73",
+            "COC1=C(C=C2C3=C1N(C(=O)CC4C35CCN6CC=C(CO4)C7CC25C6C7)C)OC"
         ],
         "condition": "any",
         "requires_nitrogen": True,
         "description": "Competitive glycine receptor antagonist causing violent tetanic convulsions, motor neuron spasms, and fatal asphyxiation (Lethal Dose ~30 mg)."
+    },
+    {
+        "name": "Diterpene Triepoxide (Triptolide-type Cytotoxin)",
+        "severity": "CRITICAL MULTI-ORGAN CYTOTOXICITY",
+        "target": "TFIIH Subunit XPB / Nuclear Pol II",
+        "smiles": ["CC(C)C12CC3(C(C1O2)C45C(O4)C6C(O6)C(=O)O5)C7(C3(CC8(C7O8)C)O)C"],
+        "condition": "any",
+        "requires_nitrogen": False,
+        "description": "Irreversibly inhibits XPB helicase causing total transcriptional arrest, acute hepatorenal collapse, and severe bone marrow suppression."
+    },
+    {
+        "name": "Tropane Anticholinergic Alkaloid (Scopolamine/Hyoscyamine)",
+        "severity": "CRITICAL ANTICHOLINERGIC NEUROTOXICITY",
+        "target": "Muscarinic Acetylcholine Receptors (M1-M5)",
+        "smiles": [
+            "CN1C2CC(CC1C3C2O3)OC(=O)C(CO)C4=CC=CC=C4",
+            "CN1C2CCC1CC(C2)OC(=O)C(CO)c3ccccc3"
+        ],
+        "condition": "any",
+        "requires_nitrogen": True,
+        "description": "Potent central and peripheral muscarinic antagonist inducing severe anticholinergic syndrome, hallucinations, hyperthermia, and coma."
     },
     {
         "name": "Aristolochic Acid Core (Nephrotoxic Carcinogen)",

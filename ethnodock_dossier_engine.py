@@ -24,7 +24,8 @@ def generate_tcm_dossier_html(
     admet_dict=None,
     variant_info=None,
     plant_photo_b64=None,
-    paozhi_data=None
+    paozhi_data=None,
+    is_paozhi_processed=False
 ):
     """
     Generates an executive, publication-grade scientific research dossier
@@ -34,7 +35,7 @@ def generate_tcm_dossier_html(
     doc_id = f"EDK-TCM-{pdb_id}-{abs(hash(compound_name + smiles)) % 1000000:06d}"
 
     # Perform Objective Historical Claim Audit
-    toxic_warn = paozhi_data.get('raw_toxicity_warning', '') if paozhi_data else ''
+    toxic_warn = paozhi_data.get('raw_toxicity_warning', '') if (paozhi_data and not is_paozhi_processed) else ''
     audit_res = audit_eng.evaluate_historical_claim(
         species_name=species_name,
         claim_text=claim_text,
@@ -44,7 +45,7 @@ def generate_tcm_dossier_html(
         pdb_id=pdb_id,
         affinity_kcal=affinity_kcal,
         admet_dict=admet_dict,
-        is_paozhi=(paozhi_data is not None),
+        is_paozhi=is_paozhi_processed,
         toxic_warning=toxic_warn
     )
 
@@ -121,9 +122,9 @@ def generate_tcm_dossier_html(
         </div>
         """
 
-    # Paozhi Section
+    # Paozhi Section (Only displayed when in Processed / Detoxified State)
     paozhi_html = ""
-    if paozhi_data:
+    if is_paozhi_processed and paozhi_data and paozhi_data.get('paozhi_method'):
         paozhi_html = f"""
         <div class="section-card paozhi-card">
             <div class="section-title" style="color:#B45309;">
@@ -167,7 +168,11 @@ def generate_tcm_dossier_html(
         </div>
         """
 
-    # Full Document HTML
+    # Executive Summary Bar Evaluation
+    is_hazard = (audit_res['verdict_category'] == 'TOXIC_REJECTED') or bool(admet_dict and (admet_dict.get('Is Toxicologically Hazardous') or 'FAIL' in str(admet_dict.get('Safety Status', '')).upper()))
+    aff_color = "#DC2626" if is_hazard else ("#059669" if float(affinity_kcal) <= -7.2 else "#D97706")
+    aff_badge_html = f'<div style="font-size:10px; font-weight:700; color:#DC2626; margin-top:2px;">🚨 LETHAL TOXIN / FAIL</div>' if is_hazard else ''
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -372,6 +377,7 @@ def generate_tcm_dossier_html(
         .badge-green {{ background: #DCFCE7; color: #15803D; }}
         .badge-blue {{ background: #E0F2FE; color: #0369A1; }}
         .badge-gold {{ background: #FEF3C7; color: #B45309; }}
+        .badge-red {{ background: #FEE2E2; color: #DC2626; border: 1px solid #DC2626; }}
 
         /* Footer */
         .dossier-footer {{
@@ -412,7 +418,8 @@ def generate_tcm_dossier_html(
     <div class="summary-bar">
         <div class="stat-item">
             <div class="stat-label">Binding Affinity (ΔG)</div>
-            <div class="stat-value" style="color:#059669;">{affinity_kcal} <span style="font-size:13px;">kcal/mol</span></div>
+            <div class="stat-value" style="color:{aff_color};">{affinity_kcal} <span style="font-size:13px;">kcal/mol</span></div>
+            {aff_badge_html}
         </div>
         <div class="stat-item">
             <div class="stat-label">Target Macromolecule</div>

@@ -27,10 +27,21 @@ def evaluate_historical_claim(
     aff = float(affinity_kcal) if affinity_kcal is not None else -5.0
     
     # Check toxicophore alert from ADMET engine or Paozhi warning
-    has_admet_hazard = bool(admet_dict and (admet_dict.get("Is Toxicologically Hazardous") or "CRITICAL" in str(admet_dict.get("Safety Status", "")).upper()))
+    has_admet_hazard = bool(admet_dict and (
+        admet_dict.get("Is Toxicologically Hazardous") or 
+        "CRITICAL" in str(admet_dict.get("Safety Status", "")).upper() or 
+        "FAIL" in str(admet_dict.get("Safety Badge", "")).upper() or
+        "FAIL" in str(admet_dict.get("Safety Status", "")).upper()
+    ))
     admet_alert_desc = str(admet_dict.get("Structure Alert Screen", "")) if (admet_dict and has_admet_hazard) else ""
     
-    if (toxic_warning and not is_paozhi and ("CRITICAL" in toxic_warning.upper() or "HEPATOTOXIC" in toxic_warning.upper())) or has_admet_hazard:
+    is_toxic_warn_active = bool(
+        toxic_warning and not is_paozhi and any(k in toxic_warning.upper() for k in [
+            "TOXIC", "LETHAL", "CRITICAL", "FATAL", "HEPATOTOXIC", "NEUROTOXIC", "CARDIOTOXIC", "POISON", "CONVULS", "BURDEN", "IRRITANT"
+        ])
+    )
+    
+    if is_toxic_warn_active or (has_admet_hazard and not is_paozhi):
         verdict_category = "TOXIC_REJECTED"
         verdict_badge = "🔴 TOXICITY FAILURE"
         verdict_color = "#FF453A"

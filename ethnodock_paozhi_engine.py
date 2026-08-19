@@ -73,7 +73,7 @@ PAOZHI_LIBRARY = {
         "raw_compound": "Strychnine",
         "raw_smiles": "O=C1CC2CN3CCC45C6C3CC2C1C4=CC=CC=C5N6C=O",
         "raw_class": "Indole Alkaloid (Deadly Convulsive Neurotoxin)",
-        "raw_toxicity_warning": "EXTREME NEUROTOXICITY (Lethal Dose ~30 mg): Potent competitive glycine receptor antagonist causing violent tetanic convulsions.",
+        "raw_toxicity_warning": "CRITICAL LETHAL NEUROTOXICITY (Lethal Dose ~30 mg): Potent competitive glycine receptor antagonist causing violent tetanic convulsions and fatal asphyxiation.",
         "paozhi_method": "Hot sand roasting in sesame oil until swollen and brown (热砂烫制 / 油炸马钱子)",
         "reaction_type": "Thermal Isomerization & N-Oxidation",
         "reaction_equation": "Strychnine ──[Sand Roasting / 230°C]──► Isostrychnine + Strychnine N-Oxide",

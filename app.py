@@ -1604,7 +1604,8 @@ else:
                         admet_dict=orig_adme,
                         variant_info=variant_dossier_data,
                         plant_photo_b64=plant_photo_b64,
-                        paozhi_data=(pz_info if is_processed_state else ({'raw_toxicity_warning': pz_info.get('raw_toxicity_warning', '')} if pz_info else None))
+                        paozhi_data=pz_info,
+                        is_paozhi_processed=is_processed_state
                     )
 
                     # Prepare raw files for Open-Science Reproducibility Package

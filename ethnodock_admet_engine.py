@@ -13,7 +13,8 @@ NATURAL_TOXICOPHORES = [
         "name": "Diester Diterpenoid Alkaloid (Aconitine-type Cardiotoxin)",
         "severity": "CRITICAL LETHAL CARDIOTOXICITY",
         "target": "Voltage-Gated Sodium Channels (Nav1.5)",
-        "smarts": ["c1ccccc1C(=O)O[#6]", "CC(=O)O[#6]"], # Both benzoate and acetate esters on amine
+        "smarts": ["c1ccccc1C(=O)O[#6]", "CC(=O)O[#6]"],
+        "smiles": ["CC(=O)OC1C(C2C3(CC(C2(C1O)O)C4(C3CC(C4O)(OC)OC)N(C)CC)OC)OC(=O)C5=CC=CC=C5"],
         "condition": "all",
         "requires_nitrogen": True,
         "description": "Lethal Nav1.5 channel activator (LD50 ~0.1 mg/kg) causing persistent myocardial depolarization, ventricular tachycardia, and fatal cardiac arrest."
@@ -21,8 +22,11 @@ NATURAL_TOXICOPHORES = [
     {
         "name": "Strychnos Indole Alkaloid (Strychnine-type Neurotoxin)",
         "severity": "CRITICAL LETHAL NEUROTOXICITY",
-        "target": "Spinal Glycine Receptors",
-        "smiles": ["O=C1CC2OCC=C3CN4CCC56C7C4CC3C2C5C1=CC=C7N6"],
+        "target": "Spinal Glycine Receptors (GLRA1)",
+        "smiles": [
+            "O=C1CC2CN3CCC45C6C3CC2C1C4=CC=CC=C5N6C=O",
+            "O=C1CC2OCC=C3CN4CCC56C7C4CC3C2C5C1=CC=C7N6"
+        ],
         "condition": "any",
         "requires_nitrogen": True,
         "description": "Competitive glycine receptor antagonist causing violent tetanic convulsions, motor neuron spasms, and fatal asphyxiation (Lethal Dose ~30 mg)."
@@ -31,47 +35,69 @@ NATURAL_TOXICOPHORES = [
         "name": "Aristolochic Acid Core (Nephrotoxic Carcinogen)",
         "severity": "CRITICAL CARCINOGENICITY & NEPHROTOXICITY",
         "target": "Genomic DNA / Renal Proximal Tubules",
-        "smiles": ["O=C(O)C1=CC2=C(C=C1[N+](=O)[O-])C3=CC(OC)=C4OCOC4=C3C=C2"],
+        "smiles": [
+            "O=C(O)C1=CC2=C(C=C1[N+](=O)[O-])C3=CC(OC)=C4OCOC4=C3C=C2",
+            "O=C(O)c1cc2c(cc1[N+](=O)[O-])c3ccc4OCOc4c3cc2"
+        ],
         "condition": "any",
         "requires_nitrogen": True,
         "description": "Forms irreversible covalent DNA adducts (dA:T -> T:A) causing rapid bilateral renal interstitial fibrosis and fatal urothelial carcinoma."
+    },
+    {
+        "name": "Pyrrolizidine Alkaloid (Senecionine-type Hepatotoxin)",
+        "severity": "CRITICAL HEPATOTOXICITY & GENOTOXICITY",
+        "target": "Hepatic Sinusoidal Endothelium / DNA",
+        "smarts": ["C1CCN2CC=C(C21)COC(=O)"],
+        "condition": "any",
+        "requires_nitrogen": True,
+        "description": "Metabolized to pyrrolic esters causing irreversible hepatic sinusoidal obstruction syndrome and liver failure."
     }
 ]
 
 def screen_natural_toxicophores(mol):
     """
-    Screens small molecules against lethal and organ-damaging natural product toxicophore patterns.
+    Screens small molecules against lethal and organ-damaging natural product toxicophore patterns
+    using both canonical graph comparison and substructure SMARTS filters.
     """
     if not mol:
         return []
     
     alerts = []
     has_n = any(atom.GetSymbol() == "N" for atom in mol.GetAtoms())
+    mol_canon = Chem.MolToSmiles(mol)
     
     for tox in NATURAL_TOXICOPHORES:
         if tox.get("requires_nitrogen") and not has_n:
             continue
             
-        matches = []
-        if "smarts" in tox:
+        matched = False
+        # 1. Check Canonical SMILES exact/tautomer match
+        if "smiles" in tox:
+            for s in tox["smiles"]:
+                ref_mol = Chem.MolFromSmiles(s)
+                if ref_mol:
+                    if Chem.MolToSmiles(ref_mol) == mol_canon:
+                        matched = True
+                        break
+                    if mol.HasSubstructMatch(ref_mol):
+                        matched = True
+                        break
+                        
+        # 2. Check SMARTS substructure patterns
+        if not matched and "smarts" in tox:
+            smarts_matches = []
             for s in tox["smarts"]:
                 q = Chem.MolFromSmarts(s)
                 if q is not None and mol.HasSubstructMatch(q):
-                    matches.append(True)
+                    smarts_matches.append(True)
                 else:
-                    matches.append(False)
-        if "smiles" in tox:
-            for s in tox["smiles"]:
-                q = Chem.MolFromSmiles(s)
-                if q is not None and mol.HasSubstructMatch(q):
-                    matches.append(True)
-                else:
-                    matches.append(False)
-                    
-        total_queries = len(tox.get("smarts", [])) + len(tox.get("smiles", []))
-        if tox["condition"] == "all" and all(matches) and len(matches) == total_queries:
-            alerts.append(tox)
-        elif tox["condition"] == "any" and any(matches):
+                    smarts_matches.append(False)
+            if tox["condition"] == "all" and all(smarts_matches) and len(smarts_matches) == len(tox["smarts"]):
+                matched = True
+            elif tox["condition"] == "any" and any(smarts_matches):
+                matched = True
+                
+        if matched:
             alerts.append(tox)
             
     return alerts

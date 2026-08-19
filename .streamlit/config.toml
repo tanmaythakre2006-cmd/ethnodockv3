@@ -1,3 +1,17 @@
 [server]
-runOnSave = true
+runOnSave = false
 headless = true
+enableCORS = false
+enableXsrfProtection = false
+maxUploadSize = 100
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "dark"
+primaryColor = "#0A84FF"
+backgroundColor = "#07090E"
+secondaryBackgroundColor = "#0F131C"
+textColor = "#F5F5F7"
+font = "sans serif"

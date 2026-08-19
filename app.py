@@ -835,6 +835,7 @@ else:
 
             # Check Paozhi Availability
             paozhi_key = paozhi_eng.has_paozhi(row['Common Name'])
+            pz_info = paozhi_eng.get_paozhi_data(paozhi_key) if paozhi_key else None
             active_compound_name = row['Active Phytochemical']
             active_smiles = row['SMILES']
             active_chemical_class = row['Chemical Class']
@@ -852,8 +853,7 @@ else:
             </div>
             """, unsafe_allow_html=True)
 
-            if paozhi_key:
-                pz_info = paozhi_eng.get_paozhi_data(paozhi_key)
+            if paozhi_key and pz_info:
                 col_pz1, col_pz2 = st.columns([1, 2], vertical_alignment="center")
                 with col_pz1:
                     paozhi_choice = st.radio(
@@ -997,7 +997,7 @@ else:
             # ==========================================
             # ⚖️ OBJECTIVE HISTORICAL CLAIM AUDIT & FAILURE MODE MATRIX
             # ==========================================
-            toxic_warn_check = pz_info.get('raw_toxicity_warning', '') if (paozhi_key and not is_processed_state) else ''
+            toxic_warn_check = pz_info.get('raw_toxicity_warning', '') if (pz_info and not is_processed_state) else ''
             initial_aff = -7.8 if 'Sweet' in row['Common Name'] else (-8.2 if 'Rhubarb' in row['Common Name'] else -7.0)
             audit_preview = audit_eng.evaluate_historical_claim(
                 species_name=row['Common Name'],
@@ -1604,7 +1604,7 @@ else:
                         admet_dict=orig_adme,
                         variant_info=variant_dossier_data,
                         plant_photo_b64=plant_photo_b64,
-                        paozhi_data=(pz_info if is_processed_state else {'raw_toxicity_warning': (pz_info.get('raw_toxicity_warning', '') if pz_info else '')})
+                        paozhi_data=(pz_info if is_processed_state else ({'raw_toxicity_warning': pz_info.get('raw_toxicity_warning', '')} if pz_info else None))
                     )
 
                     # Prepare raw files for Open-Science Reproducibility Package

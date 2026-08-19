@@ -111,10 +111,10 @@ def generate_tcm_dossier_html(
                         <td><span class="badge badge-gold">HIGH DRUG-LIKENESS</span></td>
                     </tr>
                     <tr>
-                        <td><strong>PAINS Structural Alert Screen</strong></td>
-                        <td>{admet_dict.get('PAINS Screen', 'Clean')}</td>
-                        <td>Zero Pan-Assay False Positives</td>
-                        <td><span class="badge badge-green">VERIFIED CLEAN</span></td>
+                        <td><strong>In-Vivo Toxicophore & Structural Alert Screen</strong></td>
+                        <td><span style="{'color:#DC2626; font-weight:700;' if admet_dict.get('Is Toxicologically Hazardous') else ''}">{admet_dict.get('Structure Alert Screen', admet_dict.get('PAINS Screen', 'Clean'))}</span></td>
+                        <td>Zero Lethal Toxicophores & False Positives</td>
+                        <td><span class="badge {'badge-green' if not admet_dict.get('Is Toxicologically Hazardous') else 'badge-red'}" style="{'background:#FEE2E2; color:#DC2626; border:1px solid #DC2626;' if admet_dict.get('Is Toxicologically Hazardous') else ''}">{admet_dict.get('Safety Badge', 'PASS')}</span></td>
                     </tr>
                 </tbody>
             </table>

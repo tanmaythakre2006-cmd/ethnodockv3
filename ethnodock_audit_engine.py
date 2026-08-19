@@ -26,18 +26,23 @@ def evaluate_historical_claim(
     # 1. Determine Verdict Category based on cold biophysical data
     aff = float(affinity_kcal) if affinity_kcal is not None else -5.0
     
-    # Check toxicity failure first
-    if toxic_warning and not is_paozhi and ("CRITICAL" in toxic_warning.upper() or "HEPATOTOXIC" in toxic_warning.upper()):
+    # Check toxicophore alert from ADMET engine or Paozhi warning
+    has_admet_hazard = bool(admet_dict and (admet_dict.get("Is Toxicologically Hazardous") or "CRITICAL" in str(admet_dict.get("Safety Status", "")).upper()))
+    admet_alert_desc = str(admet_dict.get("Structure Alert Screen", "")) if (admet_dict and has_admet_hazard) else ""
+    
+    if (toxic_warning and not is_paozhi and ("CRITICAL" in toxic_warning.upper() or "HEPATOTOXIC" in toxic_warning.upper())) or has_admet_hazard:
         verdict_category = "TOXIC_REJECTED"
         verdict_badge = "🔴 TOXICITY FAILURE"
         verdict_color = "#FF453A"
-        verdict_title = "Ancient Claim Masked Severe Toxicity / Neuro-Cardiac Harm"
-        failure_mode_type = "Toxicity / Safety Failure & Symptom Masking"
+        verdict_title = "Ancient Claim Masked Severe Toxicity / Lethal Toxicophore"
+        failure_mode_type = "Toxicity / Safety Failure & Toxicophore Alert"
+        effective_warn = toxic_warning or admet_alert_desc
         failure_mode_explanation = (
-            f"Ancient clinical observation noted immediate potency, but failed to detect acute lethal or organ-damaging toxicity ({toxic_warning}). "
-            f"Symptom alleviation in raw form was achieved through dangerous channel-locking rather than safe therapeutic modulation."
+            f"Structure triggered severe toxicological alert ({effective_warn}). "
+            f"High binding affinity reflects lethal channel/receptor locking rather than a safe therapeutic window. "
+            f"Claim fails as raw monotherapy without chemical detoxification."
         )
-        mechanism_summary = f"Raw alkaloid/toxin causes severe off-target perturbation ({toxic_warning}) requiring chemical Paozhi detoxification to yield a viable therapeutic window."
+        mechanism_summary = f"Substance possesses lethal or organ-damaging structural alert ({effective_warn}) requiring detoxification to prevent patient harm."
         
     elif aff <= -7.2:
         # High affinity binding confirmed

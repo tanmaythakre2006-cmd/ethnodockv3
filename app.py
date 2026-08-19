@@ -1562,7 +1562,16 @@ else:
 
                     if adme_data_list:
                         df_adme = pd.DataFrame(adme_data_list)
-                        cols = ['Compound Entity', 'Molecular Weight', 'LogP', 'TPSA (Å²)', 'H-Bond Donors', 'H-Bond Acceptors', 'Rotatable Bonds', 'QED Drug-Likeness', 'Lipinski Violations', 'PAINS Screen']
+                        if orig_adme and orig_adme.get("Is Toxicologically Hazardous"):
+                            st.markdown(f"""
+                            <div style="background: rgba(255, 69, 58, 0.1); border: 1px solid #FF453A; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;">
+                                <div style="color: #FF453A; font-weight: 700; font-size: 0.95rem;">🚨 CRITICAL TOXICITY HAZARD: {orig_adme.get('Structure Alert Screen')}</div>
+                                <div style="color: #CBD5E1; font-size: 0.84rem; margin-top: 4px;">
+                                    This compound contains an in-vivo lethal/organ-damaging toxicophore. High docking affinity reflects lethal receptor/channel-locking toxicity rather than a therapeutic window.
+                                </div>
+                            </div>
+                            """, unsafe_allow_html=True)
+                        cols = ['Compound Entity', 'Molecular Weight', 'LogP', 'TPSA (Å²)', 'H-Bond Donors', 'H-Bond Acceptors', 'QED Drug-Likeness', 'Lipinski Violations', 'Structure Alert Screen', 'Safety Status']
                         st.dataframe(df_adme[[c for c in cols if c in df_adme.columns]], hide_index=True, use_container_width=True)
 
                     # Dossier HTML Export
@@ -1595,7 +1604,7 @@ else:
                         admet_dict=orig_adme,
                         variant_info=variant_dossier_data,
                         plant_photo_b64=plant_photo_b64,
-                        paozhi_data=(pz_info if is_processed_state else None)
+                        paozhi_data=(pz_info if is_processed_state else {'raw_toxicity_warning': (pz_info.get('raw_toxicity_warning', '') if pz_info else '')})
                     )
 
                     # Prepare raw files for Open-Science Reproducibility Package

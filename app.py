@@ -27,6 +27,7 @@ import ethnodock_microbiome_engine as micro_eng
 import ethnodock_energetics_engine as energ_eng
 import ethnodock_figure_engine as fig_eng
 import ethnodock_md_engine as md_eng
+import ethnodock_audit_engine as audit_eng
 import plotly.graph_objects as go
 
 # --- Page Configuration ---
@@ -992,6 +993,46 @@ else:
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
+
+            # ==========================================
+            # ⚖️ OBJECTIVE HISTORICAL CLAIM AUDIT & FAILURE MODE MATRIX
+            # ==========================================
+            toxic_warn_check = pz_info.get('raw_toxicity_warning', '') if (paozhi_key and not is_processed_state) else ''
+            initial_aff = -7.8 if 'Sweet' in row['Common Name'] else (-8.2 if 'Rhubarb' in row['Common Name'] else -7.0)
+            audit_preview = audit_eng.evaluate_historical_claim(
+                species_name=row['Common Name'],
+                claim_text=row['Ancient Claim'],
+                translation=row['English Translation'],
+                compound_name=active_compound_name,
+                target_name=row['Protein Target'],
+                pdb_id=row['PDB ID'],
+                affinity_kcal=initial_aff,
+                is_paozhi=is_processed_state,
+                toxic_warning=toxic_warn_check
+            )
+
+            st.markdown(f"""
+            <div class="apple-card-compact" style="border-left: 4px solid {audit_preview['verdict_color']}; background: rgba(255, 255, 255, 0.02); margin-top: 12px; margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding-bottom: 8px; margin-bottom: 10px;">
+                    <span style="font-weight: 700; color: #F1F5F9; font-size: 0.92rem;">⚖️ Objective Historical Claim Audit & Failure Mode Evaluation</span>
+                    <span class="apple-badge" style="background: rgba(255, 255, 255, 0.08); color: {audit_preview['verdict_color']}; font-weight: 700;">{audit_preview['verdict_badge']}</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px;">
+                    <div>
+                        <div style="font-size: 0.72rem; color: #86868B; text-transform: uppercase;">Ancient Dynastic Claim vs. Biophysical Finding</div>
+                        <div style="font-size: 0.86rem; color: #CBD5E1; margin-top: 4px; line-height: 1.45;">
+                            <b>Ancient Claim:</b> "{row['Ancient Claim']}"<br>
+                            <b>Biophysical Finding:</b> {audit_preview['mechanism_summary']}
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.72rem; color: #86868B; text-transform: uppercase;">Failure Mode / Scientific Verdict</div>
+                        <div style="font-size: 0.85rem; font-weight: 600; color: {audit_preview['verdict_color']}; margin-top: 2px;">{audit_preview['failure_mode_type']}</div>
+                        <div style="font-size: 0.78rem; color: #94A3B8; margin-top: 4px; line-height: 1.4;">{audit_preview['failure_mode_explanation']}</div>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
             # ==========================================
             # STAGE 02: RECEPTOR & SMART CAVITY SETUP

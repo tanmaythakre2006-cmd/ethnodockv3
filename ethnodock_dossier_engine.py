@@ -5,6 +5,7 @@ from io import BytesIO
 from datetime import datetime
 from rdkit import Chem
 from rdkit.Chem import Draw
+import ethnodock_audit_engine as audit_eng
 
 def generate_tcm_dossier_html(
     species_name,
@@ -31,6 +32,21 @@ def generate_tcm_dossier_html(
     """
     date_str = datetime.now().strftime("%B %d, %Y • %H:%M UTC")
     doc_id = f"EDK-TCM-{pdb_id}-{abs(hash(compound_name + smiles)) % 1000000:06d}"
+
+    # Perform Objective Historical Claim Audit
+    toxic_warn = paozhi_data.get('raw_toxicity_warning', '') if paozhi_data else ''
+    audit_res = audit_eng.evaluate_historical_claim(
+        species_name=species_name,
+        claim_text=claim_text,
+        translation=translation,
+        compound_name=compound_name,
+        target_name=target_name,
+        pdb_id=pdb_id,
+        affinity_kcal=affinity_kcal,
+        admet_dict=admet_dict,
+        is_paozhi=(paozhi_data is not None),
+        toxic_warning=toxic_warn
+    )
 
     # Generate 2D Structure Base64
     mol_b64 = ""
@@ -450,6 +466,22 @@ def generate_tcm_dossier_html(
                     <p style="margin:0 0 4px 0; font-size:13px;"><strong>Target Protein:</strong> {html.escape(target_name)}</p>
                     <p style="margin:0 0 4px 0; font-size:13px;"><strong>PDB Identifier:</strong> <span style="font-weight:700; color:#0284C7;">{pdb_id}</span></p>
                     <p style="margin:0; font-size:11px; color:#64748B; word-break:break-all;"><strong>SMILES:</strong> <code>{html.escape(smiles)}</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Objective Scientific Audit & Failure Mode Matrix -->
+        <div class="section-card" style="border-left: 4px solid {audit_res['verdict_color']};">
+            <div class="section-title">
+                <span>⚖️ Objective Historical Claim Audit & Failure Mode Matrix</span>
+                <span class="badge" style="background:#F1F5F9; color:{audit_res['verdict_color']}; border:1px solid {audit_res['verdict_color']}; font-weight:700;">{audit_res['verdict_badge']}</span>
+            </div>
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:16px; margin-bottom:10px;">
+                <h4 style="margin:0 0 6px 0; color:#0F172A; font-size:14px;">{audit_res['verdict_title']}</h4>
+                <p style="margin:0 0 10px 0; font-size:13px; color:#475569; line-height:1.5;"><strong>Biophysical Mechanism Audit:</strong> {audit_res['mechanism_summary']}</p>
+                <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:6px; padding:12px; font-size:12px; line-height:1.5;">
+                    <b style="color:#DC2626;">Failure Mode Classification:</b> <span style="font-weight:600; color:#1E293B;">{audit_res['failure_mode_type']}</span><br>
+                    <span style="color:#64748B;">{audit_res['failure_mode_explanation']}</span>
                 </div>
             </div>
         </div>

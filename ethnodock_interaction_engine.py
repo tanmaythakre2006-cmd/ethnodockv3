@@ -265,6 +265,187 @@ def build_3dmol_html(container_id, receptor_data, ligand_data, interactions_df=N
     """
     return html_content
 
+def build_dual_pose_comparison_3dmol_html(container_id, receptor_data, parent_ligand_data, var_ligand_data, var_interactions_df=None, parent_name="Parent Phytochemical", var_name="Optimized Derivative", height=490):
+    """
+    Constructs an interactive 3D WebGL dual-ligand comparison viewer in 3Dmol.js.
+    Visibly displays the receptor binding pocket along with both the natural parent ligand
+    (gold stick) and the optimized bioisosteric derivative (cyan stick), with active residue
+    interaction cylinders, distance labels, and visibility toggles.
+    """
+    cylinders_js = []
+    if var_interactions_df is not None and not var_interactions_df.empty:
+        for _, row in var_interactions_df.iterrows():
+            rx, ry, rz = row.get("Receptor XYZ", row.get("rec_xyz", [0, 0, 0]))
+            lx, ly, lz = row.get("Ligand XYZ", row.get("lig_xyz", [0, 0, 0]))
+            color = row.get("Color", row.get("color", "#00D2FF"))
+            res_label = row["Receptor Residue"]
+            dist = row["Distance (Å)"]
+            
+            cylinders_js.append(
+                f"viewer.addCylinder({{start:{{x:{rx}, y:{ry}, z:{rz}}}, end:{{x:{lx}, y:{ly}, z:{lz}}}, radius:0.08, dashed:true, color:'{color}'}});"
+            )
+            cylinders_js.append(
+                f"viewer.addLabel('{res_label} ({dist}Å)', {{position: {{x:{rx}, y:{ry}, z:{rz}}}, backgroundColor: 'rgba(15, 23, 42, 0.85)', fontColor: 'white', fontSize: 11, inFront: true}});"
+            )
+
+    cylinders_script = "\n                            ".join(cylinders_js)
+
+    rec_json = json.dumps(receptor_data)
+    parent_json = json.dumps(parent_ligand_data)
+    var_json = json.dumps(var_ligand_data)
+
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <style>
+        body, html {{ margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #0E1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }}
+        #viewer-wrapper {{ width: 100%; height: {height}px; position: relative; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); }}
+        #ctrl-bar {{ position: absolute; top: 10px; left: 10px; right: 10px; z-index: 20; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(15, 19, 28, 0.88); backdrop-filter: blur(10px); padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }}
+        .c-btn {{ background: rgba(255,255,255,0.06); color: #E2E8F0; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 3px 9px; font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.15s ease; }}
+        .c-btn:hover {{ background: rgba(255,255,255,0.18); color: #FFF; }}
+        .c-btn.active {{ background: #0A84FF; color: #FFF; border-color: #0A84FF; font-weight: 600; }}
+        #legend {{ position: absolute; bottom: 10px; left: 10px; z-index: 10; background: rgba(14, 17, 23, 0.9); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); font-size: 11px; color: #E2E8F0; display: flex; gap: 14px; align-items: center; }}
+        .dot-gold {{ display: inline-block; width: 10px; height: 10px; background: #FFD60A; border-radius: 50%; margin-right: 5px; }}
+        .dot-cyan {{ display: inline-block; width: 10px; height: 10px; background: #64D2FF; border-radius: 50%; margin-right: 5px; }}
+        .dot-red {{ display: inline-block; width: 8px; height: 8px; background: #FF3366; border-radius: 50%; margin-right: 4px; }}
+        .dot-blue {{ display: inline-block; width: 8px; height: 8px; background: #00D2FF; border-radius: 50%; margin-right: 4px; }}
+    </style>
+</head>
+<body>
+    <div id="viewer-wrapper">
+        <div id="ctrl-bar">
+            <span style="color:#64D2FF; font-weight:700; font-size:11px; margin-right:4px;">🔬 Dual-Pose Alignment:</span>
+            <button class="c-btn active" id="btn-show-parent" onclick="toggleParent()">Natural Parent (Gold)</button>
+            <button class="c-btn active" id="btn-show-var" onclick="toggleVar()">Derivative (Cyan)</button>
+            <button class="c-btn" id="btn-show-surf" onclick="togglePocketSurface()">Pocket Surface</button>
+            <span style="color:rgba(255,255,255,0.2); margin: 0 2px;">|</span>
+            <button class="c-btn" id="btn-spin" onclick="toggleSpin()">Auto-Spin</button>
+            <button class="c-btn" onclick="resetView()">Reset View</button>
+        </div>
+        <div id="{container_id}" style="width: 100%; height: 100%;"></div>
+        <div id="legend">
+            <span><span class="dot-gold"></span> <b>Parent:</b> {parent_name}</span>
+            <span><span class="dot-cyan"></span> <b>Derivative:</b> {var_name}</span>
+            <span><span class="dot-red"></span> Polar H-Bond</span>
+            <span><span class="dot-blue"></span> Hydrophobic</span>
+        </div>
+    </div>
+    <script>
+        (function() {{
+            var receptorStr = {rec_json};
+            var parentStr = {parent_json};
+            var varStr = {var_json};
+            var viewer = null;
+            var showParent = true;
+            var showVar = true;
+            var showSurface = false;
+            var isSpinning = false;
+            var surfaceObj = null;
+            var initCount = 0;
+
+            var timer = setInterval(function() {{
+                initCount++;
+                if (typeof $3Dmol !== 'undefined') {{
+                    clearInterval(timer);
+                    var element = document.getElementById("{container_id}");
+                    viewer = $3Dmol.createViewer(element, {{defaultcolors: $3Dmol.rasmolElementColors}});
+                    viewer.setBackgroundColor(0x0E1117);
+
+                    // Model 0: Receptor (Cartoon)
+                    if (receptorStr && receptorStr.trim().length > 0) {{
+                        viewer.addModel(receptorStr, "pdb");
+                        viewer.setStyle({{model: 0}}, {{cartoon: {{color: 'spectrum', opacity: 0.85}}}});
+                    }}
+
+                    // Model 1: Parent Ligand (Gold Stick)
+                    if (parentStr && parentStr.trim().length > 0) {{
+                        var pFmt = parentStr.indexOf("$$$$") !== -1 ? "sdf" : "pdb";
+                        viewer.addModel(parentStr, pFmt);
+                        viewer.setStyle({{model: 1}}, {{stick: {{colorscheme: 'goldCarbon', radius: 0.16}}}});
+                    }}
+
+                    // Model 2: Derivative Ligand (Cyan Stick)
+                    if (varStr && varStr.trim().length > 0) {{
+                        var vFmt = varStr.indexOf("$$$$") !== -1 ? "sdf" : "pdb";
+                        viewer.addModel(varStr, vFmt);
+                        viewer.setStyle({{model: 2}}, {{stick: {{colorscheme: 'cyanCarbon', radius: 0.22}}}});
+                    }}
+
+                    // Model 3: Interaction Cylinders & Labels
+                    try {{
+                        {cylinders_script}
+                    }} catch (e) {{
+                        console.error("Interaction rendering note:", e);
+                    }}
+
+                    // Zoom into ligand active site
+                    if (viewer.getModel(2)) {{
+                        viewer.zoomTo({{model: 2}});
+                    }} else if (viewer.getModel(1)) {{
+                        viewer.zoomTo({{model: 1}});
+                    }} else {{
+                        viewer.zoomTo();
+                    }}
+                    viewer.render();
+
+                    window.toggleParent = function() {{
+                        showParent = !showParent;
+                        document.getElementById('btn-show-parent').classList.toggle('active', showParent);
+                        if (viewer.getModel(1)) {{
+                            viewer.getModel(1).setStyle({{}}, showParent ? {{stick: {{colorscheme: 'goldCarbon', radius: 0.16}}}} : {{}});
+                            viewer.render();
+                        }}
+                    }};
+
+                    window.toggleVar = function() {{
+                        showVar = !showVar;
+                        document.getElementById('btn-show-var').classList.toggle('active', showVar);
+                        if (viewer.getModel(2)) {{
+                            viewer.getModel(2).setStyle({{}}, showVar ? {{stick: {{colorscheme: 'cyanCarbon', radius: 0.22}}}} : {{}});
+                            viewer.render();
+                        }}
+                    }};
+
+                    window.togglePocketSurface = function() {{
+                        showSurface = !showSurface;
+                        document.getElementById('btn-show-surf').classList.toggle('active', showSurface);
+                        if (surfaceObj) {{
+                            viewer.removeSurface(surfaceObj);
+                            surfaceObj = null;
+                        }}
+                        if (showSurface) {{
+                            surfaceObj = viewer.addSurface($3Dmol.SurfaceType.VDW, {{opacity: 0.45, color: 'white'}}, {{model: 0}});
+                        }}
+                        viewer.render();
+                    }};
+
+                    window.toggleSpin = function() {{
+                        isSpinning = !isSpinning;
+                        document.getElementById('btn-spin').classList.toggle('active', isSpinning);
+                        viewer.spin(isSpinning);
+                    }};
+
+                    window.resetView = function() {{
+                        if (viewer.getModel(2)) {{
+                            viewer.zoomTo({{model: 2}});
+                        }} else {{
+                            viewer.zoomTo();
+                        }}
+                        viewer.render();
+                    }};
+                }} else if (initCount > 50) {{
+                    clearInterval(timer);
+                }}
+            }}, 100);
+        }})();
+    </script>
+</body>
+</html>"""
+    return html_content
+
+
 def generate_3d_conformer_analysis(smiles):
     """
     Generates an energy-minimized 3D conformer using RDKit ETKDGv3 and MMFF94/UFF forcefields,

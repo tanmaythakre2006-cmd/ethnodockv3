@@ -1569,9 +1569,11 @@ else:
                     # ==========================================
                     st.markdown("<br>", unsafe_allow_html=True)
                     st.markdown("""
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-                        <span class="apple-badge apple-badge-purple">Stage 04</span>
-                        <h3 style="margin:0; font-size:1.25rem; font-weight:600;">Semi-Synthetic Bioisostere Lead Optimization</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="apple-badge apple-badge-purple">Stage 04</span>
+                            <h3 style="margin:0; font-size:1.25rem; font-weight:600;">Semi-Synthetic Bioisostere Lead Optimization</h3>
+                        </div>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -1583,19 +1585,75 @@ else:
                         selected_var_idx = var_labels.index(selected_var_label)
                         chosen_var = variants[selected_var_idx]
 
-                        col_var_info, col_var_dock = st.columns([3, 1], vertical_alignment="center")
-                        with col_var_info:
+                        # Pre-Docking Visible Proof: Side-by-Side Scaffold Comparison
+                        col_scaff_p, col_scaff_v = st.columns(2, gap="medium")
+                        with col_scaff_p:
+                            p_b64 = get_image_base64(smiles)
+                            p_tag = f'<img src="data:image/png;base64,{p_b64}" style="width:100%; height:160px; object-fit:contain;"/>' if p_b64 else ''
                             st.markdown(f"""
-                            <div class="apple-card-compact">
-                                <span style="color:#64D2FF; font-weight:600;">Medicinal Chemistry Rationale:</span> {chosen_var['rationale']}<br>
-                                <span style="font-size:11px; color:#86868B;"><b>Variant SMILES:</b> <code>{chosen_var['variant_smiles']}</code></span>
+                            <div class="apple-card" style="padding:14px; text-align:center;">
+                                <span class="apple-badge apple-badge-gold" style="font-size:11px;">Natural Scaffold (Parent)</span>
+                                <div style="font-weight:600; font-size:13px; color:#F5F5F7; margin-top:4px;">{active_compound_name}</div>
+                                <div style="background:#000; border-radius:10px; padding:4px; margin-top:8px; height:160px; display:flex; align-items:center; justify-content:center;">
+                                    {p_tag}
+                                </div>
+                                <div style="font-size:11px; color:#86868B; margin-top:8px;">
+                                    Baseline Affinity: <b style="color:#FFD60A;">{selected_pose_data['Affinity (kcal/mol)']:.2f} kcal/mol</b>
+                                </div>
                             </div>
                             """, unsafe_allow_html=True)
-                        with col_var_dock:
-                            dock_var_btn = st.button("⚡ Dock Derivative", key=f"dock_var_tab2_{idx}", use_container_width=True)
+
+                        with col_scaff_v:
+                            v_b64 = get_image_base64(chosen_var['variant_smiles'])
+                            v_tag = f'<img src="data:image/png;base64,{v_b64}" style="width:100%; height:160px; object-fit:contain;"/>' if v_b64 else ''
+                            st.markdown(f"""
+                            <div class="apple-card" style="padding:14px; text-align:center; border-color:rgba(10,132,255,0.4);">
+                                <span class="apple-badge apple-badge-blue" style="font-size:11px;">Semi-Synthetic Lead Candidate</span>
+                                <div style="font-weight:600; font-size:13px; color:#64D2FF; margin-top:4px;">{chosen_var['name']}</div>
+                                <div style="background:#000; border-radius:10px; padding:4px; margin-top:8px; height:160px; display:flex; align-items:center; justify-content:center;">
+                                    {v_tag}
+                                </div>
+                                <div style="font-size:11px; color:#86868B; margin-top:8px; word-break:break-all;">
+                                    <code>{chosen_var['variant_smiles'][:36]}...</code>
+                                </div>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                        st.markdown(f"""
+                        <div class="apple-card-compact" style="margin-top:12px; margin-bottom:12px;">
+                            <span style="color:#64D2FF; font-weight:600;">Medicinal Chemistry Rationale:</span> {chosen_var['rationale']}
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        # Candidate 3D Conformer Expander Preview before docking
+                        with st.expander("🔬 Preview Derivative 3D Conformer & Stereochemistry", expanded=False):
+                            v_conf = inter_eng.generate_3d_conformer_analysis(chosen_var['variant_smiles'])
+                            if v_conf:
+                                col_vconf_view, col_vconf_stat = st.columns([2.2, 1], gap="medium")
+                                with col_vconf_view:
+                                    v_conformer_html = inter_eng.build_standalone_ligand_3d_html(
+                                        container_id=f"vconf_view_{idx}",
+                                        mol_block=v_conf["mol_block"],
+                                        style="ball_and_stick",
+                                        height=240,
+                                        auto_spin=True,
+                                        colorscheme="cyanCarbon"
+                                    )
+                                    components.html(v_conformer_html, height=245)
+                                with col_vconf_stat:
+                                    st.markdown(f"""
+                                    <div style="font-size:12px; color:#A1A1A6; line-height:1.6; padding:10px;">
+                                        • <b>Derivative Volume:</b> <span style="color:#30D158;">{v_conf['volume_a3']} Å³</span><br>
+                                        • <b>Chiral Centers:</b> <span style="color:#FFD60A;">{v_conf['chiral_count']}</span><br>
+                                        • <b>Radius of Gyration:</b> {v_conf['radius_of_gyration']} Å<br>
+                                        • <b>Asphericity:</b> {v_conf['asphericity']}
+                                    </div>
+                                    """, unsafe_allow_html=True)
+
+                        dock_var_btn = st.button("⚡ Run In Silico Docking for Derivative", key=f"dock_var_tab2_{idx}", use_container_width=True)
 
                         if dock_var_btn:
-                            with st.spinner("Docking semi-synthetic analog..."):
+                            with st.spinner("Running AutoDock Vina physics simulation for semi-synthetic lead..."):
                                 var_pdbqt_path = os.path.join(BASE_DIR, "var_ligand.pdbqt")
                                 var_ligand_pdbqt, _ = dock_eng.prepare_ligand(chosen_var['variant_smiles'], var_pdbqt_path)
                                 if var_ligand_pdbqt:
@@ -1607,157 +1665,262 @@ else:
                                         st.session_state[f'var_out_pdbqt_{idx}'] = var_out_pdbqt
                                         st.session_state[f'docking_var_done_{idx}'] = True
 
+                        # Post-Docking Comprehensive Visible Proof & Biophysical Scorecard
                         if st.session_state.get(f'docking_var_done_{idx}', False):
                             var_data = st.session_state[f'docking_var_data_{idx}']
+                            var_out_pdbqt = st.session_state[f'var_out_pdbqt_{idx}']
                             var_best_aff = var_data[0]['affinity']
                             parent_best_aff = selected_pose_data['Affinity (kcal/mol)']
                             delta_aff = var_best_aff - parent_best_aff
 
-                            col_va, col_vb = st.columns([1, 2], vertical_alignment="center")
-                            with col_va:
+                            st.markdown("---")
+                            st.markdown("""
+                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                                <span class="apple-badge apple-badge-gold">Visible Proof & Validation</span>
+                                <h4 style="margin:0; font-size:1.1rem; font-weight:600;">Comparative Biophysical Scorecard & Pocket Superposition</h4>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                            # 4 Metric Stat Boxes
+                            col_s1, col_s2, col_s3, col_s4 = st.columns(4)
+                            with col_s1:
+                                st.markdown(f"""
+                                <div class="apple-stat-box">
+                                    <div class="apple-stat-lbl">Parent Affinity</div>
+                                    <div class="apple-stat-val" style="color:#FFD60A;">{parent_best_aff:.2f} <span style="font-size:0.75rem;">kcal/mol</span></div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with col_s2:
                                 st.markdown(f"""
                                 <div class="apple-stat-box">
                                     <div class="apple-stat-lbl">Derivative Affinity</div>
-                                    <div class="apple-stat-val" style="color:#64D2FF;">{var_best_aff} <span style="font-size:0.9rem;">kcal/mol</span></div>
+                                    <div class="apple-stat-val" style="color:#64D2FF;">{var_best_aff:.2f} <span style="font-size:0.75rem;">kcal/mol</span></div>
                                 </div>
                                 """, unsafe_allow_html=True)
-                            with col_vb:
-                                if delta_aff < 0:
-                                    st.success(f"✨ **Lead Optimization Success:** Derivative enhances binding affinity by **{abs(delta_aff):.2f} kcal/mol** over the natural compound.")
-                                else:
-                                    st.info("Derivative maintains stable binding compatibility.")
-
-                    # ==========================================
-                    # STAGE 05: ADMET & SCIENTIFIC DOSSIER
-                    # ==========================================
-                    st.markdown("<br>", unsafe_allow_html=True)
-                    st.markdown("""
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-                        <span class="apple-badge">Stage 05</span>
-                        <h3 style="margin:0; font-size:1.25rem; font-weight:600;">ADMET Pharmacokinetics & Dossier Export</h3>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                    orig_adme = admet_eng.get_admet_profile(smiles)
-                    adme_data_list = []
-                    if orig_adme:
-                        state_lbl = "Processed Form (炮制品)" if is_processed_state else "Natural Extract (生品)"
-                        orig_adme["Compound Entity"] = f"{active_compound_name} [{state_lbl}]"
-                        adme_data_list.append(orig_adme)
-
-                    if variants:
-                        for i, v in enumerate(variants[:3]):
-                            v_adme = admet_eng.get_admet_profile(v['variant_smiles'])
-                            if v_adme:
-                                v_adme["Compound Entity"] = f"Derivative {i+1}: {v['name']}"
-                                adme_data_list.append(v_adme)
-
-                    if adme_data_list:
-                        df_adme = pd.DataFrame(adme_data_list)
-                        if orig_adme and orig_adme.get("Is Toxicologically Hazardous"):
-                            st.markdown(f"""
-                            <div style="background: rgba(255, 69, 58, 0.1); border: 1px solid #FF453A; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;">
-                                <div style="color: #FF453A; font-weight: 700; font-size: 0.95rem;">🚨 CRITICAL TOXICITY HAZARD: {orig_adme.get('Structure Alert Screen')}</div>
-                                <div style="color: #CBD5E1; font-size: 0.84rem; margin-top: 4px;">
-                                    This compound contains an in-vivo lethal/organ-damaging toxicophore. High docking affinity reflects lethal receptor/channel-locking toxicity rather than a therapeutic window.
+                            with col_s3:
+                                delta_color = "#30D158" if delta_aff < 0 else ("#FFD60A" if delta_aff == 0 else "#FF453A")
+                                delta_sign = "▼" if delta_aff < 0 else "▲"
+                                st.markdown(f"""
+                                <div class="apple-stat-box">
+                                    <div class="apple-stat-lbl">Free Energy ΔΔG</div>
+                                    <div class="apple-stat-val" style="color:{delta_color};">{delta_sign} {abs(delta_aff):.2f} <span style="font-size:0.75rem;">kcal/mol</span></div>
                                 </div>
-                            </div>
-                            """, unsafe_allow_html=True)
-                        cols = ['Compound Entity', 'Molecular Weight', 'LogP', 'TPSA (Å²)', 'H-Bond Donors', 'H-Bond Acceptors', 'QED Drug-Likeness', 'Lipinski Violations', 'Structure Alert Screen', 'Safety Status']
-                        st.dataframe(df_adme[[c for c in cols if c in df_adme.columns]], hide_index=True, use_container_width=True)
+                                """, unsafe_allow_html=True)
+                            with col_s4:
+                                opt_status = "Potency Enhanced" if delta_aff < -0.3 else ("Equipotent Lead" if delta_aff <= 0.3 else "Steric Penalty")
+                                badge_class = "apple-badge-green" if delta_aff < -0.3 else "apple-badge-gold"
+                                st.markdown(f"""
+                                <div class="apple-stat-box">
+                                    <div class="apple-stat-lbl">Optimization Verdict</div>
+                                    <div style="margin-top:6px;"><span class="apple-badge {badge_class}" style="font-size:11px;">{opt_status}</span></div>
+                                </div>
+                                """, unsafe_allow_html=True)
 
-                    # Dossier HTML Export
-                    poses_html = pd.DataFrame(table_data).to_html(index=False) if 'table_data' in locals() else "<p>None</p>"
-                    interactions_clean_html = interactions_df[["Receptor Residue", "Distance (Å)", "Interaction Type"]].to_html(index=False) if ('interactions_df' in locals() and not interactions_df.empty) else "<p>None</p>"
+                            # Extract derivative poses & calculate interactions
+                            var_poses = inter_eng.extract_poses(var_out_pdbqt)
+                            var_selected_pose_str = var_poses[0] if var_poses else ""
+                            var_interactions_df = inter_eng.calc_interactions(var_selected_pose_str, receptor_pdbqt, cutoff=4.0)
 
-                    variant_dossier_data = None
-                    if 'chosen_var' in locals():
-                        variant_dossier_data = {
-                            "name": chosen_var["name"],
-                            "rationale": chosen_var["rationale"],
-                            "smiles": chosen_var["variant_smiles"],
-                            "affinity": locals().get('var_best_aff', 'N/A')
-                        }
-
-                    dossier_html = dossier_eng.generate_tcm_dossier_html(
-                        species_name=row['Common Name'],
-                        scientific_name=row['Botanical Name'],
-                        chinese_name=row['Chinese Name'],
-                        source_title=row['Classical Source'],
-                        claim_text=row['Ancient Claim'],
-                        translation=row['English Translation'],
-                        compound_name=active_compound_name,
-                        smiles=smiles,
-                        target_name=row['Protein Target'],
-                        pdb_id=row['PDB ID'],
-                        affinity_kcal=selected_pose_data['Affinity (kcal/mol)'],
-                        poses_table_html=poses_html,
-                        interactions_table_html=interactions_clean_html,
-                        admet_dict=orig_adme,
-                        variant_info=variant_dossier_data,
-                        plant_photo_b64=plant_photo_b64,
-                        paozhi_data=pz_info,
-                        is_paozhi_processed=is_processed_state
-                    )
-
-                    # Prepare raw files for Open-Science Reproducibility Package
-                    with open(receptor_pdbqt, 'r', encoding='utf-8') as rf:
-                        rec_str = rf.read()
-                    
-                    lig_str = ""
-                    ligand_pdbqt_path = os.path.join(BASE_DIR, "active_ligand.pdbqt")
-                    if os.path.exists(ligand_pdbqt_path):
-                        with open(ligand_pdbqt_path, 'r', encoding='utf-8') as lf:
-                            lig_str = lf.read()
+                            # VISIBLE PROOF: Dual-Pose 3D Complex Alignment Viewer
+                            st.markdown("<div style='font-size:13px; font-weight:600; color:#FFF; margin-top:16px; margin-bottom:8px;'>🔬 3D Active Site Superposition: Natural Parent (Gold) vs. Semi-Synthetic Derivative (Cyan)</div>", unsafe_allow_html=True)
                             
-                    vina_out_str = ""
-                    if out_pdbqt and os.path.exists(out_pdbqt):
-                        with open(out_pdbqt, 'r', encoding='utf-8') as vf:
-                            vina_out_str = vf.read()
+                            if 'receptor_str' not in locals() or not receptor_str:
+                                with open(receptor_pdbqt, 'r', encoding='utf-8', errors='ignore') as rf:
+                                    receptor_str = rf.read()
 
-                    interactions_list = interactions_df.to_dict(orient="records") if ('interactions_df' in locals() and not interactions_df.empty) else []
+                            dual_viewer_html = inter_eng.build_dual_pose_comparison_3dmol_html(
+                                container_id=f"dual_pose_view_{idx}",
+                                receptor_data=receptor_str,
+                                parent_ligand_data=selected_pose_str,
+                                var_ligand_data=var_selected_pose_str,
+                                var_interactions_df=var_interactions_df,
+                                parent_name=f"{active_compound_name} ({parent_best_aff:.2f} kcal/mol)",
+                                var_name=f"{chosen_var['name']} ({var_best_aff:.2f} kcal/mol)",
+                                height=480
+                            )
+                            components.html(dual_viewer_html, height=490)
 
-                    repro_zip_bytes = repro_eng.create_reproducibility_zip_bundle(
-                        species_name=row['Common Name'],
-                        botanical_name=row['Botanical Name'],
-                        classical_source=row['Classical Source'],
-                        dynasty=row['Dynasty'],
-                        target_name=row['Protein Target'],
-                        pdb_id=row['PDB ID'],
-                        uniprot_id=row['UniProt ID'],
-                        compound_name=active_compound_name,
-                        smiles=smiles,
-                        receptor_pdbqt_str=rec_str,
-                        ligand_pdbqt_str=lig_str,
-                        out_pdbqt_str=vina_out_str,
-                        center=[cx, cy, cz],
-                        size=[sx, sy, sz],
-                        exhaustiveness=exhaustiveness,
-                        seed=st.session_state.get(f'dock_seed_{idx}', 42),
-                        binding_affinity=selected_pose_data['Affinity (kcal/mol)'],
-                        interactions_summary=interactions_list
-                    )
+                            # Interaction Table & Newly Recruited Residues
+                            col_itab, col_pymol = st.columns([1.6, 1], gap="medium")
+                            with col_itab:
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#FFF; margin-bottom:8px;'>⚡ Derivative Pocket Interaction Footprint</div>", unsafe_allow_html=True)
+                                if var_interactions_df is not None and not var_interactions_df.empty:
+                                    parent_res_set = set(interactions_df['Receptor Residue'].tolist()) if ('interactions_df' in locals() and not interactions_df.empty) else set()
+                                    var_interactions_display = var_interactions_df.copy()
+                                    var_interactions_display['Status'] = var_interactions_display['Receptor Residue'].apply(
+                                        lambda r: "✨ New Contact" if r not in parent_res_set else "Preserved Core"
+                                    )
+                                    st.dataframe(
+                                        var_interactions_display[["Receptor Residue", "Distance (Å)", "Interaction Type", "Status"]],
+                                        hide_index=True,
+                                        use_container_width=True
+                                    )
+                                else:
+                                    st.info("No close polar contacts under 4.0 Å detected.")
 
-                    col_dl1, col_dl2, col_sig = st.columns([1.2, 1.2, 1], vertical_alignment="center")
-                    with col_dl1:
-                        filename = f"EthnoDock_Report_{row['Common Name'].replace(' ', '_')}_{row['PDB ID']}.html"
-                        st.download_button(
-                            label=f"📄 Download Research Dossier (HTML)",
-                            data=dossier_html,
-                            file_name=filename,
-                            mime="text/html",
-                            key=f"dl_dossier_tab2_{idx}",
-                            use_container_width=True
+                            with col_pymol:
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#FFF; margin-bottom:8px;'>🎨 Derivative PyMOL Studio</div>", unsafe_allow_html=True)
+                                var_pml_script = fig_eng.generate_pymol_pml(
+                                    receptor_filename=f"{row['PDB ID']}.pdbqt",
+                                    ligand_filename="var_ligand.pdbqt",
+                                    species_name=row['Common Name'],
+                                    target_name=row['Protein Target'],
+                                    pdb_id=row['PDB ID'],
+                                    compound_name=f"Derivative - {chosen_var['name']}",
+                                    interactions_df=var_interactions_df,
+                                    theme="nature"
+                                )
+                                st.download_button(
+                                    label="📥 Download Derivative PyMOL Script (.pml)",
+                                    data=var_pml_script,
+                                    file_name=f"{chosen_var['name'].replace(' ', '_')}_{row['PDB ID']}_figure.pml",
+                                    mime="text/plain",
+                                    key=f"dl_var_pml_{idx}",
+                                    use_container_width=True
+                                )
+                                st.caption("Load into PyMOL to render publication ray-traced figures of the optimized derivative complex.")
+
+                    # ==========================================
+                    # STAGE 05: ADMET & SCIENTIFIC DOSSIER (GATED BY STAGE 04)
+                    # ==========================================
+                    if not st.session_state.get(f'docking_var_done_{idx}', False):
+                        st.markdown("<br>", unsafe_allow_html=True)
+                        st.markdown("""
+                        <div class="apple-card" style="padding: 26px; text-align: center; border: 1px dashed rgba(255, 255, 255, 0.2); background: rgba(15, 19, 28, 0.5); margin-top: 16px;">
+                            <div style="font-size: 32px; margin-bottom: 10px;">🔒</div>
+                            <div style="font-size: 16px; font-weight: 600; color: #F5F5F7;">Stage 05 Locked: ADMET Pharmacokinetics & Dossier Export</div>
+                            <div style="font-size: 13px; color: #86868B; margin-top: 6px; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                                <b>Stage 05 unlocks automatically once Stage 04 is fully complete.</b><br>
+                                Please select a rational bioisosteric modification above and click <b>"⚡ Run In Silico Docking for Derivative"</b> to generate the comparative pharmacology matrix, visible proof alignment, and unlock the final regulatory dossier.
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    else:
+                        st.markdown("<br>", unsafe_allow_html=True)
+                        st.markdown("""
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+                            <span class="apple-badge">Stage 05</span>
+                            <h3 style="margin:0; font-size:1.25rem; font-weight:600;">ADMET Pharmacokinetics & Dossier Export</h3>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        orig_adme = admet_eng.get_admet_profile(smiles)
+                        adme_data_list = []
+                        if orig_adme:
+                            state_lbl = "Processed Form (炮制品)" if is_processed_state else "Natural Extract (生品)"
+                            orig_adme["Compound Entity"] = f"{active_compound_name} [{state_lbl}]"
+                            adme_data_list.append(orig_adme)
+
+                        if variants and 'chosen_var' in locals():
+                            var_adme = admet_eng.get_admet_profile(chosen_var['variant_smiles'])
+                            if var_adme:
+                                var_adme["Compound Entity"] = f"Optimized Lead: {chosen_var['name']}"
+                                adme_data_list.append(var_adme)
+
+                        if adme_data_list:
+                            df_adme = pd.DataFrame(adme_data_list)
+                            if orig_adme and orig_adme.get("Is Toxicologically Hazardous"):
+                                st.markdown(f"""
+                                <div style="background: rgba(255, 69, 58, 0.1); border: 1px solid #FF453A; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;">
+                                    <div style="color: #FF453A; font-weight: 700; font-size: 0.95rem;">🚨 CRITICAL TOXICITY HAZARD: {orig_adme.get('Structure Alert Screen')}</div>
+                                    <div style="color: #CBD5E1; font-size: 0.84rem; margin-top: 4px;">
+                                        This compound contains an in-vivo lethal/organ-damaging toxicophore. High docking affinity reflects lethal receptor/channel-locking toxicity rather than a therapeutic window.
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            cols = ['Compound Entity', 'Molecular Weight', 'LogP', 'TPSA (Å²)', 'H-Bond Donors', 'H-Bond Acceptors', 'QED Drug-Likeness', 'Lipinski Violations', 'Structure Alert Screen', 'Safety Status']
+                            st.dataframe(df_adme[[c for c in cols if c in df_adme.columns]], hide_index=True, use_container_width=True)
+
+                        # Dossier HTML Export
+                        poses_html = pd.DataFrame(table_data).to_html(index=False) if 'table_data' in locals() else "<p>None</p>"
+                        interactions_clean_html = interactions_df[["Receptor Residue", "Distance (Å)", "Interaction Type"]].to_html(index=False) if ('interactions_df' in locals() and not interactions_df.empty) else "<p>None</p>"
+
+                        variant_dossier_data = None
+                        if 'chosen_var' in locals():
+                            variant_dossier_data = {
+                                "name": chosen_var["name"],
+                                "rationale": chosen_var["rationale"],
+                                "smiles": chosen_var["variant_smiles"],
+                                "affinity": locals().get('var_best_aff', 'N/A')
+                            }
+
+                        dossier_html = dossier_eng.generate_tcm_dossier_html(
+                            species_name=row['Common Name'],
+                            scientific_name=row['Botanical Name'],
+                            chinese_name=row['Chinese Name'],
+                            source_title=row['Classical Source'],
+                            claim_text=row['Ancient Claim'],
+                            translation=row['English Translation'],
+                            compound_name=active_compound_name,
+                            smiles=smiles,
+                            target_name=row['Protein Target'],
+                            pdb_id=row['PDB ID'],
+                            affinity_kcal=selected_pose_data['Affinity (kcal/mol)'],
+                            poses_table_html=poses_html,
+                            interactions_table_html=interactions_clean_html,
+                            admet_dict=orig_adme,
+                            variant_info=variant_dossier_data,
+                            plant_photo_b64=plant_photo_b64,
+                            paozhi_data=pz_info,
+                            is_paozhi_processed=is_processed_state
                         )
-                    with col_dl2:
-                        filename_zip = f"EthnoDock_Reproducibility_Package_{row['Common Name'].replace(' ', '_')}_{row['PDB ID']}.zip"
-                        st.download_button(
-                            label=f"📦 Download Open-Science ZIP Bundle",
-                            data=repro_zip_bytes,
-                            file_name=filename_zip,
-                            mime="application/zip",
-                            key=f"dl_zip_tab2_{idx}",
-                            use_container_width=True
+
+                        # Comprehensive Open-Science Reproducibility Package (ZIP)
+                        with open(receptor_pdbqt, "r", encoding="utf-8", errors="ignore") as f:
+                            rec_str = f.read()
+                        
+                        ligand_pdbqt_path = os.path.join(BASE_DIR, "active_ligand.pdbqt")
+                        with open(ligand_pdbqt_path, "r", encoding="utf-8", errors="ignore") as f:
+                            lig_str = f.read()
+                        
+                        vina_out_str = ""
+                        if out_pdbqt and os.path.exists(out_pdbqt):
+                            with open(out_pdbqt, "r", encoding="utf-8", errors="ignore") as f:
+                                vina_out_str = f.read()
+
+                        interactions_list = interactions_df.to_dict(orient="records") if ('interactions_df' in locals() and not interactions_df.empty) else []
+
+                        repro_zip_bytes = repro_eng.create_reproducibility_zip_bundle(
+                            species_name=row['Common Name'],
+                            botanical_name=row['Botanical Name'],
+                            classical_source=row['Classical Source'],
+                            dynasty=row['Dynasty'],
+                            target_name=row['Protein Target'],
+                            pdb_id=row['PDB ID'],
+                            uniprot_id=row['UniProt ID'],
+                            compound_name=active_compound_name,
+                            smiles=smiles,
+                            receptor_pdbqt_str=rec_str,
+                            ligand_pdbqt_str=lig_str,
+                            out_pdbqt_str=vina_out_str,
+                            center=[cx, cy, cz],
+                            size=[sx, sy, sz],
+                            exhaustiveness=exhaustiveness,
+                            seed=st.session_state.get(f'dock_seed_{idx}', 42),
+                            binding_affinity=selected_pose_data['Affinity (kcal/mol)'],
+                            interactions_summary=interactions_list
                         )
-                    with col_sig:
-                        st.markdown("<div style='text-align:right; font-size:12px; color:#86868B;'>EthnoDock Pro • Verified Simulation & BibTeX</div>", unsafe_allow_html=True)
+
+                        col_dl1, col_dl2, col_sig = st.columns([1.2, 1.2, 1], vertical_alignment="center")
+                        with col_dl1:
+                            filename = f"EthnoDock_Report_{row['Common Name'].replace(' ', '_')}_{row['PDB ID']}.html"
+                            st.download_button(
+                                label=f"📄 Download Research Dossier (HTML)",
+                                data=dossier_html,
+                                file_name=filename,
+                                mime="text/html",
+                                key=f"dl_dossier_tab2_{idx}",
+                                use_container_width=True
+                            )
+                        with col_dl2:
+                            filename_zip = f"EthnoDock_Reproducibility_Package_{row['Common Name'].replace(' ', '_')}_{row['PDB ID']}.zip"
+                            st.download_button(
+                                label=f"📦 Download Open-Science ZIP Bundle",
+                                data=repro_zip_bytes,
+                                file_name=filename_zip,
+                                mime="application/zip",
+                                key=f"dl_zip_tab2_{idx}",
+                                use_container_width=True
+                            )
+                        with col_sig:
+                            st.markdown("<div style='text-align:right; font-size:12px; color:#86868B;'>EthnoDock Pro • Verified Simulation & BibTeX</div>", unsafe_allow_html=True)

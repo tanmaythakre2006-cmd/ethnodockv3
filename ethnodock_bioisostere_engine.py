@@ -44,6 +44,30 @@ TRANSFORMATION_RULES = [
         "smarts": "[NX3H2]",
         "replace_smiles": "NC",
         "rationale": "Enhances metabolic stability against monoamine oxidases and optimizes steric cavity fit."
+    },
+    {
+        "name": "Aromatic Fluorination (Ar-H -> Ar-F)",
+        "smarts": "[cH]",
+        "replace_smiles": "cF",
+        "rationale": "Blocks cytochrome P450 aromatic hydroxylation, enhances metabolic half-life, and improves hydrophobic pocket fit."
+    },
+    {
+        "name": "Aromatic Chlorination (Ar-H -> Ar-Cl)",
+        "smarts": "[cH]",
+        "replace_smiles": "cCl",
+        "rationale": "Increases lipophilicity and occupies deep nonpolar sub-pockets in the target receptor."
+    },
+    {
+        "name": "Methyl Trifluoromethylation (-CH3 -> -CF3)",
+        "smarts": "[CH3;!$(C=O)]",
+        "replace_smiles": "C(F)(F)F",
+        "rationale": "Dramatically improves metabolic stability against aliphatic oxidation and enhances membrane permeability."
+    },
+    {
+        "name": "Carbonyl Bioisostere (C=O -> C=S)",
+        "smarts": "[CX3]=[OX1]",
+        "replace_smiles": "C=S",
+        "rationale": "Replaces carbonyl oxygen with softer, more polarizable sulfur to enhance hydrophobic pocket interaction."
     }
 ]
 

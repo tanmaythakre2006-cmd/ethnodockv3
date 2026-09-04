@@ -15,8 +15,10 @@ from rdkit.Chem import Draw
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 
+import importlib
 import ethnodock_docking_engine as dock_eng
 import ethnodock_interaction_engine as inter_eng
+importlib.reload(inter_eng)
 import ethnodock_bioisostere_engine as bio_eng
 import ethnodock_admet_engine as admet_eng
 import ethnodock_dossier_engine as dossier_eng
@@ -973,44 +975,32 @@ else:
                 </div>
                 """, unsafe_allow_html=True)
 
-            # Dedicated 3D Stereochemical & Conformational Observation Studio
-            with st.expander(f"🔬 Advanced 3D Conformational & Stereochemical Inspector — {active_compound_name}", expanded=False):
+            # Stage 01 Interactive 3D Molecular Analysis Kit (Workbench)
+            with st.expander(f"🧪 Interactive 3D Molecular Analysis Kit — {active_compound_name}", expanded=False):
                 st.markdown("""
                 <div style="font-size:0.86rem; color:#A1A1A6; margin-bottom:12px;">
-                    Energy-minimized 3D conformer generated via <b>RDKit ETKDGv3</b> distance geometry and <b>MMFF94 / UFF</b> forcefield optimization. Inspect 3D spatial conformation, chiral centers, Van der Waals volume, and electrostatic surface envelopes.
+                    Energy-minimized 3D conformer generated dynamically via <b>RDKit ETKDGv3</b> distance geometry and <b>MMFF94 / UFF</b> forcefield optimization. Use the interactive 3D toolkit toolbar below to measure interatomic distances, highlight chiral stereocenters, inspect atom coordinates, and toggle molecular surfaces.
                 </div>
                 """, unsafe_allow_html=True)
 
                 conf_data = inter_eng.generate_3d_conformer_analysis(active_smiles)
                 if conf_data:
-                    col_insp_view, col_insp_metrics = st.columns([2.2, 1], gap="medium")
+                    col_insp_view, col_insp_metrics = st.columns([2.5, 1], gap="medium")
                     
                     with col_insp_view:
-                        col_c1, col_c2, col_c3, col_c4 = st.columns(4)
-                        with col_c1:
-                            c_style = st.selectbox("3D Style:", ["ball_and_stick", "stick", "sphere"], format_func=lambda x: {"ball_and_stick": "Ball & Stick", "stick": "Stick (Liquorice)", "sphere": "Space-Filling (VDW)"}[x], key=f"c_style_{idx}")
-                        with col_c2:
-                            c_surf = st.checkbox("VDW Surface", value=False, key=f"c_surf_{idx}")
-                        with col_c3:
-                            c_spin = st.checkbox("Auto-Spin", value=True, key=f"c_spin_{idx}")
-                        with col_c4:
-                            c_palette = st.selectbox("Palette:", ["cyanCarbon", "greenCarbon", "spectrum"], format_func=lambda x: {"cyanCarbon": "Cyan Carbon", "greenCarbon": "Green Neon", "spectrum": "Spectrum Element"}[x], key=f"c_palette_{idx}")
-                            
-                        large_3d_html = inter_eng.build_standalone_ligand_3d_html(
-                            container_id=f"studio_3d_{idx}",
+                        chiral_indices = [c[0] for c in conf_data.get("chiral_centers", [])]
+                        kit_html = inter_eng.build_3d_molecular_kit_html(
+                            container_id=f"studio_kit_{idx}",
                             mol_block=conf_data["mol_block"],
-                            style=c_style,
-                            show_surface=c_surf,
-                            auto_spin=c_spin,
-                            height=380,
-                            colorscheme=c_palette
+                            chiral_indices=chiral_indices,
+                            height=440
                         )
-                        components.html(large_3d_html, height=385)
+                        components.html(kit_html, height=450)
                         
                     with col_insp_metrics:
                         st.markdown(f"""
                         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px; font-size:12px; line-height:1.7;">
-                            <span style="font-weight:700; color:#64D2FF; font-size:13px;">3D Stereochemical Metrics:</span><br>
+                            <span style="font-weight:700; color:#64D2FF; font-size:13px;">3D Stereochemical Kit Metrics:</span><br>
                             • <b>Chiral Stereocenters:</b> <span style="color:#FFD60A; font-weight:700;">{conf_data['chiral_count']}</span><br>
                             • <b>Van der Waals Volume:</b> <span style="color:#30D158; font-weight:700;">{conf_data['volume_a3']} Å³</span><br>
                             • <b>Radius of Gyration (Rg):</b> <span style="color:#FFF; font-weight:700;">{conf_data['radius_of_gyration']} Å</span><br>
@@ -1019,17 +1009,24 @@ else:
                         </div>
                         """, unsafe_allow_html=True)
                         
+                        st.markdown("""
+                        <div style="background:rgba(10,132,255,0.05); border:1px solid rgba(10,132,255,0.2); border-radius:10px; padding:10px; margin-top:10px; font-size:11px; color:#94A3B8; line-height:1.5;">
+                            <b>🛠️ Live Toolkit Controls:</b><br>
+                            • <b>Click Any Atom:</b> Shows element, atom index & (X,Y,Z).<br>
+                            • <b>📏 Measure Distance:</b> Click atom A then atom B to measure interatomic distance in Å.<br>
+                            • <b>Chiral Halos:</b> Displays glowing markers over all stereocenters.<br>
+                            • <b>VDW Surface:</b> Overlays 3D steric hindrance boundary.
+                        </div>
+                        """, unsafe_allow_html=True)
+
                         st.download_button(
-                            label="📥 Download 3D Conformer (.mol)",
+                            label="📥 Export 3D Conformer (.mol)",
                             data=conf_data["mol_block"],
                             file_name=f"{active_compound_name.replace(' ', '_')}_3D_conformer.mol",
                             mime="chemical/x-mdl-molfile",
                             key=f"dl_mol_3d_{idx}",
                             use_container_width=True
                         )
-                        
-                        if conf_data['chiral_count'] > 0:
-                            st.caption(f"Chiral stereocenters detected at atom indices: {', '.join([str(c[0]) for c in conf_data['chiral_centers']])}")
                 else:
                     st.warning("Could not generate 3D conformer coordinates for this SMILES.")
 

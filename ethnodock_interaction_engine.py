@@ -398,3 +398,252 @@ def build_standalone_ligand_3d_html(container_id, mol_block, style='ball_and_sti
 </html>"""
     return html_content
 
+def build_3d_molecular_kit_html(container_id, mol_block, chiral_indices=None, height=460, colorscheme='cyanCarbon'):
+    """
+    Constructs a comprehensive, client-side 3D Molecular Analysis Kit (Workbench) using 3Dmol.js.
+    Provides live interactive tools:
+    - Atom Click Inspector (Element, Index, Coordinates)
+    - Interactive 3D Distance Measurement (Click 2 atoms to measure interatomic distance in Å)
+    - Chiral Stereocenter Halo Highlighter
+    - Van der Waals Molecular Surface Envelope
+    - Dynamic Style Switcher (Ball & Stick, Licorice, CPK Space-Filling, Wireframe)
+    - Auto-Rotation / Spin & Camera Reset
+    """
+    mol_json = json.dumps(mol_block)
+    chiral_json = json.dumps(chiral_indices or [])
+
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <style>
+        body, html {{ margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #07090E; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }}
+        #kit-wrapper {{ width: 100%; height: {height}px; position: relative; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: #000; overflow: hidden; }}
+        #toolbar {{ position: absolute; top: 10px; left: 10px; right: 10px; z-index: 20; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(15, 19, 28, 0.88); backdrop-filter: blur(12px); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }}
+        .kit-btn {{ background: rgba(255,255,255,0.06); color: #E2E8F0; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.15s ease; }}
+        .kit-btn:hover {{ background: rgba(255,255,255,0.18); color: #FFF; }}
+        .kit-btn.active {{ background: #0A84FF; color: #FFF; border-color: #0A84FF; font-weight: 600; box-shadow: 0 0 10px rgba(10,132,255,0.4); }}
+        .kit-btn.active-gold {{ background: #FFD60A; color: #000; border-color: #FFD60A; font-weight: 700; box-shadow: 0 0 10px rgba(255,214,10,0.4); }}
+        #info-bar {{ position: absolute; bottom: 8px; left: 10px; right: 10px; z-index: 20; background: rgba(15, 19, 28, 0.88); backdrop-filter: blur(12px); padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: #94A3B8; display: flex; justify-content: space-between; align-items: center; }}
+        .badge-cyan {{ background: rgba(100,210,255,0.15); color: #64D2FF; padding: 2px 6px; border-radius: 4px; font-weight: 600; }}
+    </style>
+</head>
+<body>
+    <div id="kit-wrapper">
+        <div id="toolbar">
+            <span style="color:#64D2FF; font-weight:700; font-size:11px; margin-right:4px;">🧪 3D Molecular Kit:</span>
+            <button class="kit-btn active" id="btn-bns" onclick="setStyle('bns')">Ball & Stick</button>
+            <button class="kit-btn" id="btn-stick" onclick="setStyle('stick')">Licorice</button>
+            <button class="kit-btn" id="btn-cpk" onclick="setStyle('cpk')">Space-Filling (CPK)</button>
+            <button class="kit-btn" id="btn-wire" onclick="setStyle('wire')">Wireframe</button>
+            <span style="color:rgba(255,255,255,0.2); margin: 0 2px;">|</span>
+            <button class="kit-btn" id="btn-surf" onclick="toggleSurface()">VDW Surface</button>
+            <button class="kit-btn" id="btn-chiral" onclick="toggleChiral()">Highlight Chiral Centers</button>
+            <button class="kit-btn" id="btn-measure" onclick="toggleMeasure()">📏 Measure Distance (Å)</button>
+            <span style="color:rgba(255,255,255,0.2); margin: 0 2px;">|</span>
+            <button class="kit-btn" id="btn-spin" onclick="toggleSpin()">Auto-Spin</button>
+            <button class="kit-btn" onclick="resetView()">Reset View</button>
+        </div>
+        <div id="{container_id}" style="width: 100%; height: 100%;"></div>
+        <div id="info-bar">
+            <span id="status-text">💡 <b>Click any atom</b> to inspect element & coordinates, or click <b>"Measure Distance"</b> to measure bond lengths.</span>
+            <span class="badge-cyan">WebGL 3D Molecular Engine</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {{
+            var molData = {mol_json};
+            var chiralIndices = {chiral_json};
+            var viewer = null;
+            var currentStyle = 'bns';
+            var showSurface = false;
+            var showChiral = false;
+            var isSpinning = false;
+            var measureMode = false;
+            var selectedAtoms = [];
+            var surfaceObj = null;
+            var chiralSpheres = [];
+            var measureObjects = [];
+            var initCount = 0;
+
+            var timer = setInterval(function() {{
+                initCount++;
+                if (typeof $3Dmol !== 'undefined') {{
+                    clearInterval(timer);
+                    var element = document.getElementById("{container_id}");
+                    viewer = $3Dmol.createViewer(element, {{defaultcolors: $3Dmol.rasmolElementColors}});
+                    viewer.setBackgroundColor(0x000000);
+
+                    if (molData && molData.trim().length > 0) {{
+                        viewer.addModel(molData, "mol");
+                        applyCurrentStyle();
+                    }}
+
+                    viewer.zoomTo();
+                    viewer.render();
+
+                    // Clickable atom inspector & measurement tool
+                    viewer.setClickable({{}}, true, function(atom, viewerInstance, event, container) {{
+                        if (!atom) return;
+                        var infoBox = document.getElementById("status-text");
+
+                        if (measureMode) {{
+                            selectedAtoms.push(atom);
+                            if (selectedAtoms.length === 1) {{
+                                infoBox.innerHTML = "🎯 <b>Atom 1 Selected:</b> <span style='color:#64D2FF;'>" + atom.elem + " #" + (atom.serial || atom.index) + "</span>. Click <b>second atom</b> to complete distance measurement.";
+                            }} else if (selectedAtoms.length >= 2) {{
+                                var a1 = selectedAtoms[0];
+                                var a2 = selectedAtoms[1];
+                                var dx = a1.x - a2.x, dy = a1.y - a2.y, dz = a1.z - a2.z;
+                                var dist = Math.sqrt(dx*dx + dy*dy + dz*dz).toFixed(3);
+
+                                var cyl = viewer.addCylinder({{
+                                    start: {{x: a1.x, y: a1.y, z: a1.z}},
+                                    end: {{x: a2.x, y: a2.y, z: a2.z}},
+                                    radius: 0.1,
+                                    dashed: true,
+                                    color: '#FFD60A'
+                                }});
+                                var lbl = viewer.addLabel(dist + " Å", {{
+                                    position: {{x: (a1.x + a2.x)/2, y: (a1.y + a2.y)/2, z: (a1.z + a2.z)/2}},
+                                    backgroundColor: 'rgba(0,0,0,0.85)',
+                                    fontColor: '#FFD60A',
+                                    fontSize: 12,
+                                    inFront: true
+                                }});
+                                measureObjects.push(cyl);
+                                measureObjects.push(lbl);
+
+                                infoBox.innerHTML = "📏 <b>Interatomic Distance:</b> <span style='color:#64D2FF;'>" + a1.elem + " #" + (a1.serial || a1.index) + "</span> ↔ <span style='color:#64D2FF;'>" + a2.elem + " #" + (a2.serial || a2.index) + "</span> = <b style='color:#FFD60A; font-size:12px;'>" + dist + " Å</b>";
+                                selectedAtoms = [];
+                                viewer.render();
+                            }}
+                        }} else {{
+                            infoBox.innerHTML = "🔍 <b>Atom #" + (atom.serial || atom.index) + ":</b> <span style='color:#64D2FF; font-weight:700;'>" + atom.elem + "</span> • Coordinates: (" + atom.x.toFixed(2) + ", " + atom.y.toFixed(2) + ", " + atom.z.toFixed(2) + ") • Charge: " + (atom.charge || 0);
+                            if (viewer._lastInspectLabel) viewer.removeLabel(viewer._lastInspectLabel);
+                            viewer._lastInspectLabel = viewer.addLabel(atom.elem + (atom.serial || atom.index), {{
+                                position: {{x: atom.x, y: atom.y, z: atom.z}},
+                                backgroundColor: 'rgba(10,132,255,0.85)',
+                                fontColor: '#FFF',
+                                fontSize: 11,
+                                inFront: true
+                            }});
+                            viewer.render();
+                        }}
+                    }});
+                }} else if (initCount > 50) {{
+                    clearInterval(timer);
+                }}
+            }}, 100);
+
+            function applyCurrentStyle() {{
+                if (!viewer) return;
+                var model = viewer.getModel();
+                if (!model) return;
+
+                if (currentStyle === 'stick') {{
+                    model.setStyle({{}}, {{stick: {{radius: 0.22, colorscheme: '{colorscheme}'}}}});
+                }} else if (currentStyle === 'cpk') {{
+                    model.setStyle({{}}, {{sphere: {{scale: 0.85, colorscheme: '{colorscheme}'}}}});
+                }} else if (currentStyle === 'wire') {{
+                    model.setStyle({{}}, {{line: {{linewidth: 2, colorscheme: '{colorscheme}'}}}});
+                }} else {{ // bns
+                    model.setStyle({{}}, {{
+                        stick: {{radius: 0.16, colorscheme: '{colorscheme}'}},
+                        sphere: {{scale: 0.28, colorscheme: '{colorscheme}'}}
+                    }});
+                }}
+                viewer.render();
+            }}
+
+            window.setStyle = function(styleKey) {{
+                currentStyle = styleKey;
+                ['bns', 'stick', 'cpk', 'wire'].forEach(function(s) {{
+                    var el = document.getElementById('btn-' + s);
+                    if (el) el.classList.toggle('active', s === styleKey);
+                }});
+                applyCurrentStyle();
+            }};
+
+            window.toggleSurface = function() {{
+                showSurface = !showSurface;
+                var btn = document.getElementById('btn-surf');
+                if (btn) btn.classList.toggle('active', showSurface);
+
+                if (surfaceObj) {{
+                    viewer.removeSurface(surfaceObj);
+                    surfaceObj = null;
+                }}
+                if (showSurface) {{
+                    surfaceObj = viewer.addSurface($3Dmol.SurfaceType.VDW, {{opacity: 0.55, color: 'white'}});
+                }}
+                viewer.render();
+            }};
+
+            window.toggleChiral = function() {{
+                showChiral = !showChiral;
+                var btn = document.getElementById('btn-chiral');
+                if (btn) btn.classList.toggle('active-gold', showChiral);
+
+                chiralSpheres.forEach(function(s) {{ viewer.removeShape(s); }});
+                chiralSpheres = [];
+
+                if (showChiral && chiralIndices && chiralIndices.length > 0) {{
+                    var model = viewer.getModel();
+                    var atoms = model.selectedAtoms({{}});
+                    chiralIndices.forEach(function(idx) {{
+                        var at = atoms.find(function(a) {{ return (a.index === idx || a.serial === (idx + 1)); }});
+                        if (at) {{
+                            var s = viewer.addSphere({{
+                                center: {{x: at.x, y: at.y, z: at.z}},
+                                radius: 0.55,
+                                color: '#FFD60A',
+                                opacity: 0.65
+                            }});
+                            chiralSpheres.push(s);
+                        }}
+                    }});
+                    document.getElementById("status-text").innerHTML = "🌟 <b>Chiral Stereocenters Highlighted:</b> " + chiralIndices.length + " chiral carbon centers identified and marked with golden halos.";
+                }}
+                viewer.render();
+            }};
+
+            window.toggleMeasure = function() {{
+                measureMode = !measureMode;
+                selectedAtoms = [];
+                var btn = document.getElementById('btn-measure');
+                if (btn) btn.classList.toggle('active-gold', measureMode);
+
+                if (measureMode) {{
+                    document.getElementById("status-text").innerHTML = "📏 <b>Distance Measurement Active:</b> Click on any <b>first atom</b>, then click on a <b>second atom</b> to measure interatomic distance in Å.";
+                }} else {{
+                    measureObjects.forEach(function(obj) {{
+                        try {{ viewer.removeShape(obj); }} catch(e) {{}}
+                        try {{ viewer.removeLabel(obj); }} catch(e) {{}}
+                    }});
+                    measureObjects = [];
+                    document.getElementById("status-text").innerHTML = "💡 Distance measurement cleared. Returned to standard 3D atom inspection mode.";
+                    viewer.render();
+                }}
+            }};
+
+            window.toggleSpin = function() {{
+                isSpinning = !isSpinning;
+                var btn = document.getElementById('btn-spin');
+                if (btn) btn.classList.toggle('active', isSpinning);
+                viewer.spin(isSpinning);
+            }};
+
+            window.resetView = function() {{
+                viewer.zoomTo();
+                viewer.render();
+            }};
+        }})();
+    </script>
+</body>
+</html>"""
+    return html_content
+
+

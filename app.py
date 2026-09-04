@@ -903,22 +903,56 @@ else:
                     </div>
                     """, unsafe_allow_html=True)
 
-            # Column 2: 2D Chemical Molecule
+            # Column 2: 2D Chemical Molecule & 3D Interactive Conformer
             with col_img_mol:
-                img_b64 = get_image_base64(active_smiles)
-                img_tag = f'<img src="data:image/png;base64,{img_b64}" style="width:100%; height:200px; object-fit:contain;"/>' if img_b64 else '<p style="color:#666;">2D Structure</p>'
-                st.markdown(f"""
-                <div class="apple-card" style="padding:14px; text-align:center; height:100%;">
-                    <div style="background:#000000; border-radius:12px; padding:6px; height:200px; display:flex; align-items:center; justify-content:center;">
-                        {img_tag}
+                mol_view_mode = st.radio(
+                    "Projection:",
+                    ["2D Topology", "3D Conformer"],
+                    horizontal=True,
+                    key=f"mol_view_mode_{idx}",
+                    label_visibility="collapsed"
+                )
+                if mol_view_mode == "2D Topology":
+                    img_b64 = get_image_base64(active_smiles)
+                    img_tag = f'<img src="data:image/png;base64,{img_b64}" style="width:100%; height:195px; object-fit:contain;"/>' if img_b64 else '<p style="color:#666;">2D Structure</p>'
+                    st.markdown(f"""
+                    <div class="apple-card" style="padding:12px; text-align:center; height:100%;">
+                        <div style="background:#000000; border-radius:12px; padding:6px; height:195px; display:flex; align-items:center; justify-content:center;">
+                            {img_tag}
+                        </div>
+                        <div style="margin-top:8px;">
+                            <span class="apple-badge apple-badge-gold" style="font-size:11px;">{active_chemical_class}</span>
+                            <div style="font-weight:600; font-size:14px; margin-top:4px; color:#52B788;">{active_compound_name}</div>
+                            <div style="font-size:11px; color:#86868B;">CID: {row['PubChem CID']} • 2D Topology</div>
+                        </div>
                     </div>
-                    <div style="margin-top:12px;">
-                        <span class="apple-badge apple-badge-gold" style="font-size:11px;">{active_chemical_class}</span>
-                        <div style="font-weight:600; font-size:14px; margin-top:4px; color:#52B788;">{active_compound_name}</div>
-                        <div style="font-size:11px; color:#86868B;">CID: {row['PubChem CID']} • InChIKey</div>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                    """, unsafe_allow_html=True)
+                else:
+                    conf_3d_quick = inter_eng.generate_3d_conformer_analysis(active_smiles)
+                    if conf_3d_quick:
+                        v3d_html = inter_eng.build_standalone_ligand_3d_html(
+                            container_id=f"card3d_{idx}",
+                            mol_block=conf_3d_quick["mol_block"],
+                            style="ball_and_stick",
+                            height=195,
+                            auto_spin=True
+                        )
+                        st.markdown(f"""
+                        <div class="apple-card" style="padding:12px; text-align:center; height:100%;">
+                            <div style="background:#000000; border-radius:12px; height:195px; overflow:hidden;">
+                        """, unsafe_allow_html=True)
+                        components.html(v3d_html, height=195)
+                        st.markdown(f"""
+                            </div>
+                            <div style="margin-top:8px;">
+                                <span class="apple-badge apple-badge-blue" style="font-size:11px;">Interactive 3D WebGL</span>
+                                <div style="font-weight:600; font-size:14px; margin-top:4px; color:#64D2FF;">{active_compound_name}</div>
+                                <div style="font-size:11px; color:#86868B;">Drag to rotate • Scroll to zoom</div>
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    else:
+                        st.info("3D conformer embedding not available for this structure.")
 
             # Column 3: Classical & Target Details
             with col_details:
@@ -938,6 +972,67 @@ else:
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
+
+            # Dedicated 3D Stereochemical & Conformational Observation Studio
+            with st.expander(f"🔬 Advanced 3D Conformational & Stereochemical Inspector — {active_compound_name}", expanded=False):
+                st.markdown("""
+                <div style="font-size:0.86rem; color:#A1A1A6; margin-bottom:12px;">
+                    Energy-minimized 3D conformer generated via <b>RDKit ETKDGv3</b> distance geometry and <b>MMFF94 / UFF</b> forcefield optimization. Inspect 3D spatial conformation, chiral centers, Van der Waals volume, and electrostatic surface envelopes.
+                </div>
+                """, unsafe_allow_html=True)
+
+                conf_data = inter_eng.generate_3d_conformer_analysis(active_smiles)
+                if conf_data:
+                    col_insp_view, col_insp_metrics = st.columns([2.2, 1], gap="medium")
+                    
+                    with col_insp_view:
+                        col_c1, col_c2, col_c3, col_c4 = st.columns(4)
+                        with col_c1:
+                            c_style = st.selectbox("3D Style:", ["ball_and_stick", "stick", "sphere"], format_func=lambda x: {"ball_and_stick": "Ball & Stick", "stick": "Stick (Liquorice)", "sphere": "Space-Filling (VDW)"}[x], key=f"c_style_{idx}")
+                        with col_c2:
+                            c_surf = st.checkbox("VDW Surface", value=False, key=f"c_surf_{idx}")
+                        with col_c3:
+                            c_spin = st.checkbox("Auto-Spin", value=True, key=f"c_spin_{idx}")
+                        with col_c4:
+                            c_palette = st.selectbox("Palette:", ["cyanCarbon", "greenCarbon", "spectrum"], format_func=lambda x: {"cyanCarbon": "Cyan Carbon", "greenCarbon": "Green Neon", "spectrum": "Spectrum Element"}[x], key=f"c_palette_{idx}")
+                            
+                        large_3d_html = inter_eng.build_standalone_ligand_3d_html(
+                            container_id=f"studio_3d_{idx}",
+                            mol_block=conf_data["mol_block"],
+                            style=c_style,
+                            show_surface=c_surf,
+                            auto_spin=c_spin,
+                            height=380,
+                            colorscheme=c_palette
+                        )
+                        components.html(large_3d_html, height=385)
+                        
+                    with col_insp_metrics:
+                        st.markdown(f"""
+                        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px; font-size:12px; line-height:1.7;">
+                            <span style="font-weight:700; color:#64D2FF; font-size:13px;">3D Stereochemical Metrics:</span><br>
+                            • <b>Chiral Stereocenters:</b> <span style="color:#FFD60A; font-weight:700;">{conf_data['chiral_count']}</span><br>
+                            • <b>Van der Waals Volume:</b> <span style="color:#30D158; font-weight:700;">{conf_data['volume_a3']} Å³</span><br>
+                            • <b>Radius of Gyration (Rg):</b> <span style="color:#FFF; font-weight:700;">{conf_data['radius_of_gyration']} Å</span><br>
+                            • <b>Asphericity Factor:</b> <span style="color:#BF5AF2; font-weight:700;">{conf_data['asphericity']}</span> (0=Sphere, 1=Rod)<br>
+                            • <b>Heavy / Total Atoms:</b> {conf_data['heavy_atoms']} / {conf_data['total_atoms']}
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                        st.download_button(
+                            label="📥 Download 3D Conformer (.mol)",
+                            data=conf_data["mol_block"],
+                            file_name=f"{active_compound_name.replace(' ', '_')}_3D_conformer.mol",
+                            mime="chemical/x-mdl-molfile",
+                            key=f"dl_mol_3d_{idx}",
+                            use_container_width=True
+                        )
+                        
+                        if conf_data['chiral_count'] > 0:
+                            st.caption(f"Chiral stereocenters detected at atom indices: {', '.join([str(c[0]) for c in conf_data['chiral_centers']])}")
+                else:
+                    st.warning("Could not generate 3D conformer coordinates for this SMILES.")
+
 
             # Classical-to-Molecular Biophysical Translation Card
             energetics_data = energ_eng.get_energetics_profile(row['Common Name'])

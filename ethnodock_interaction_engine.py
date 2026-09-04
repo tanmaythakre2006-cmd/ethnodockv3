@@ -2,6 +2,8 @@ import math
 import pandas as pd
 import html
 import json
+from rdkit import Chem
+from rdkit.Chem import AllChem, Descriptors3D
 
 def extract_poses(pdbqt_file_path):
     """
@@ -262,3 +264,137 @@ def build_3dmol_html(container_id, receptor_data, ligand_data, interactions_df=N
     </html>
     """
     return html_content
+
+def generate_3d_conformer_analysis(smiles):
+    """
+    Generates an energy-minimized 3D conformer using RDKit ETKDGv3 and MMFF94/UFF forcefields,
+    and extracts geometric and stereochemical descriptors.
+    """
+    mol = Chem.MolFromSmiles(smiles)
+    if not mol:
+        return None
+    mol_h = Chem.AddHs(mol)
+    params = AllChem.ETKDGv3()
+    params.randomSeed = 42
+    res = AllChem.EmbedMolecule(mol_h, params)
+    if res != 0:
+        res = AllChem.EmbedMolecule(mol_h)
+    try:
+        AllChem.MMFFOptimizeMolecule(mol_h, maxIters=500)
+    except Exception:
+        try:
+            AllChem.UFFOptimizeMolecule(mol_h, maxIters=500)
+        except Exception:
+            pass
+            
+    mol_block = Chem.MolToMolBlock(mol_h)
+    chiral_centers = Chem.FindMolChiralCenters(mol, includeUnassigned=True)
+    
+    try:
+        vol = round(float(AllChem.ComputeMolVolume(mol_h)), 1)
+    except Exception:
+        vol = 0.0
+    try:
+        rg = round(float(Descriptors3D.RadiusOfGyration(mol_h)), 2)
+    except Exception:
+        rg = 0.0
+    try:
+        asph = round(float(Descriptors3D.Asphericity(mol_h)), 3)
+    except Exception:
+        asph = 0.0
+        
+    return {
+        "mol_block": mol_block,
+        "heavy_atoms": mol.GetNumHeavyAtoms(),
+        "total_atoms": mol_h.GetNumAtoms(),
+        "chiral_centers": chiral_centers,
+        "chiral_count": len(chiral_centers),
+        "volume_a3": vol,
+        "radius_of_gyration": rg,
+        "asphericity": asph
+    }
+
+def build_standalone_ligand_3d_html(container_id, mol_block, style='ball_and_stick', show_surface=False, auto_spin=True, height=200, bg_color='0x000000', colorscheme='cyanCarbon'):
+    """
+    Constructs an interactive 3D WebGL viewer using 3Dmol.js specifically for
+    standalone chemical ligand conformer observation and stereochemical analysis.
+    """
+    mol_json = json.dumps(mol_block)
+    auto_spin_js = "true" if auto_spin else "false"
+    
+    if style == 'stick':
+        style_js = f"viewer.setStyle({{}}, {{stick: {{radius: 0.22, colorscheme: '{colorscheme}'}}}});"
+    elif style == 'sphere':
+        style_js = f"viewer.setStyle({{}}, {{sphere: {{scale: 0.85, colorscheme: '{colorscheme}'}}}});"
+    else: # ball_and_stick
+        style_js = f"viewer.setStyle({{}}, {{stick: {{radius: 0.16, colorscheme: '{colorscheme}'}}, sphere: {{scale: 0.28, colorscheme: '{colorscheme}'}}}});"
+        
+    surface_js = "viewer.addSurface($3Dmol.SurfaceType.VDW, {opacity: 0.55, color: 'white'});" if show_surface else ""
+    
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <style>
+        body, html {{ margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000000; }}
+        #viewer-wrapper {{ width: 100%; height: {height}px; position: relative; border-radius: 10px; }}
+        #ctrl-overlay {{ position: absolute; bottom: 8px; right: 8px; z-index: 10; display: flex; gap: 6px; }}
+        .ctrl-btn {{ background: rgba(15, 23, 42, 0.85); color: #94A3B8; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 3px 8px; font-size: 10px; cursor: pointer; font-family: -apple-system, sans-serif; }}
+        .ctrl-btn:hover {{ background: rgba(30, 41, 59, 0.95); color: #FFF; }}
+    </style>
+</head>
+<body>
+    <div id="viewer-wrapper">
+        <div id="{container_id}" style="width: 100%; height: 100%;"></div>
+        <div id="ctrl-overlay">
+            <button class="ctrl-btn" onclick="toggleSpin()">Spin</button>
+            <button class="ctrl-btn" onclick="resetView()">Reset</button>
+        </div>
+    </div>
+    <script>
+        (function() {{
+            var molData = {mol_json};
+            var isSpinning = {auto_spin_js};
+            var viewerInstance = null;
+            var initCount = 0;
+
+            var timer = setInterval(function() {{
+                initCount++;
+                if (typeof $3Dmol !== 'undefined') {{
+                    clearInterval(timer);
+                    var element = document.getElementById("{container_id}");
+                    var viewer = $3Dmol.createViewer(element, {{defaultcolors: $3Dmol.rasmolElementColors}});
+                    viewerInstance = viewer;
+                    viewer.setBackgroundColor({bg_color});
+
+                    if (molData && molData.trim().length > 0) {{
+                        viewer.addModel(molData, "mol");
+                        {style_js}
+                        {surface_js}
+                    }}
+
+                    viewer.zoomTo();
+                    viewer.render();
+                    if (isSpinning) {{
+                        viewer.spin(true);
+                    }}
+
+                    window.toggleSpin = function() {{
+                        isSpinning = !isSpinning;
+                        viewerInstance.spin(isSpinning);
+                    }};
+                    window.resetView = function() {{
+                        viewerInstance.zoomTo();
+                        viewerInstance.render();
+                    }};
+                }} else if (initCount > 50) {{
+                    clearInterval(timer);
+                }}
+            }}, 100);
+        }})();
+    </script>
+</body>
+</html>"""
+    return html_content
+

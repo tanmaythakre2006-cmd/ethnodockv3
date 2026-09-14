@@ -46,7 +46,11 @@ def generate_tcm_dossier_html(
     mmgbsa_chart_b64=None,
     var_mmgbsa_data=None,
     var_mmgbsa_chart_b64=None,
-    comp_hotspot_chart_b64=None
+    comp_hotspot_chart_b64=None,
+    targetome_results=None,
+    network_results=None,
+    synergy_results=None,
+    microbiome_results=None
 ):
     """
     Generates an executive, publication-grade scientific research monograph
@@ -659,6 +663,203 @@ def generate_tcm_dossier_html(
         </div>
         """
 
+    
+    # =================================================================
+    # Section VI: Systems Network Pharmacology, Targetome & In-Vivo Profile
+    # (Conditionally synthesized ONLY when optional discovery tools were run)
+    # =================================================================
+    systems_html = ""
+    if targetome_results or network_results or synergy_results or microbiome_results:
+        sub_sections = []
+        
+        # 1. Targetome Profiling
+        if targetome_results and targetome_results.get("targets"):
+            top_t = targetome_results["primary_target"]
+            t_rows = []
+            for t in targetome_results["targets"]:
+                t_rows.append(f"""
+                <tr>
+                    <td><strong>{html.escape(t['gene'])}</strong></td>
+                    <td>{html.escape(t['name'])}</td>
+                    <td><span class="badge badge-blue">{html.escape(t['category'])}</span></td>
+                    <td style="font-weight:700; color:{t['tier_color']};">{t['affinity_kcal']} kcal/mol</td>
+                    <td><code>{html.escape(t['estimated_ki'])}</code></td>
+                    <td>{html.escape(t['ref_drug'])} ({t['ref_affinity']} kcal/mol)</td>
+                    <td>{html.escape(t['clinical_implication'])}</td>
+                </tr>
+                """)
+            targetome_block = f"""
+            <div style="margin-bottom:24px;">
+                <h4 style="margin:0 0 8px 0; font-size:14px; color:#0F172A;">🎯 Pan-Proteome Targetome Selectivity Screen (10 Core Disease Cascades)</h4>
+                <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:12px 16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <b style="color:#166534;">Primary High-Affinity On-Target Identified:</b> <span style="font-weight:700; color:#0F172A;">{html.escape(top_t['gene'])} ({html.escape(top_t['name'])})</span><br>
+                        <span style="font-size:12px; color:#475569;">Predicted Free Energy: <b>{top_t['affinity_kcal']} kcal/mol</b> | Est. K<sub>i</sub>: <b>{html.escape(top_t['estimated_ki'])}</b> | Classification: <b>{html.escape(targetome_results['polypharmacology_class'])}</b></span>
+                    </div>
+                    <span class="badge badge-green">HIGH ON-TARGET SELECTIVITY</span>
+                </div>
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Target Gene</th>
+                                <th>Protein Name</th>
+                                <th>Disease Category</th>
+                                <th>Predicted &Delta;G</th>
+                                <th>Est. K<sub>i</sub></th>
+                                <th>Reference Benchmark</th>
+                                <th>Therapeutic Mechanism</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {''.join(t_rows)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            """
+            sub_sections.append(targetome_block)
+
+        # 2. Systems Network Pharmacology & Hub Bottlenecks
+        if network_results and network_results.get("nodes"):
+            hubs = [n for n in network_results["nodes"] if n.get("is_hub")]
+            hub_rows = []
+            for h in hubs:
+                hub_rows.append(f"""
+                <tr>
+                    <td><strong>{html.escape(h['label'])}</strong></td>
+                    <td><span class="badge badge-purple">{html.escape(h['type'])}</span></td>
+                    <td><b>{h['degree']}</b> interactions</td>
+                    <td><code>{h['betweenness']}</code></td>
+                    <td><span class="badge badge-green">CRITICAL HUB BOTTLENECK</span></td>
+                </tr>
+                """)
+            network_block = f"""
+            <div style="margin-bottom:24px;">
+                <h4 style="margin:0 0 8px 0; font-size:14px; color:#0F172A;">🕸️ Systems Network Biology: Topological Centrality & Bottleneck Identification</h4>
+                <p style="margin:0 0 10px 0; font-size:13px; color:#64748B;">
+                    Bipartite network modeled across <b>{network_results.get('total_nodes', 0)} biological nodes</b> and <b>{network_results.get('total_edges', 0)} multi-target regulatory interactions</b>.
+                    Nodes with top degree and betweenness centrality represent critical regulatory bottlenecks where botanical modulation prevents disease escape.
+                </p>
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Network Node</th>
+                                <th>Biological Entity Type</th>
+                                <th>Degree Centrality (Connectivity)</th>
+                                <th>Betweenness Centrality (Information Flow)</th>
+                                <th>Systems Biology Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {''.join(hub_rows)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            """
+            sub_sections.append(network_block)
+
+        # 3. Botanical Synergism Calculator
+        if synergy_results and synergy_results.get("ci"):
+            ci_val = synergy_results["ci"]
+            syn_block = f"""
+            <div style="margin-bottom:24px;">
+                <h4 style="margin:0 0 8px 0; font-size:14px; color:#0F172A;">⚡ Multi-Constituent Synergism Analysis (Chou-Talalay Combination Index)</h4>
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px 18px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#0F172A;">Calculated Combination Index (CI):</span>
+                        <span class="badge badge-green" style="font-size:13px; font-weight:800; padding:4px 10px;">CI = {ci_val:.2f} &bull; {html.escape(synergy_results['classification'])}</span>
+                    </div>
+                    <p style="margin:0 0 6px 0; font-size:12.5px; color:#475569; line-height:1.6;">
+                        <b>Synergistic Mechanism:</b> {html.escape(synergy_results.get('explanation', ''))}
+                    </p>
+                    <div style="font-size:12px; color:#0A84FF; font-weight:600;">
+                        Cascade Coverage: {html.escape(synergy_results.get('pathway_coverage', ''))}
+                    </div>
+                </div>
+            </div>
+            """
+            sub_sections.append(syn_block)
+
+        # 4. Microbiome Biotransformation
+        if microbiome_results and microbiome_results.get("is_prodrug"):
+            mb = microbiome_results
+            mb_block = f"""
+            <div style="margin-bottom:12px;">
+                <h4 style="margin:0 0 8px 0; font-size:14px; color:#0F172A;">🧪 In-Vivo Human Gut Microbiota Biotransformation (Prodrug Activation Cascade)</h4>
+                <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:14px 18px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="font-size:13px; font-weight:700; color:#92400E;">Enzymatic Cleavage & Bioactivation:</span>
+                        <span class="badge badge-gold">IN-VIVO BIOACTIVATION ACTIVE</span>
+                    </div>
+                    <div class="table-container" style="margin-top:8px;">
+                        <table class="report-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Ingested Plant Prodrug (Raw)</th>
+                                    <th>Circulating Human Metabolite (Active)</th>
+                                    <th>In-Vivo Pharmacokinetic Delta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Chemical Identity</strong></td>
+                                    <td>{html.escape(mb['ingested_scaffold'])}</td>
+                                    <td><b style="color:#059669;">{html.escape(mb['circulating_metabolite'])}</b></td>
+                                    <td>Deglycosylation & Aglycone Release</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Molecular Weight (MW)</strong></td>
+                                    <td>{mb['raw_mw']} g/mol</td>
+                                    <td>{mb['act_mw']} g/mol</td>
+                                    <td><span class="badge badge-blue">{mb['act_mw'] - mb['raw_mw']:+.1f} g/mol</span> (Permeable Cavity Size)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Lipophilicity (cLogP)</strong></td>
+                                    <td>{mb['raw_logp']}</td>
+                                    <td>{mb['act_logp']}</td>
+                                    <td><span class="badge badge-green">Hydrophobic Cavity Insertion</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Target Binding Affinity</strong></td>
+                                    <td>{mb['raw_affinity']} kcal/mol</td>
+                                    <td><b style="color:#059669;">{mb['act_affinity']} kcal/mol</b></td>
+                                    <td><span class="badge badge-green">{mb['delta_affinity']:+.2f} kcal/mol</span> Affinity Boost</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Caco-2 Intestinal Permeability</strong></td>
+                                    <td>{html.escape(mb['permeability_raw_papp'])}</td>
+                                    <td><b style="color:#059669;">{html.escape(mb['permeability_active_papp'])}</b></td>
+                                    <td><span class="badge badge-green">Rapid Passive Absorption</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin:10px 0 0 0; font-size:12px; color:#78350F; line-height:1.5;">
+                        <b>Commensal Microflora Engine:</b> {html.escape(mb['bacterial_enzyme'])}. {html.escape(mb['in_vivo_pk_note'])}
+                    </p>
+                </div>
+            </div>
+            """
+            sub_sections.append(mb_block)
+
+        systems_html = f"""
+        <div class="section-card" style="border:1px solid #DDD6FE; background:#FAF5FF;">
+            <div class="section-title">
+                <span style="color:#6D28D9;">🌐 Section VI: Systems Network Pharmacology, Targetome & In-Vivo Discovery Profile</span>
+                <span class="badge badge-purple">STAGE 06 EXTENSION</span>
+            </div>
+            <p style="margin:0 0 16px 0; font-size:13px; color:#6B21A8;">
+                Comprehensive multi-target discovery profiling assessing polypharmacological targetome selectivity,
+                interactome hub bottlenecks, multi-constituent combination synergism, and gut microbiome in-vivo activation.
+            </p>
+            {''.join(sub_sections)}
+        </div>
+        """
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1075,6 +1276,9 @@ def generate_tcm_dossier_html(
 
         <!-- 7. Bioisostere Lead Optimization (Stage 04 Comparative Lead Matrix) -->
         {variant_html}
+
+        <!-- Systems Network Pharmacology & Targetome Profile (Optional Extension) -->
+        {systems_html}
 
         <!-- 7. ADMET Pharmacokinetics & PAINS -->
         <div class="section-card">

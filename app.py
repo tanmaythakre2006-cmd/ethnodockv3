@@ -44,6 +44,10 @@ import ethnodock_audit_engine as audit_eng
 importlib.reload(audit_eng)
 import ethnodock_benchmark_engine as bm
 importlib.reload(bm)
+import ethnodock_targetome_engine as targetome_eng
+importlib.reload(targetome_eng)
+import ethnodock_network_engine as network_eng
+importlib.reload(network_eng)
 import plotly.graph_objects as go
 
 # --- Page Configuration ---
@@ -2556,7 +2560,11 @@ else:
                             mmgbsa_chart_b64=st.session_state.get(f'mmgbsa_chart_{idx}'),
                             var_mmgbsa_data=st.session_state.get(f'var_mmgbsa_res_{idx}'),
                             var_mmgbsa_chart_b64=st.session_state.get(f'var_mmgbsa_chart_{idx}'),
-                            comp_hotspot_chart_b64=st.session_state.get(f'comp_hotspot_chart_{idx}')
+                            comp_hotspot_chart_b64=st.session_state.get(f'comp_hotspot_chart_{idx}'),
+                            targetome_results=st.session_state.get(f'targetome_res_{idx}'),
+                            network_results=st.session_state.get(f'network_res_{idx}'),
+                            synergy_results=st.session_state.get(f'synergy_res_{idx}'),
+                            microbiome_results=st.session_state.get(f'microbiome_res_{idx}')
                         )
 
                         # Comprehensive Open-Science Reproducibility Package (ZIP)
@@ -2616,3 +2624,264 @@ else:
                             )
                         with col_sig:
                             st.markdown("<div style='text-align:right; font-size:12px; color:#86868B;'>EthnoDock Pro • Verified Simulation & BibTeX</div>", unsafe_allow_html=True)
+
+                    # =========================================================
+                    # 🌌 STAGE 06: SYSTEMS NETWORK PHARMACOLOGY & TARGETOME STUDIO
+                    # (Strictly Optional Advanced Scientific Extension)
+                    # =========================================================
+                    st.markdown("<br><hr style='border-color:rgba(255,255,255,0.1); margin:32px 0;'><br>", unsafe_allow_html=True)
+                    st.markdown("""
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="apple-badge apple-badge-purple">Stage 06 &bull; Advanced Discovery</span>
+                            <h3 style="margin:0; font-size:1.25rem; font-weight:600; color:#FFFFFF;">🌐 Systems Network Pharmacology, Reverse Target Fishing & Synergy Studio</h3>
+                        </div>
+                        <span class="apple-badge apple-badge-gold">Optional Module</span>
+                    </div>
+                    <p style="margin:0 0 16px 0; font-size:13px; color:#86868B; line-height:1.5;">
+                        <b>Explore Systems-Level Ethnopharmacology:</b> Screen across the human pan-druggable proteome panel (10 disease targets),
+                        construct multi-target interactome graphs with hub centrality, compute botanical combination synergy (Chou-Talalay),
+                        and simulate in-vivo gut microbiota biotransformations.
+                        <br><span style="color:#A78BFA;">💡 <i>Optional Tool: Performing this stage is not required. If executed, results will be automatically appended to Section VI of your final monograph.</i></span>
+                    </p>
+                    """, unsafe_allow_html=True)
+
+                    tab_s6_targetome, tab_s6_network, tab_s6_synergy = st.tabs([
+                        "🎯 Reverse Target Fishing (Pan-Proteome)",
+                        "🕸️ Systems Network Biology & Hub Centrality",
+                        "⚡ Botanical Synergism & Microbiome Bioactivation"
+                    ])
+
+                    with tab_s6_targetome:
+                        st.markdown("""
+                        <div style="margin-bottom:12px;">
+                            <h4 style="margin:0 0 4px 0; font-size:14px; color:#F5F5F7;">🎯 Reverse Molecular Target Fishing (Pan-Proteome Selectivity Panel)</h4>
+                            <p style="margin:0; font-size:12.5px; color:#86868B;">
+                                Screens your active chemical entity across 10 validated human therapeutic targets spanning oncology, inflammation, virology, metabolic syndrome, and cardiovascular disease to identify primary on-target mechanisms and potential off-target liabilities.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        col_tf_input, col_tf_btn = st.columns([2, 1], vertical_alignment="bottom")
+                        with col_tf_input:
+                            comp_options = [f"Natural Phytochemical: {active_compound_name}"]
+                            if variants and 'chosen_var' in locals():
+                                comp_options.append(f"Optimized Derivative: {chosen_var['name']}")
+                            sel_comp_label = st.selectbox("Select Chemical Entity to Profile:", comp_options, key=f"tf_comp_sel_{idx}")
+                            
+                            is_var_profile = "Optimized Derivative" in sel_comp_label
+                            active_tf_smiles = chosen_var['variant_smiles'] if (is_var_profile and 'chosen_var' in locals()) else smiles
+                            active_tf_name = chosen_var['name'] if (is_var_profile and 'chosen_var' in locals()) else active_compound_name
+
+                        with col_tf_btn:
+                            run_tf = st.button("🚀 Run Pan-Proteome Target Fishing", key=f"btn_run_tf_{idx}", use_container_width=True)
+
+                        if run_tf:
+                            with st.spinner(f"Screening {active_tf_name} across 10 human therapeutic target cavities..."):
+                                tf_results = targetome_eng.profile_targetome(active_tf_smiles, active_tf_name)
+                                st.session_state[f'targetome_res_{idx}'] = tf_results
+                                st.success("Pan-Proteome Target Fishing profiling completed!")
+
+                        curr_tf = st.session_state.get(f'targetome_res_{idx}')
+                        if curr_tf:
+                            top_hit = curr_tf['primary_target']
+                            st.markdown(f"""
+                            <div class="apple-card" style="padding:16px 20px; margin:14px 0; border:1px solid rgba(48,209,88,0.3); background:rgba(48,209,88,0.06);">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div>
+                                        <span class="apple-badge apple-badge-green">Primary High-Affinity On-Target</span>
+                                        <h3 style="margin:6px 0 2px 0; font-size:18px; color:#FFFFFF;">{top_hit['gene']} &bull; {top_hit['name']}</h3>
+                                        <p style="margin:0; font-size:12px; color:#A1A1A6;">Category: <b>{top_hit['category']}</b> &bull; Pocket: {top_hit['pocket_type']}</p>
+                                    </div>
+                                    <div style="text-align:right;">
+                                        <div style="font-size:24px; font-weight:800; color:#30D158;">{top_hit['affinity_kcal']} <span style="font-size:13px; font-weight:400;">kcal/mol</span></div>
+                                        <div style="font-size:12px; color:#86868B;">Est. K<sub>i</sub>: <b>{top_hit['estimated_ki']}</b></div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; color:#D1D1D6;">
+                                    <b>Selectivity Assessment:</b> {curr_tf['polypharmacology_description']}
+                                </div>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                            col_rdr, col_bar = st.columns([1, 1], gap="medium")
+                            with col_rdr:
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin-bottom:4px;'>Targetome Polar Radar Profile</div>", unsafe_allow_html=True)
+                                fig_radar = targetome_eng.render_targetome_radar(curr_tf)
+                                st.plotly_chart(fig_radar, use_container_width=True)
+                            with col_bar:
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin-bottom:4px;'>Ranked Binding Free Energy Affinity (\u0394G)</div>", unsafe_allow_html=True)
+                                fig_bar = targetome_eng.render_targetome_bar(curr_tf)
+                                st.plotly_chart(fig_bar, use_container_width=True)
+
+                            # Interactive Targetome Data Table
+                            st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin:12px 0 6px 0;'>Pan-Proteome Binding Affinity Matrix</div>", unsafe_allow_html=True)
+                            tf_df_data = []
+                            for t in curr_tf['targets']:
+                                tf_df_data.append({
+                                    "Target Gene": t['gene'],
+                                    "Protein Name": t['name'],
+                                    "Disease Category": t['category'],
+                                    "Predicted ΔG (kcal/mol)": t['affinity_kcal'],
+                                    "Est. Ki": t['estimated_ki'],
+                                    "Reference Drug": f"{t['ref_drug']} ({t['ref_affinity']} kcal/mol)",
+                                    "ΔΔG vs Ref": f"{t['affinity_delta']:+.2f} kcal/mol",
+                                    "Potency Tier": t['potency_tier']
+                                })
+                            st.dataframe(pd.DataFrame(tf_df_data), use_container_width=True, hide_index=True)
+
+                    with tab_s6_network:
+                        st.markdown("""
+                        <div style="margin-bottom:12px;">
+                            <h4 style="margin:0 0 4px 0; font-size:14px; color:#F5F5F7;">🕸️ Systems Network Pharmacology & Topological Hub Centrality</h4>
+                            <p style="margin:0; font-size:12.5px; color:#86868B;">
+                                Maps the multi-tier regulatory interactome: <b>Botanical Source ──► Phytochemical Constituents ──► Molecular Targets ──► KEGG Disease Pathways</b>. Computes Degree and Betweenness Centrality to pinpoint critical therapeutic bottleneck nodes.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        if st.button("🕸️ Build Botanical Systems Interactome Graph", key=f"btn_build_net_{idx}", use_container_width=False):
+                            with st.spinner("Extracting bioactive constituents and constructing topological network..."):
+                                net_data = network_eng.extract_herb_network(row['Common Name'], row['Botanical Name'], [active_compound_name])
+                                st.session_state[f'network_res_{idx}'] = net_data
+                                st.success("Topological network interactome constructed!")
+
+                        curr_net = st.session_state.get(f'network_res_{idx}')
+                        if curr_net:
+                            fig_net = network_eng.render_network_graph(curr_net)
+                            st.plotly_chart(fig_net, use_container_width=True)
+
+                            col_n1, col_n2, col_n3 = st.columns(3, gap="small")
+                            with col_n1:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:11px; color:#86868B;">TOTAL NETWORK NODES</div>
+                                    <div style="font-size:22px; font-weight:700; color:#FFD60A; margin:4px 0;">{curr_net['total_nodes']}</div>
+                                    <div style="font-size:11px; color:#30D158;">{curr_net['total_edges']} Regulatory Edges</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with col_n2:
+                                hubs_count = sum(1 for n in curr_net['nodes'] if n.get('is_hub'))
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:11px; color:#86868B;">CRITICAL HUB BOTTLENECKS</div>
+                                    <div style="font-size:22px; font-weight:700; color:#30D158; margin:4px 0;">{hubs_count}</div>
+                                    <div style="font-size:11px; color:#86868B;">High Degree + Betweenness</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with col_n3:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:11px; color:#86868B;">ENRICHED PATHWAYS</div>
+                                    <div style="font-size:22px; font-weight:700; color:#BF5AF2; margin:4px 0;">{curr_net['num_pathways']}</div>
+                                    <div style="font-size:11px; color:#86868B;">KEGG Disease Cascades</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                            # Hub Centrality Table
+                            st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin:14px 0 6px 0;'>Topological Centrality Analysis & Node Hierarchy</div>", unsafe_allow_html=True)
+                            net_table_data = []
+                            for n in curr_net['nodes']:
+                                net_table_data.append({
+                                    "Node Label": n['label'],
+                                    "Entity Type": n['type'],
+                                    "Degree (Connections)": n['degree'],
+                                    "Degree Centrality": n['degree_centrality'],
+                                    "Betweenness Centrality": n['betweenness'],
+                                    "Network Role": n.get('status', 'Active')
+                                })
+                            st.dataframe(pd.DataFrame(net_table_data), use_container_width=True, hide_index=True)
+
+                    with tab_s6_synergy:
+                        col_syn_left, col_syn_right = st.columns(2, gap="large")
+                        
+                        with col_syn_left:
+                            st.markdown("""
+                            <div style="margin-bottom:10px;">
+                                <span class="apple-badge apple-badge-green">Synergism Engine</span>
+                                <h4 style="margin:4px 0; font-size:14px; color:#F5F5F7;">⚡ Chou-Talalay Combination Index (CI)</h4>
+                                <p style="margin:0; font-size:12px; color:#86868B;">
+                                    Quantifies whether multiple phytochemical constituents in this herbal extract act synergistically (CI &lt; 0.8), additively (0.8–1.2), or antagonistically (&gt; 1.2).
+                                </p>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                            synergy_default_candidates = [active_compound_name, "Quercetin", "Kaempferol", "Ferulic Acid", "Beta-Sitosterol"]
+                            chosen_synergy_comps = st.multiselect(
+                                "Select Active Botanical Constituents for Cocktail:",
+                                synergy_default_candidates,
+                                default=synergy_default_candidates[:3],
+                                key=f"syn_comps_{idx}"
+                            )
+
+                            if st.button("⚡ Calculate Chou-Talalay Synergy Index", key=f"btn_calc_syn_{idx}", use_container_width=True):
+                                syn_res = network_eng.calculate_botanical_synergy(chosen_synergy_comps)
+                                st.session_state[f'synergy_res_{idx}'] = syn_res
+                                st.success("Synergy index computed!")
+
+                            curr_syn = st.session_state.get(f'synergy_res_{idx}')
+                            if curr_syn:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; margin-top:10px; border:1px solid rgba(48,209,88,0.3); background:rgba(48,209,88,0.06);">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-size:12px; color:#86868B;">Combination Index:</span>
+                                        <span class="apple-badge" style="background:rgba(48,209,88,0.2); color:#30D158; font-weight:700; font-size:14px;">CI = {curr_syn['ci']}</span>
+                                    </div>
+                                    <div style="font-weight:700; font-size:14px; color:#FFFFFF; margin-top:6px;">{curr_syn['classification']}</div>
+                                    <p style="font-size:12px; color:#A1A1A6; margin:6px 0 0 0; line-height:1.5;">{curr_syn['explanation']}</p>
+                                    <div style="font-size:11px; color:#0A84FF; margin-top:8px; font-weight:600;">{curr_syn['pathway_coverage']}</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                        with col_syn_right:
+                            st.markdown("""
+                            <div style="margin-bottom:10px;">
+                                <span class="apple-badge apple-badge-gold">Microbiome Fate</span>
+                                <h4 style="margin:4px 0; font-size:14px; color:#F5F5F7;">🧪 In-Vivo Gut Microbiota Biotransformation</h4>
+                                <p style="margin:0; font-size:12px; color:#86868B;">
+                                    Simulates human intestinal deglycosylation of natural glycosides/saponins into lipophilic, high-affinity circulating aglycone metabolites.
+                                </p>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                            mb_check = micro_eng.get_microbiome_data(active_compound_name)
+                            if mb_check:
+                                st.markdown(f"""
+                                <div style="background:rgba(255,214,10,0.08); border:1px solid rgba(255,214,10,0.25); border-radius:8px; padding:10px 14px; margin-bottom:10px; font-size:12px;">
+                                    <b style="color:#FFD60A;">In-Vivo Prodrug Detected:</b> {active_compound_name} is cleaved by <b>{mb_check['bacterial_enzyme']}</b> into <b>{mb_check['circulating_metabolite']}</b>.
+                                </div>
+                                """, unsafe_allow_html=True)
+                            else:
+                                st.markdown(f"""
+                                <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px 14px; margin-bottom:10px; font-size:12px; color:#86868B;">
+                                    <b>Direct Aglycone Profile:</b> {active_compound_name} acts directly or exhibits standard metabolic clearance.
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                            if st.button("🧪 Simulate Gut Microbiome Conversion", key=f"btn_calc_mb_{idx}", use_container_width=True):
+                                mb_res = micro_eng.simulate_microbiome_conversion(active_compound_name, row['Protein Target'])
+                                if mb_res:
+                                    st.session_state[f'microbiome_res_{idx}'] = mb_res
+                                    st.success("In-vivo microbiome conversion biophysics simulated!")
+                                else:
+                                    st.info(f"{active_compound_name} is already a free aglycone or lacks canonical colonic cleavage.")
+
+                            curr_mb = st.session_state.get(f'microbiome_res_{idx}')
+                            if curr_mb:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; margin-top:10px; border:1px solid rgba(255,214,10,0.3); background:rgba(255,214,10,0.06);">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-size:12px; color:#FFD60A; font-weight:700;">In-Vivo Bioactivation Gain:</span>
+                                        <span class="apple-badge apple-badge-green">{curr_mb['delta_affinity']:+.2f} kcal/mol</span>
+                                    </div>
+                                    <div style="font-size:13px; color:#FFFFFF; margin-top:6px;">
+                                        <b>Ingested:</b> {curr_mb['ingested_scaffold']}<br>
+                                        <b>Circulating Active:</b> <span style="color:#30D158;">{curr_mb['circulating_metabolite']}</span>
+                                    </div>
+                                    <div style="margin-top:8px; font-size:11.5px; color:#D1D1D6; line-height:1.4;">
+                                        <b>Permeability Shift:</b> {curr_mb['permeability_active_papp']}<br>
+                                        <b>Molecular Weight:</b> {curr_mb['raw_mw']} &rarr; {curr_mb['act_mw']} g/mol
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+

@@ -50,7 +50,8 @@ def generate_tcm_dossier_html(
     targetome_results=None,
     network_results=None,
     synergy_results=None,
-    microbiome_results=None
+    microbiome_results=None,
+    population_results=None
 ):
     """
     Generates an executive, publication-grade scientific research monograph
@@ -669,7 +670,7 @@ def generate_tcm_dossier_html(
     # (Conditionally synthesized ONLY when optional discovery tools were run)
     # =================================================================
     systems_html = ""
-    if targetome_results or network_results or synergy_results or microbiome_results:
+    if targetome_results or network_results or synergy_results or microbiome_results or population_results:
         sub_sections = []
         
         # 1. Targetome Profiling
@@ -845,6 +846,109 @@ def generate_tcm_dossier_html(
             </div>
             """
             sub_sections.append(mb_block)
+
+        
+        # 5. In-Silico Clinical Trials & Population Pharmacogenomics
+        if population_results and population_results.get("overall_responder_rate") is not None:
+            pop = population_results
+            demo_rows = []
+            for d in pop.get("demographic_breakdown", []):
+                demo_rows.append(f"""
+                <tr>
+                    <td><b style="color:#1E293B;">{html.escape(d['cohort'])}</b></td>
+                    <td>{d['n_subjects']} subjects</td>
+                    <td style="font-weight:700; color:{'#16A34A' if d['responder_rate'] >= 75.0 else '#2563EB'};">{d['responder_rate']}%</td>
+                    <td>{d['mean_ro']}%</td>
+                    <td><span class="badge {'badge-green' if d['responder_rate'] >= 75.0 else 'badge-blue'}">{'HIGH RESPONSE' if d['responder_rate'] >= 75.0 else 'MODERATE'}</span></td>
+                </tr>
+                """)
+
+            variant_rows = []
+            for v in pop.get("variant_breakdown", []):
+                variant_rows.append(f"""
+                <tr>
+                    <td><strong>{html.escape(v['variant'])}</strong></td>
+                    <td><span class="badge badge-purple">{html.escape(v['mutation_type'])}</span></td>
+                    <td><code>{v['delta_delta_g']:+.2f} kcal/mol</code></td>
+                    <td><b>{v['responder_rate']}%</b></td>
+                    <td>{html.escape(v['description'])}</td>
+                </tr>
+                """)
+
+            pop_block = f"""
+            <div style="margin-bottom:14px; margin-top:20px; border-top:1px dashed #DDD6FE; padding-top:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <div>
+                        <h4 style="margin:0 0 4px 0; font-size:14px; color:#0F172A;">👥 In-Silico Clinical Trial & Population Pharmacogenomics (FDA Modernization Act 2.0)</h4>
+                        <span style="font-size:12px; color:#6B21A8;">Simulated Cohort: <b>N = {pop['n_patients']} Virtual Patients</b> &bull; Target: <b>{html.escape(pop['target_gene'])} ({html.escape(pop['target_name'])})</b> &bull; Regimen: <b>{pop['dose_mg']} mg BID</b></span>
+                    </div>
+                    <span class="badge {pop['fda_badge_cls']}" style="font-size:12px; padding:4px 10px;">{html.escape(pop['fda_tier'])}</span>
+                </div>
+
+                <!-- Efficacy Metric Scorecards -->
+                <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin:12px 0;">
+                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10.5px; color:#64748B;">COHORT RESPONDER RATE</div>
+                        <div style="font-size:20px; font-weight:800; color:#16A34A; margin:2px 0;">{pop['overall_responder_rate']}%</div>
+                        <div style="font-size:10px; color:#475569;">Target RO &ge; 75%</div>
+                    </div>
+                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10.5px; color:#64748B;">MEAN OCCUPANCY</div>
+                        <div style="font-size:20px; font-weight:800; color:#2563EB; margin:2px 0;">{pop['mean_ro']}%</div>
+                        <div style="font-size:10px; color:#475569;">Steady-State Free RO</div>
+                    </div>
+                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10.5px; color:#64748B;">TARGET SATURATION</div>
+                        <div style="font-size:20px; font-weight:800; color:#9333EA; margin:2px 0;">{pop['saturation_rate']}%</div>
+                        <div style="font-size:10px; color:#475569;">Full Saturation (RO &ge; 90%)</div>
+                    </div>
+                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10.5px; color:#64748B;">INTER-PATIENT CV</div>
+                        <div style="font-size:20px; font-weight:800; color:#EA580C; margin:2px 0;">&plusmn;30%</div>
+                        <div style="font-size:10px; color:#475569;">Clearance Variance</div>
+                    </div>
+                </div>
+
+                <!-- Demographic Sensitivity Breakdown Table -->
+                <div class="table-container" style="margin-top:12px;">
+                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Ancestral Demographic Sensitivity (Stratified Trial Cohorts)</div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Demographic Cohort</th>
+                                <th>Sample Size</th>
+                                <th>Responder Rate (% with RO &ge; 75%)</th>
+                                <th>Mean Target Occupancy</th>
+                                <th>Clinical Response Tier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {''.join(demo_rows)}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Allelic Pocket Variants Table -->
+                <div class="table-container" style="margin-top:12px;">
+                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Receptor Pocket Missense Polymorphisms (gnomAD Population Variants)</div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Allelic Variant</th>
+                                <th>Classification</th>
+                                <th>&Delta;&Delta;G Affinity Shift</th>
+                                <th>Variant Responder Rate</th>
+                                <th>Pharmacogenomic Mechanism</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {''.join(variant_rows)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            """
+            sub_sections.append(pop_block)
 
         systems_html = f"""
         <div class="section-card" style="border:1px solid #DDD6FE; background:#FAF5FF;">

@@ -48,6 +48,8 @@ import ethnodock_targetome_engine as targetome_eng
 importlib.reload(targetome_eng)
 import ethnodock_network_engine as network_eng
 importlib.reload(network_eng)
+import ethnodock_population_engine as pop_eng
+importlib.reload(pop_eng)
 import plotly.graph_objects as go
 
 # --- Page Configuration ---
@@ -2564,7 +2566,8 @@ else:
                             targetome_results=st.session_state.get(f'targetome_res_{idx}'),
                             network_results=st.session_state.get(f'network_res_{idx}'),
                             synergy_results=st.session_state.get(f'synergy_res_{idx}'),
-                            microbiome_results=st.session_state.get(f'microbiome_res_{idx}')
+                            microbiome_results=st.session_state.get(f'microbiome_res_{idx}'),
+                            population_results=st.session_state.get(f'population_res_{idx}')
                         )
 
                         # Comprehensive Open-Science Reproducibility Package (ZIP)
@@ -2646,10 +2649,11 @@ else:
                     </p>
                     """, unsafe_allow_html=True)
 
-                    tab_s6_targetome, tab_s6_network, tab_s6_synergy = st.tabs([
+                    tab_s6_targetome, tab_s6_network, tab_s6_synergy, tab_s6_pop = st.tabs([
                         "🎯 Reverse Target Fishing (Pan-Proteome)",
                         "🕸️ Systems Network Biology & Hub Centrality",
-                        "⚡ Botanical Synergism & Microbiome Bioactivation"
+                        "⚡ Botanical Synergism & Microbiome Bioactivation",
+                        "👥 In-Silico Clinical Trial (Virtual Population N=1,000)"
                     ])
 
                     with tab_s6_targetome:
@@ -2884,4 +2888,128 @@ else:
                                     </div>
                                 </div>
                                 """, unsafe_allow_html=True)
+
+                    with tab_s6_pop:
+                        st.markdown("""
+                        <div style="margin-bottom:12px;">
+                            <span class="apple-badge apple-badge-purple">Precision Pharmacogenomics</span>
+                            <h4 style="margin:4px 0; font-size:14px; color:#F5F5F7;">👥 In-Silico Clinical Trial: Virtual Human Population (N = 1,000 Subjects)</h4>
+                            <p style="margin:0; font-size:12.5px; color:#86868B; line-height:1.5;">
+                                Evaluates therapeutic efficacy across a stochastically generated virtual human cohort incorporating ancestral pocket polymorphisms
+                                (gnomAD missense variants), inter-individual clearance variance (&plusmn;30%), plasma protein binding (<i>f<sub>u</sub></i>), and CYP metabolizer phenotypes.
+                                Aligned with the <b>FDA Modernization Act 2.0</b> guidelines for non-animal in-silico trials.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        col_pop_c1, col_pop_c2, col_pop_c3, col_pop_btn = st.columns([1.5, 1.2, 1.2, 1.5], vertical_alignment="bottom")
+                        
+                        with col_pop_c1:
+                            pop_comp_opts = [f"Natural: {active_compound_name}"]
+                            if variants and 'chosen_var' in locals():
+                                pop_comp_opts.append(f"Derivative: {chosen_var['name']}")
+                            sel_pop_comp = st.selectbox("Select Lead Compound:", pop_comp_opts, key=f"pop_comp_sel_{idx}")
+                            is_var_pop = "Derivative" in sel_pop_comp
+                            active_pop_smiles = chosen_var['variant_smiles'] if (is_var_pop and 'chosen_var' in locals()) else smiles
+                            active_pop_name = chosen_var['name'] if (is_var_pop and 'chosen_var' in locals()) else active_compound_name
+
+                        with col_pop_c2:
+                            pop_targets = ['EGFR', 'PTGS2', 'PPARG', 'ACE2', '3CLpro']
+                            default_tgt_idx = 0
+                            # Auto-match row target if recognized
+                            for ti, tg in enumerate(pop_targets):
+                                if tg in row['Protein Target'] or tg in row['Common Name']:
+                                    default_tgt_idx = ti
+                                    break
+                            chosen_pop_target = st.selectbox("Target Gene (Allelic Library):", pop_targets, index=default_tgt_idx, key=f"pop_tgt_{idx}")
+
+                        with col_pop_c3:
+                            pop_dose = st.slider("Dose (mg BID):", min_value=50, max_value=500, value=200, step=25, key=f"pop_dose_{idx}")
+
+                        with col_pop_btn:
+                            run_pop_trial = st.button("🚀 Run Trial (N=1,000 Patients)", key=f"btn_pop_trial_{idx}", use_container_width=True)
+
+                        if run_pop_trial:
+                            with st.spinner(f"Simulating Monte Carlo clinical trial across 1,000 virtual subjects for {active_pop_name}..."):
+                                pop_aff = selected_pose_data['Affinity (kcal/mol)'] if not is_var_pop else locals().get('var_best_aff', -8.5)
+                                pop_trial_res = pop_eng.simulate_virtual_cohort(
+                                    compound_name=active_pop_name,
+                                    smiles=active_pop_smiles,
+                                    target_gene=chosen_pop_target,
+                                    base_affinity_kcal=pop_aff,
+                                    dose_mg=pop_dose,
+                                    n_patients=1000
+                                )
+                                st.session_state[f'population_res_{idx}'] = pop_trial_res
+                                st.success("In-Silico Clinical Trial converged across 1,000 virtual patients!")
+
+                        curr_pop = st.session_state.get(f'population_res_{idx}')
+                        if curr_pop:
+                            col_pk1, col_pk2, col_pk3, col_pk4 = st.columns(4, gap="small")
+                            with col_pk1:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:11px; color:#86868B;">OVERALL RESPONDER RATE</div>
+                                    <div style="font-size:24px; font-weight:800; color:#30D158; margin:2px 0;">{curr_pop['overall_responder_rate']}%</div>
+                                    <div style="font-size:10.5px; color:#86868B;">RO &ge; 75% Target Efficacy</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with col_pk2:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:11px; color:#86868B;">MEAN POPULATION RO</div>
+                                    <div style="font-size:24px; font-weight:800; color:#0A84FF; margin:2px 0;">{curr_pop['mean_ro']}%</div>
+                                    <div style="font-size:10.5px; color:#86868B;">Steady-State Free Occupancy</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with col_pk3:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:11px; color:#86868B;">TARGET SATURATION</div>
+                                    <div style="font-size:24px; font-weight:800; color:#BF5AF2; margin:2px 0;">{curr_pop['saturation_rate']}%</div>
+                                    <div style="font-size:10.5px; color:#86868B;">Full Saturation (RO &ge; 90%)</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with col_pk4:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:11px; color:#86868B;">FDA MODERNIZATION 2.0</div>
+                                    <div style="font-size:13px; font-weight:700; color:#FFD60A; margin:8px 0;">{curr_pop['fda_tier']}</div>
+                                    <div style="font-size:10px; color:#86868B;">Regulatory Readiness</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                            # Plotly Visualizations
+                            col_pfig1, col_pfig2 = st.columns([1.1, 1], gap="medium")
+                            with col_pfig1:
+                                fig_pop_dist = pop_eng.render_population_distribution_chart(curr_pop)
+                                st.plotly_chart(fig_pop_dist, use_container_width=True)
+                            with col_pfig2:
+                                fig_demo_bar = pop_eng.render_demographic_breakdown_chart(curr_pop)
+                                st.plotly_chart(fig_demo_bar, use_container_width=True)
+
+                            # Demographic & Allelic Tables
+                            col_pt1, col_pt2 = st.columns(2, gap="medium")
+                            with col_pt1:
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin-bottom:4px;'>Ancestral Demographic Responder Rates</div>", unsafe_allow_html=True)
+                                st.dataframe(pd.DataFrame([
+                                    {
+                                        "Demographic Cohort": d['cohort'],
+                                        "Subjects": f"{d['n_subjects']} pts",
+                                        "Responder Rate (%)": f"{d['responder_rate']}%",
+                                        "Mean Occupancy": f"{d['mean_ro']}%"
+                                    } for d in curr_pop['demographic_breakdown']
+                                ]), use_container_width=True, hide_index=True)
+
+                            with col_pt2:
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin-bottom:4px;'>Pocket Missense Allelic Variants (gnomAD)</div>", unsafe_allow_html=True)
+                                st.dataframe(pd.DataFrame([
+                                    {
+                                        "Allelic Variant": v['variant'],
+                                        "Classification": v['mutation_type'],
+                                        "ΔΔG Shift": f"{v['delta_delta_g']:+.2f} kcal/mol",
+                                        "Responder Rate": f"{v['responder_rate']}%"
+                                    } for v in curr_pop['variant_breakdown']
+                                ]), use_container_width=True, hide_index=True)
+
 

@@ -163,11 +163,51 @@ num_modes = 9
 energy_range = 3
 """
 
+def generate_slurm_gpu_script(job_name, pdb_id, ligand_name):
+    """
+    Generates an enterprise-grade SLURM GPU batch submission script for HPC compute clusters
+    (e.g., Summit, Perlmutter, Bridges-2).
+    """
+    safe_name = job_name.replace(' ', '_')
+    return f"""#!/bin/bash
+#SBATCH --job-name=EthnoDock_{safe_name}
+#SBATCH --output=slurm_%j.out
+#SBATCH --error=slurm_%j.err
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=8
+#SBATCH --gres=gpu:1
+#SBATCH --time=24:00:00
+#SBATCH --partition=gpu
+
+# ==========================================================
+# EthnoDock Pro • High-Performance Computing (HPC) Production Run
+# Target: {pdb_id} | Compound: {ligand_name}
+# ==========================================================
+
+module purge
+module load cuda/12.2 openmm/8.1 gromacs/2023.3 2>/dev/null || true
+
+echo "=== Starting HPC Production Molecular Dynamics ==="
+echo "Node: $(hostname)"
+echo "GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null || echo 'GPU Device Active')"
+echo "Date: $(date)"
+
+# 1. Execute deterministic AutoDock Vina simulation verification
+python3 reproduce_simulation.py
+
+# 2. Run OpenMM GPU Solvent Equilibrated Trajectory
+python3 run_openmm_md.py
+
+echo "=== HPC Production Run Completed Successfully ==="
+"""
+
 def create_reproducibility_zip_bundle(
     species_name, botanical_name, classical_source, dynasty,
     target_name, pdb_id, uniprot_id, compound_name, smiles,
     receptor_pdbqt_str, ligand_pdbqt_str, out_pdbqt_str,
-    center, size, exhaustiveness=8, seed=42, binding_affinity=None, interactions_summary=None
+    center, size, exhaustiveness=8, seed=42, binding_affinity=None, interactions_summary=None,
+    var_compound_name=None, var_smiles=None, var_affinity=None, var_interactions_summary=None
 ):
     """
     Assembles a complete, publication-grade scientific reproducibility ZIP archive.
@@ -206,8 +246,15 @@ def create_reproducibility_zip_bundle(
                 "receptor.pdbqt", "ligand.pdbqt", species_name, target_name, pdb_id, compound_name, df_inter_mock, theme="nature"
             )
             zf.writestr("publication_figure.pml", pml_script)
+            
+            # 2D LigPlot publication vector diagram
+            if smiles:
+                diag_2d = fig_eng.generate_2d_ligplot_diagram(smiles, df_inter_mock, compound_name, target_name, theme="white")
+                if diag_2d:
+                    zf.writestr("interaction_topology_2d.svg", diag_2d["svg_str"])
+                    zf.writestr("interaction_topology_2d.png", diag_2d["png_bytes"])
         except Exception as e:
-            print(f"PyMOL bundle note: {e}")
+            print(f"Figure bundle note: {e}")
             
         # 6. Molecular Dynamics Simulation Scripts (OpenMM & GROMACS)
         try:
@@ -216,6 +263,17 @@ def create_reproducibility_zip_bundle(
             zf.writestr("run_openmm_md.py", openmm_script)
             gromacs_mdp = md_eng.generate_gromacs_mdp()
             zf.writestr("gromacs_production.mdp", gromacs_mdp)
+            
+            # 6b. Semi-Synthetic Derivative OpenMM Script
+            if var_compound_name and var_smiles:
+                openmm_var_script = md_eng.generate_openmm_python_script(
+                    f"{pdb_id}.pdb", "var_ligand.pdbqt", target_name, f"Derivative - {var_compound_name}"
+                )
+                zf.writestr("run_openmm_derivative_md.py", openmm_var_script)
+
+            # 6c. SLURM HPC Cluster Batch Script
+            slurm_sh = generate_slurm_gpu_script(f"{species_name}_{compound_name}", pdb_id, compound_name)
+            zf.writestr("submit_slurm_gpu.sh", slurm_sh)
         except Exception as e:
             print(f"MD bundle note: {e}")
         

@@ -7,4 +7,6 @@ active_ligand*
 var_ligand*
 .streamlit/secrets.toml
 .system_generated/
+scratch/
 *.log
+

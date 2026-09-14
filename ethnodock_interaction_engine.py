@@ -827,4 +827,169 @@ def build_3d_molecular_kit_html(container_id, mol_block, chiral_indices=None, he
 </html>"""
     return html_content
 
+def build_redocking_superposition_3dmol_html(container_id, receptor_data, crystal_ligand_data, docked_ligand_data, rmsd_val, ligand_name="Experimental Co-Crystal", tier="EXEMPLARY", height=490):
+    """
+    Constructs an interactive 3D WebGL superposition viewer in 3Dmol.js
+    comparing the native crystallographic co-crystal pose (cyan) directly against
+    the blind AutoDock Vina redocked pose (gold) within the target receptor pocket.
+    """
+    rec_json = json.dumps(receptor_data)
+    crys_json = json.dumps(crystal_ligand_data)
+    dock_json = json.dumps(docked_ligand_data)
+    
+    badge_color = "#10B981" if rmsd_val <= 2.0 else "#F59E0B"
+
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <style>
+        body, html {{ margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #0B0E14; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }}
+        #viewer-wrapper {{ width: 100%; height: {height}px; position: relative; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); }}
+        #ctrl-bar {{ position: absolute; top: 10px; left: 10px; right: 10px; z-index: 20; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(10px); padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); }}
+        .c-btn {{ background: rgba(255,255,255,0.08); color: #E2E8F0; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 3px 9px; font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.15s ease; }}
+        .c-btn:hover {{ background: rgba(255,255,255,0.2); color: #FFF; }}
+        .c-btn.active {{ background: #0A84FF; color: #FFF; border-color: #0A84FF; font-weight: 600; }}
+        .c-btn.active-cyan {{ background: #00B4D8; color: #000; border-color: #00B4D8; font-weight: 700; }}
+        .c-btn.active-gold {{ background: #FFD166; color: #000; border-color: #FFD166; font-weight: 700; }}
+        #legend {{ position: absolute; bottom: 10px; left: 10px; z-index: 10; background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(8px); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); font-size: 11px; color: #E2E8F0; display: flex; gap: 14px; align-items: center; }}
+        .dot-cyan {{ display: inline-block; width: 10px; height: 10px; background: #00E5FF; border-radius: 50%; margin-right: 5px; box-shadow: 0 0 6px #00E5FF; }}
+        .dot-gold {{ display: inline-block; width: 10px; height: 10px; background: #FFD166; border-radius: 50%; margin-right: 5px; box-shadow: 0 0 6px #FFD166; }}
+        #hud-badge {{ position: absolute; top: 54px; right: 12px; z-index: 15; background: rgba(6, 78, 59, 0.85); border: 1px solid #10B981; border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 700; color: #A7F3D0; }}
+    </style>
+</head>
+<body>
+    <div id="viewer-wrapper">
+        <div id="ctrl-bar">
+            <span style="color:#00E5FF; font-weight:700; font-size:11px; margin-right:4px;">🔬 Co-Crystal Superposition:</span>
+            <button class="c-btn active-cyan" id="btn-show-crys" onclick="toggleCrystal()">Native Crystal (Cyan)</button>
+            <button class="c-btn active-gold" id="btn-show-dock" onclick="toggleDocked()">Redocked Vina (Gold)</button>
+            <button class="c-btn active" id="btn-show-rec" onclick="toggleReceptor()">Receptor Pocket</button>
+            <span style="color:rgba(255,255,255,0.2); margin: 0 2px;">|</span>
+            <button class="c-btn" id="btn-spin" onclick="toggleSpin()">Auto-Spin</button>
+            <button class="c-btn" onclick="resetView()">Reset View</button>
+        </div>
+        <div id="hud-badge" style="border-color:{badge_color}; color:{badge_color};">
+            Heavy-Atom RMSD: {rmsd_val:.2f} Å &bull; {tier}
+        </div>
+        <div id="{container_id}" style="width: 100%; height: 100%;"></div>
+        <div id="legend">
+            <span><span class="dot-cyan"></span> <b>X-Ray Co-Crystal:</b> {ligand_name} (Experimental)</span>
+            <span><span class="dot-gold"></span> <b>In-Silico Redocked:</b> Mode 1 Vina (Blind Search)</span>
+        </div>
+    </div>
+    <script>
+        (function() {{
+            var receptorStr = {rec_json};
+            var crystalStr = {crys_json};
+            var dockedStr = {dock_json};
+            var viewer = null;
+            var showCrystal = true;
+            var showDocked = true;
+            var showReceptor = true;
+            var isSpinning = false;
+            var mRec = null, mCrys = null, mDock = null;
+            var initCount = 0;
+
+            var timer = setInterval(function() {{
+                initCount++;
+                if (typeof $3Dmol !== 'undefined') {{
+                    clearInterval(timer);
+                    var el = document.getElementById("{container_id}");
+                    if (!el) return;
+                    viewer = $3Dmol.createViewer(el, {{ backgroundColor: '#0B0E14' }});
+
+                    // 1. Add Receptor
+                    if (receptorStr) {{
+                        mRec = viewer.addModel(receptorStr, "pdbqt");
+                        mRec.setStyle({{}}, {{ cartoon: {{ color: '#64748B', opacity: 0.65 }} }});
+                    }}
+
+                    // 2. Add Native Crystal Ligand (Cyan)
+                    if (crystalStr) {{
+                        mCrys = viewer.addModel(crystalStr, "pdb");
+                        mCrys.setStyle({{}}, {{
+                            stick: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#00E5FF', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.22 }},
+                            sphere: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#00E5FF', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.35 }}
+                        }});
+                    }}
+
+                    // 3. Add Docked Ligand (Gold)
+                    if (dockedStr) {{
+                        mDock = viewer.addModel(dockedStr, "pdbqt");
+                        mDock.setStyle({{}}, {{
+                            stick: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#FFD166', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.18 }},
+                            sphere: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#FFD166', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.28 }}
+                        }});
+                    }}
+
+                    if (mCrys) {{
+                        viewer.zoomTo({{ model: mCrys }});
+                    }} else if (mDock) {{
+                        viewer.zoomTo({{ model: mDock }});
+                    }} else {{
+                        viewer.zoomTo();
+                    }}
+                    viewer.render();
+                }} else if (initCount > 50) {{
+                    clearInterval(timer);
+                }}
+            }}, 100);
+
+            window.toggleCrystal = function() {{
+                showCrystal = !showCrystal;
+                var btn = document.getElementById('btn-show-crys');
+                if (btn) btn.classList.toggle('active-cyan', showCrystal);
+                if (mCrys) {{
+                    mCrys.setStyle({{}}, showCrystal ? {{
+                        stick: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#00E5FF', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.22 }},
+                        sphere: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#00E5FF', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.35 }}
+                    }} : {{}});
+                }}
+                viewer.render();
+            }};
+
+            window.toggleDocked = function() {{
+                showDocked = !showDocked;
+                var btn = document.getElementById('btn-show-dock');
+                if (btn) btn.classList.toggle('active-gold', showDocked);
+                if (mDock) {{
+                    mDock.setStyle({{}}, showDocked ? {{
+                        stick: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#FFD166', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.18 }},
+                        sphere: {{ colorscheme: {{ prop: 'elem', map: {{ C: '#FFD166', O: '#EF4444', N: '#3B82F6', S: '#EAB308', P: '#F97316' }} }}, radius: 0.28 }}
+                    }} : {{}});
+                }}
+                viewer.render();
+            }};
+
+            window.toggleReceptor = function() {{
+                showReceptor = !showReceptor;
+                var btn = document.getElementById('btn-show-rec');
+                if (btn) btn.classList.toggle('active', showReceptor);
+                if (mRec) {{
+                    mRec.setStyle({{}}, showReceptor ? {{ cartoon: {{ color: '#64748B', opacity: 0.65 }} }} : {{}});
+                }}
+                viewer.render();
+            }};
+
+            window.toggleSpin = function() {{
+                isSpinning = !isSpinning;
+                var btn = document.getElementById('btn-spin');
+                if (btn) btn.classList.toggle('active', isSpinning);
+                viewer.spin(isSpinning);
+            }};
+
+            window.resetView = function() {{
+                if (mCrys) viewer.zoomTo({{ model: mCrys }});
+                else viewer.zoomTo();
+                viewer.render();
+            }};
+        }})();
+    </script>
+</body>
+</html>"""
+    return html_content
+
+
 

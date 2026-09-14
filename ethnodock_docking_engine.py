@@ -67,23 +67,107 @@ def get_vina_executable():
         linux_url = "https://github.com/ccsb-scripps/AutoDock-Vina/releases/download/v1.2.5/vina_1.2.5_linux_x86_64"
         try:
             print("Downloading AutoDock Vina for Linux...")
-            urllib.request.urlretrieve(linux_url, vina_bin)
+            req = urllib.request.Request(linux_url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64)'})
+            with urllib.request.urlopen(req) as resp, open(vina_bin, 'wb') as f_out:
+                f_out.write(resp.read())
             os.chmod(vina_bin, 0o755)
             return vina_bin
         except Exception as e:
             print(f"Warning: Could not download Linux Vina binary: {e}")
             return vina_bin
 
+def map_autodock_atom_type(element, res_name="", atom_name=""):
+    """
+    Strictly maps chemical elements / PDB atom definitions to valid, case-sensitive AutoDock atom types.
+    AutoDock Vina requires case-sensitive types (e.g. 'Co', 'Fe', 'Zn', 'Mg', 'Mn', 'Ca', 'Cu', 'Na', 'Cl', 'Br').
+    """
+    elem = (element or "").strip().upper()
+    if not elem and atom_name:
+        elem = atom_name.strip()[:1].upper()
+        
+    if elem == 'H':
+        return 'HD'
+    if elem == 'C':
+        res = (res_name or "").strip().upper()
+        at = (atom_name or "").strip().upper()
+        if res in ["PHE", "TYR", "TRP", "HIS"] and at.startswith(("CD", "CE", "CZ", "CG", "CH")):
+            return 'A'
+        return 'C'
+    if elem == 'N':
+        res = (res_name or "").strip().upper()
+        return 'NA' if res in ["HIS", "TRP"] else 'N'
+    if elem == 'O':
+        return 'OA'
+    if elem == 'S':
+        return 'SA'
+    if elem == 'P':
+        return 'P'
+    if elem in ['CL', 'Cl']:
+        return 'Cl'
+    if elem in ['BR', 'Br']:
+        return 'Br'
+    if elem == 'F':
+        return 'F'
+    if elem == 'I':
+        return 'I'
+    
+    # Titlecase metals for AutoDock Vina
+    metal_map = {
+        'FE': 'Fe', 'ZN': 'Zn', 'MG': 'Mg', 'MN': 'Mn', 'CA': 'Ca',
+        'CO': 'Co', 'CU': 'Cu', 'NI': 'Ni', 'NA': 'Na', 'K': 'K',
+        'SE': 'Se', 'CD': 'Cd', 'HG': 'Hg', 'MO': 'Mo', 'PT': 'Pt'
+    }
+    if elem in metal_map:
+        return metal_map[elem]
+        
+    # Standard Titlecase fallback for 2-character element (e.g., Ba, Sr, etc.)
+    if len(elem) == 2:
+        return elem.capitalize()
+        
+    return elem if elem in ['C', 'N', 'O', 'S', 'P', 'F', 'I'] else 'C'
+
 def fetch_receptor(pdb_id, output_pdb=None):
     """
     Downloads PDB file from RCSB PDB and converts it into a clean,
     AutoDock-ready PDBQT file with assigned atom types and placeholder charges.
     """
-    pdb_id = pdb_id.strip().upper()
     if output_pdb is None:
-        output_pdb = os.path.join(BASE_DIR, f"{pdb_id}.pdb")
-        
-    url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
+        output_pdb = os.path.join(BASE_DIR, f"{pdb_id.upper()}.pdb")
+
+    url = f"https://files.rcsb.org/download/{pdb_id.upper()}.pdb"
+    try:
+        urllib.request.urlretrieve(url, output_pdb)
+    except Exception as e:
+        print(f"Error downloading PDB {pdb_id}: {e}")
+        return None
+
+    with open(output_pdb, 'r', encoding='utf-8', errors='ignore') as f:
+        pdb_str = f.read()
+
+# Standard protein residues (20 canonical amino acids + modified forms)
+STANDARD_PROTEIN_RESIDUES = {
+    "ALA", "ARG", "ASN", "ASP", "CYS", "GLN", "GLU", "GLY", "HIS", "ILE",
+    "LEU", "LYS", "MET", "PHE", "PRO", "SER", "THR", "TRP", "TYR", "VAL",
+    "MSE", "SEP", "TPO", "PTR", "CSO", "CME", "KCX"
+}
+
+# Essential structural/catalytic metal ions and biological prosthetic cofactors
+CATALYTIC_COFACTORS_AND_METALS = {
+    "ZN", "MG", "FE", "MN", "CA", "CU", "NI", "CO", "NA", "K",
+    "HEM", "COH", "FAD", "FMN", "NAD", "NAP", "PLP", "SAM"
+}
+
+def fetch_receptor(pdb_id, output_pdb=None):
+    """
+    Downloads PDB file from RCSB PDB and converts it into a clean,
+    AutoDock-ready PDBQT file with assigned atom types and placeholder charges.
+    Strips all bound crystallographic drug ligands, inhibitors, buffers, and solvents
+    so the orthosteric binding cavity is pristine and ready for ligand docking.
+    """
+    if output_pdb is None:
+        output_pdb = os.path.join(BASE_DIR, f"{pdb_id.upper()}.pdb")
+
+    url = f"https://files.rcsb.org/download/{pdb_id.upper()}.pdb"
     try:
         urllib.request.urlretrieve(url, output_pdb)
     except Exception as e:
@@ -94,36 +178,21 @@ def fetch_receptor(pdb_id, output_pdb=None):
         pdb_str = f.read()
 
     lines = []
-    # Strip water molecules and non-protein ions that might interfere, or format standard atoms
     for line in pdb_str.split('\n'):
-        if line.startswith("ATOM") or (line.startswith("HETATM") and not line[17:20].strip() in ["HOH", "WAT", "DOD"]):
-            element = line[76:78].strip()
-            if not element:
-                element = line[12:16].strip()[0]
+        if line.startswith("ATOM") or line.startswith("HETATM"):
+            res_name = line[17:20].strip().upper()
             
-            ad_type = element
-            if element == 'H': ad_type = 'HD'
-            elif element == 'C':
-                # Heuristic for aromatic carbons
-                res_name = line[17:20].strip()
-                atom_name = line[12:16].strip()
-                if res_name in ["PHE", "TYR", "TRP", "HIS"] and atom_name.startswith(("CD", "CE", "CZ", "CG", "CH")):
-                    ad_type = 'A'
-                else:
-                    ad_type = 'C'
-            elif element == 'N': ad_type = 'NA' if line[17:20].strip() in ["HIS", "TRP"] else 'N'
-            elif element == 'O': ad_type = 'OA'
-            elif element == 'S': ad_type = 'SA'
-            elif element == 'P': ad_type = 'P'
-            elif element == 'CL': ad_type = 'Cl'
-            elif element == 'BR': ad_type = 'Br'
-            elif element == 'F': ad_type = 'F'
-            elif element == 'I': ad_type = 'I'
-            elif element == 'FE': ad_type = 'Fe'
-            elif element == 'ZN': ad_type = 'Zn'
-            elif element == 'CA': ad_type = 'Ca'
-            elif element == 'MG': ad_type = 'Mg'
-            elif element == 'MN': ad_type = 'Mn'
+            # For HETATM records, only retain recognized protein residues or essential catalytic cofactors/metals
+            # Exclude all bound inhibitors/drugs (e.g. AQ4, 010, SIM) and crystallization solvents (HOH, PEG, SO4)
+            if line.startswith("HETATM") and (res_name not in STANDARD_PROTEIN_RESIDUES and res_name not in CATALYTIC_COFACTORS_AND_METALS):
+                continue
+
+            element = line[76:78].strip()
+            atom_name = line[12:16].strip()
+            if not element:
+                element = atom_name[0] if atom_name else 'C'
+            
+            ad_type = map_autodock_atom_type(element, res_name, atom_name)
 
             # AutoDock format: columns 1-66 preserved + 4 spaces + "+0.000" + space + atom type (2 chars)
             new_line = line[:66].ljust(66) + "    +0.000 " + ad_type.ljust(2)
@@ -179,19 +248,10 @@ def prepare_ligand(smiles, output_pdbqt=None):
     for line in pdb_block.split('\n'):
         if line.startswith("ATOM") or line.startswith("HETATM"):
             element = line[76:78].strip()
+            atom_name = line[12:16].strip()
             if not element:
-                element = line[12:16].strip()[0]
-            ad_type = element
-            if element == 'H': ad_type = 'HD'
-            elif element == 'C': ad_type = 'C'
-            elif element == 'N': ad_type = 'NA' if 'N' in line and any(ar in line for ar in ['c', 'n']) else 'N'
-            elif element == 'O': ad_type = 'OA'
-            elif element == 'S': ad_type = 'SA'
-            elif element == 'P': ad_type = 'P'
-            elif element == 'CL': ad_type = 'Cl'
-            elif element == 'BR': ad_type = 'Br'
-            elif element == 'F': ad_type = 'F'
-            elif element == 'I': ad_type = 'I'
+                element = atom_name[0] if atom_name else 'C'
+            ad_type = map_autodock_atom_type(element, atom_name=atom_name)
 
             new_line = line[:66].ljust(66) + "    +0.000 " + ad_type.ljust(2)
             lines.append(new_line)
@@ -208,28 +268,62 @@ def smart_cavity_finder(pdb_file):
     """
     Automatically calculates the binding pocket cavity centroid (X, Y, Z)
     and recommended bounding box dimensions (Sx, Sy, Sz) from the receptor structure.
+    If a co-crystallized drug or bioactive ligand is present, centers the box directly on
+    the crystallographic ligand centroid (gold standard for targeted drug discovery).
+    Otherwise, computes the pocket centroid based on active site cavity geometry.
     """
     try:
-        coords = []
+        # Check for co-crystallized organic drug ligand first
+        het_groups = {}
+        all_coords = []
+        excluded_solvents = {
+            "HOH", "WAT", "DOD", "TIP", "WTR", "EDO", "PEG", "PG4", "PGE", "1PE", "2PE",
+            "MPD", "DMS", "GOL", "IPA", "ACT", "FMT", "SO4", "PO4", "CIT", "TRS", "BME",
+            "NH4", "BOG", "HEZ", "OCT", "MAN", "NAG", "GLY", "NA", "CL", "ZN", "CA", "MG",
+            "MN", "K", "FE", "CU", "NI", "CO", "MSE", "SEP", "TPO", "PTR"
+        }
+
         with open(pdb_file, 'r', encoding='utf-8', errors='ignore') as f:
             for line in f:
-                if line.startswith("ATOM") or line.startswith("HETATM"):
+                if line.startswith("HETATM"):
+                    res = line[17:20].strip().upper()
+                    if res not in excluded_solvents:
+                        try:
+                            x = float(line[30:38].strip())
+                            y = float(line[38:46].strip())
+                            z = float(line[46:54].strip())
+                            if res not in het_groups:
+                                het_groups[res] = []
+                            het_groups[res].append([x, y, z])
+                        except ValueError:
+                            pass
+                elif line.startswith("ATOM"):
                     try:
                         x = float(line[30:38].strip())
                         y = float(line[38:46].strip())
                         z = float(line[46:54].strip())
-                        coords.append([x, y, z])
+                        all_coords.append([x, y, z])
                     except ValueError:
                         pass
-        if coords:
-            coords_arr = np.array(coords)
-            center = np.mean(coords_arr, axis=0)
-            mins = np.min(coords_arr, axis=0)
-            maxs = np.max(coords_arr, axis=0)
-            dims = maxs - mins
-            # Clip bounding box to standard Vina search dimensions (between 16 and 40 Å)
-            dims = np.clip(dims * 0.6, a_min=16.0, a_max=40.0)
-            return [round(float(c), 3) for c in center], [round(float(d), 3) for d in dims]
+
+        # If an organic co-crystallized drug is found (>= 6 heavy atoms)
+        if het_groups:
+            best_res, coords_list = max(het_groups.items(), key=lambda item: len(item[1]))
+            if len(coords_list) >= 6:
+                arr = np.array(coords_list)
+                c = np.mean(arr, axis=0)
+                mins = np.min(arr, axis=0)
+                maxs = np.max(arr, axis=0)
+                span = maxs - mins
+                # Box size: ligand span + 12 Å padding, clamped between 20 and 28 Å
+                dims = np.clip(span + 12.0, a_min=20.0, a_max=28.0)
+                return [round(float(val), 3) for val in c], [round(float(d), 3) for d in dims]
+
+        # Fallback to whole protein centroid with standard box
+        if all_coords:
+            all_arr = np.array(all_coords)
+            c = np.mean(all_arr, axis=0)
+            return [round(float(val), 3) for val in c], [24.0, 24.0, 24.0]
     except Exception as e:
         print(f"Error finding cavity in {pdb_file}: {e}")
 

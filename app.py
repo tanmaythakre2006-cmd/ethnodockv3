@@ -2892,11 +2892,14 @@ else:
                     with tab_s6_pop:
                         st.markdown("""
                         <div style="margin-bottom:12px;">
-                            <span class="apple-badge apple-badge-purple">Precision Pharmacogenomics</span>
-                            <h4 style="margin:4px 0; font-size:14px; color:#F5F5F7;">👥 In-Silico Clinical Trial: Virtual Human Population (N = 1,000 Subjects)</h4>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="apple-badge apple-badge-purple">Precision Pharmacogenomics</span>
+                                <span class="apple-badge apple-badge-blue">Human Genome Project (GRCh38)</span>
+                            </div>
+                            <h4 style="margin:6px 0 4px 0; font-size:14px; color:#F5F5F7;">👥 In-Silico Clinical Trial: Virtual Human Population (N = 1,000 Subjects)</h4>
                             <p style="margin:0; font-size:12.5px; color:#86868B; line-height:1.5;">
-                                Evaluates therapeutic efficacy across a stochastically generated virtual human cohort incorporating ancestral pocket polymorphisms
-                                (gnomAD missense variants), inter-individual clearance variance (&plusmn;30%), plasma protein binding (<i>f<sub>u</sub></i>), and CYP metabolizer phenotypes.
+                                Evaluates therapeutic efficacy across a stochastically generated virtual human cohort incorporating canonical <b>Human Genome Project (GRCh38)</b> reference loci,
+                                ancestral pocket missense polymorphisms (gnomAD / dbSNP rsIDs), continuous allosteric micro-drift, and eQTL receptor expression variance.
                                 Aligned with the <b>FDA Modernization Act 2.0</b> guidelines for non-animal in-silico trials.
                             </p>
                         </div>
@@ -2929,6 +2932,33 @@ else:
                         with col_pop_btn:
                             run_pop_trial = st.button("🚀 Run Trial (N=1,000 Patients)", key=f"btn_pop_trial_{idx}", use_container_width=True)
 
+                        # Display HGP Reference Grounding Card for chosen target
+                        chosen_tgt_data = pop_eng.POPULATION_TARGET_VARIANTS.get(chosen_pop_target, {})
+                        hgp_info = chosen_tgt_data.get('hgp_reference', {})
+                        if hgp_info:
+                            st.markdown(f"""
+                            <div style="background: rgba(10, 132, 255, 0.08); border: 1px solid rgba(10, 132, 255, 0.25); border-radius: 8px; padding: 10px 14px; margin-top: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 10.5px; color: #86868B; text-transform: uppercase; font-weight: 700;">Human Genome Project Consensus Locus (GRCh38)</div>
+                                    <div style="font-size: 13px; font-weight: 700; color: #5AC8FA; margin-top: 2px;">
+                                        {hgp_info.get('assembly', 'GRCh38.p14')} &bull; Genomic Locus: <code>{hgp_info.get('locus')}</code> ({hgp_info.get('cytoband')})
+                                    </div>
+                                    <div style="font-size: 11.5px; color: #D1D1D6; margin-top: 2px;">
+                                        RefSeq: mRNA <b>{hgp_info.get('refseq_mrna')}</b> &bull; Protein <b>{hgp_info.get('refseq_protein')}</b> (UniProt: <b>{hgp_info.get('uniprot_id')}</b>) &bull; Architecture: {hgp_info.get('exon_count')} Exons, {hgp_info.get('canonical_aa_len')} AA
+                                    </div>
+                                </div>
+                                <span class="apple-badge apple-badge-blue">HGP Consensus</span>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                        # Toggle for Minute Genomic Variations
+                        include_minute_var = st.checkbox(
+                            "🔬 Simulate Minute Genomic Variations (Continuous Allosteric Micro-Drift σ=0.15 kcal/mol + eQTL Receptor Micro-Fluctuations)",
+                            value=True,
+                            key=f"pop_micro_var_{idx}",
+                            help="Introduces fine-grained continuous Gaussian pocket micro-drift and eQTL receptor expression variance on top of canonical gnomAD discrete missense alleles."
+                        )
+
                         if run_pop_trial:
                             with st.spinner(f"Simulating Monte Carlo clinical trial across 1,000 virtual subjects for {active_pop_name}..."):
                                 pop_aff = selected_pose_data['Affinity (kcal/mol)'] if not is_var_pop else locals().get('var_best_aff', -8.5)
@@ -2938,7 +2968,8 @@ else:
                                     target_gene=chosen_pop_target,
                                     base_affinity_kcal=pop_aff,
                                     dose_mg=pop_dose,
-                                    n_patients=1000
+                                    n_patients=1000,
+                                    include_minute_variations=include_minute_var
                                 )
                                 st.session_state[f'population_res_{idx}'] = pop_trial_res
                                 st.success("In-Silico Clinical Trial converged across 1,000 virtual patients!")
@@ -2988,6 +3019,11 @@ else:
                                 fig_demo_bar = pop_eng.render_demographic_breakdown_chart(curr_pop)
                                 st.plotly_chart(fig_demo_bar, use_container_width=True)
 
+                            # Minute Genomic Variation Spectrum Chart
+                            st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
+                            fig_var_spec = pop_eng.render_genomic_variant_spectrum_chart(curr_pop)
+                            st.plotly_chart(fig_var_spec, use_container_width=True)
+
                             # Demographic & Allelic Tables
                             col_pt1, col_pt2 = st.columns(2, gap="medium")
                             with col_pt1:
@@ -3002,12 +3038,16 @@ else:
                                 ]), use_container_width=True, hide_index=True)
 
                             with col_pt2:
-                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin-bottom:4px;'>Pocket Missense Allelic Variants (gnomAD)</div>", unsafe_allow_html=True)
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin-bottom:4px;'>Pocket Missense Alleles & Minute Variations (dbSNP)</div>", unsafe_allow_html=True)
                                 st.dataframe(pd.DataFrame([
                                     {
                                         "Allelic Variant": v['variant'],
-                                        "Classification": v['mutation_type'],
+                                        "dbSNP rsID": v.get('rs_id', 'Reference'),
+                                        "HGVS cDNA": v.get('hgvs_c', 'c.Canonical'),
+                                        "HGVS Protein": v.get('hgvs_p', 'p.WT'),
+                                        "Classification": v.get('mutation_type', 'Reference'),
                                         "ΔΔG Shift": f"{v['delta_delta_g']:+.2f} kcal/mol",
+                                        "Sample Size": f"{v.get('n_subjects', 0)} pts",
                                         "Responder Rate": f"{v['responder_rate']}%"
                                     } for v in curr_pop['variant_breakdown']
                                 ]), use_container_width=True, hide_index=True)

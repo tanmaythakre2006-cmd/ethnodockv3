@@ -848,9 +848,11 @@ def generate_tcm_dossier_html(
             sub_sections.append(mb_block)
 
         
-        # 5. In-Silico Clinical Trials & Population Pharmacogenomics
+        # 5. In-Silico Clinical Trials & Population Pharmacogenomics (Human Genome Project Reference)
         if population_results and population_results.get("overall_responder_rate") is not None:
             pop = population_results
+            hgp = pop.get("hgp_reference", {})
+            
             demo_rows = []
             for d in pop.get("demographic_breakdown", []):
                 demo_rows.append(f"""
@@ -865,25 +867,59 @@ def generate_tcm_dossier_html(
 
             variant_rows = []
             for v in pop.get("variant_breakdown", []):
+                rs = v.get('rs_id', 'Reference Canonical')
+                hgvs = f"<code>{html.escape(v.get('hgvs_c', 'c.Canonical'))}</code><br><small style='color:#6B21A8; font-weight:600;'>{html.escape(v.get('hgvs_p', 'p.WT'))}</small>"
                 variant_rows.append(f"""
                 <tr>
-                    <td><strong>{html.escape(v['variant'])}</strong></td>
-                    <td><span class="badge badge-purple">{html.escape(v['mutation_type'])}</span></td>
+                    <td><strong>{html.escape(v['variant'])}</strong><br><span class="badge badge-blue" style="font-size:10px;">{html.escape(rs)}</span></td>
+                    <td>{hgvs}</td>
+                    <td><span class="badge badge-purple">{html.escape(v.get('mutation_type', 'HGP Reference'))}</span></td>
                     <td><code>{v['delta_delta_g']:+.2f} kcal/mol</code></td>
-                    <td><b>{v['responder_rate']}%</b></td>
-                    <td>{html.escape(v['description'])}</td>
+                    <td>{v.get('n_subjects', 0)} pts<br><small style="color:#64748B;">Mean: {v.get('mean_ro', 0)}%</small></td>
+                    <td style="font-weight:700; color:{'#16A34A' if v['responder_rate'] >= 75.0 else '#2563EB'};">{v['responder_rate']}%</td>
+                    <td style="font-size:11.5px; line-height:1.4;">{html.escape(v['description'])}</td>
                 </tr>
                 """)
+
+            hgp_card_html = f"""
+            <!-- Human Genome Project (GRCh38) Consensus Reference Card -->
+            <div style="background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border: 1px solid #BFDBFE; border-radius: 8px; padding: 12px 16px; margin: 12px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                <div>
+                    <div style="font-size:10px; color:#64748B; text-transform:uppercase; font-weight:700;">HGP Assembly Reference</div>
+                    <div style="font-size:13px; font-weight:700; color:#1E40AF; margin-top:2px;">{html.escape(hgp.get('assembly', 'GRCh38.p14'))}</div>
+                    <div style="font-size:11px; color:#475569; margin-top:2px;">Locus: <b>{html.escape(hgp.get('locus', 'N/A'))}</b> ({html.escape(hgp.get('cytoband', ''))})</div>
+                </div>
+                <div>
+                    <div style="font-size:10px; color:#64748B; text-transform:uppercase; font-weight:700;">RefSeq Annotations</div>
+                    <div style="font-size:11.5px; font-weight:600; color:#0F172A; margin-top:2px;">mRNA: <code>{html.escape(hgp.get('refseq_mrna', 'N/A'))}</code></div>
+                    <div style="font-size:11.5px; font-weight:600; color:#0F172A;">Protein: <code>{html.escape(hgp.get('refseq_protein', 'N/A'))}</code></div>
+                </div>
+                <div>
+                    <div style="font-size:10px; color:#64748B; text-transform:uppercase; font-weight:700;">Canonical Architecture</div>
+                    <div style="font-size:12px; font-weight:600; color:#0F172A; margin-top:2px;">{hgp.get('canonical_aa_len', 'N/A')} AA | {hgp.get('exon_count', 'N/A')} Exons</div>
+                    <div style="font-size:11px; color:#64748B; margin-top:2px;">UniProt ID: <b>{html.escape(hgp.get('uniprot_id', 'N/A'))}</b></div>
+                </div>
+                <div>
+                    <div style="font-size:10px; color:#64748B; text-transform:uppercase; font-weight:700;">Genomic Micro-Drift Engine</div>
+                    <div style="font-size:12px; font-weight:700; color:{'#16A34A' if pop.get('include_minute_variations') else '#64748B'}; margin-top:2px;">
+                        {'✓ Active Micro-Drift & eQTL' if pop.get('include_minute_variations') else 'Discrete Alleles Only'}
+                    </div>
+                    <div style="font-size:10.5px; color:#475569; margin-top:2px;">&sigma;(&Delta;G)=0.15 kcal/mol &bull; &sigma;(eQTL)=0.12</div>
+                </div>
+            </div>
+            """ if hgp else ""
 
             pop_block = f"""
             <div style="margin-bottom:14px; margin-top:20px; border-top:1px dashed #DDD6FE; padding-top:16px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                     <div>
-                        <h4 style="margin:0 0 4px 0; font-size:14px; color:#0F172A;">👥 In-Silico Clinical Trial & Population Pharmacogenomics (FDA Modernization Act 2.0)</h4>
-                        <span style="font-size:12px; color:#6B21A8;">Simulated Cohort: <b>N = {pop['n_patients']} Virtual Patients</b> &bull; Target: <b>{html.escape(pop['target_gene'])} ({html.escape(pop['target_name'])})</b> &bull; Regimen: <b>{pop['dose_mg']} mg BID</b></span>
+                        <h4 style="margin:0 0 4px 0; font-size:14px; color:#0F172A;">👥 In-Silico Clinical Trial: Human Genome Project (GRCh38) Virtual Population</h4>
+                        <span style="font-size:12px; color:#6B21A8;">Simulated Cohort: <b>N = {pop['n_patients']} Virtual Patients</b> &bull; Reference Target: <b>{html.escape(pop['target_gene'])} ({html.escape(pop['target_name'])})</b> &bull; Regimen: <b>{pop['dose_mg']} mg BID</b></span>
                     </div>
                     <span class="badge {pop['fda_badge_cls']}" style="font-size:12px; padding:4px 10px;">{html.escape(pop['fda_tier'])}</span>
                 </div>
+
+                {hgp_card_html}
 
                 <!-- Efficacy Metric Scorecards -->
                 <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin:12px 0;">
@@ -903,15 +939,15 @@ def generate_tcm_dossier_html(
                         <div style="font-size:10px; color:#475569;">Full Saturation (RO &ge; 90%)</div>
                     </div>
                     <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:10px; text-align:center;">
-                        <div style="font-size:10.5px; color:#64748B;">INTER-PATIENT CV</div>
-                        <div style="font-size:20px; font-weight:800; color:#EA580C; margin:2px 0;">&plusmn;30%</div>
-                        <div style="font-size:10px; color:#475569;">Clearance Variance</div>
+                        <div style="font-size:10.5px; color:#64748B;">GENOMIC SENSITIVITY</div>
+                        <div style="font-size:20px; font-weight:800; color:#EA580C; margin:2px 0;">&plusmn;0.15</div>
+                        <div style="font-size:10px; color:#475569;">kcal/mol Micro-Drift</div>
                     </div>
                 </div>
 
                 <!-- Demographic Sensitivity Breakdown Table -->
                 <div class="table-container" style="margin-top:12px;">
-                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Ancestral Demographic Sensitivity (Stratified Trial Cohorts)</div>
+                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Ancestral Demographic Sensitivity (1000 Genomes & gnomAD Stratified Cohorts)</div>
                     <table class="report-table">
                         <thead>
                             <tr>
@@ -928,17 +964,19 @@ def generate_tcm_dossier_html(
                     </table>
                 </div>
 
-                <!-- Allelic Pocket Variants Table -->
+                <!-- Allelic Pocket Variants & Minute Variations Table -->
                 <div class="table-container" style="margin-top:12px;">
-                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Receptor Pocket Missense Polymorphisms (gnomAD Population Variants)</div>
+                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Receptor Pocket Allelic Missense Variants (dbSNP rsIDs & HGVS Nomenclature)</div>
                     <table class="report-table">
                         <thead>
                             <tr>
-                                <th>Allelic Variant</th>
-                                <th>Classification</th>
-                                <th>&Delta;&Delta;G Affinity Shift</th>
-                                <th>Variant Responder Rate</th>
-                                <th>Pharmacogenomic Mechanism</th>
+                                <th>Allelic Variant & rsID</th>
+                                <th>HGVS cDNA / Protein</th>
+                                <th>Mutation Classification</th>
+                                <th>&Delta;&Delta;G Binding Shift</th>
+                                <th>Cohort Sample Size</th>
+                                <th>Responder Rate (% &ge; 75%)</th>
+                                <th>Biophysical Mechanism</th>
                             </tr>
                         </thead>
                         <tbody>

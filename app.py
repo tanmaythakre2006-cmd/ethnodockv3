@@ -41,6 +41,7 @@ importlib.reload(fig_eng)
 import ethnodock_md_engine as md_eng
 importlib.reload(md_eng)
 import ethnodock_audit_engine as audit_eng
+import ethnodock_transparency_engine as trans_eng
 importlib.reload(audit_eng)
 import ethnodock_benchmark_engine as bm
 importlib.reload(bm)
@@ -585,6 +586,28 @@ def load_tcm_master():
 df = load_tcm_master()
 
 # --- Initialize View State ---
+
+# ==========================================
+# 🎓 GLOBAL TRANSPARENCY & METHODOLOGY MODE
+# ==========================================
+with st.sidebar:
+    st.markdown('''
+    <div style="padding:10px 0 6px 0;">
+        <span class="apple-badge apple-badge-purple" style="font-size:10px;">OPEN SCIENCE & COMPLIANCE</span>
+        <h3 style="margin:6px 0 2px 0; font-size:15px; color:#FFFFFF;">EthnoDock Pro • Transparency</h3>
+        <p style="font-size:11.5px; color:#86868B; margin:0 0 10px 0; line-height:1.4;">
+            Rigorous biophysical, biochemical, and algorithmic transparency across all computational stages.
+        </p>
+    </div>
+    ''', unsafe_allow_html=True)
+    st.checkbox(
+        "🎓 Scientific Transparency & Methodology Mode",
+        value=True,
+        key="enable_transparency_mode",
+        help="Toggles peer-reviewed methodology, mathematical formulations, and algorithmic guides under each stage."
+    )
+    st.markdown("<hr style='border-color:rgba(255,255,255,0.08); margin:12px 0;'>", unsafe_allow_html=True)
+
 if 'current_view' not in st.session_state:
     st.session_state['current_view'] = 'landing'
 
@@ -874,6 +897,7 @@ else:
                 </div>
             </div>
             """, unsafe_allow_html=True)
+            trans_eng.render_step_transparency_guide('stage_01')
 
             if paozhi_key and pz_info:
                 col_pz1, col_pz2 = st.columns([1, 2], vertical_alignment="center")
@@ -1156,6 +1180,7 @@ else:
                 <h3 style="margin:0; font-size:1.25rem; font-weight:600;">Receptor & Search Cavity Configuration</h3>
             </div>
             """, unsafe_allow_html=True)
+            trans_eng.render_step_transparency_guide('stage_02')
 
             with st.expander(f"⚙️ Target Binding Cavity Controller — {row['Protein Target']} (PDB: {row['PDB ID']})", expanded=True):
                 pdb_id = row['PDB ID']
@@ -1221,6 +1246,7 @@ else:
                         <h3 style="margin:0; font-size:1.25rem; font-weight:600;">In-Silico Docking & 3D WebGL Interaction Studio</h3>
                     </div>
                     """, unsafe_allow_html=True)
+                    trans_eng.render_step_transparency_guide('stage_03')
 
                     if st.button(f"🚀 Execute Molecular Simulation for {active_compound_name}", key=f"dock_tab2_{idx}", use_container_width=False):
                         with st.spinner(f"Minimizing conformer and docking into {pdb_id}..."):
@@ -1375,6 +1401,7 @@ else:
                     if cand_lig:
                         lig_meta = bm.KNOWN_TARGET_LIGANDS.get(row['PDB ID'].upper(), {})
                         lig_title = lig_meta.get('name', f"Crystallographic Reference {cand_lig}")
+                        trans_eng.render_step_transparency_guide('stage_03_redock')
                         st.markdown(f"""
                         <div class="apple-card-compact" style="border-left: 4px solid #0A84FF; background: rgba(10, 132, 255, 0.04); margin-top: 14px; margin-bottom: 18px;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -1532,6 +1559,7 @@ else:
 
                     st.markdown("<br>", unsafe_allow_html=True)
                     with st.expander("⚡ Quantitative Biophysics: MM-GBSA Free Energy & Hotspot Decomposition", expanded=False):
+                        trans_eng.render_step_transparency_guide('stage_03_mmgbsa')
                         st.markdown("""
                         <div style="font-size:0.86rem; color:#A1A1A6; margin-bottom:12px;">
                             Molecular Mechanics / Generalized Born Surface Area (MM-GBSA) decouples binding free energy into mechanical van der Waals packing, Coulombic electrostatics, and continuum aqueous desolvation penalties, highlighting thermodynamic "hotspot" residues.
@@ -1881,6 +1909,7 @@ else:
                         </div>
                     </div>
                     """, unsafe_allow_html=True)
+                    trans_eng.render_step_transparency_guide('stage_04')
 
                     variants = bio_eng.generate_tcm_derivatives(smiles)
 
@@ -2426,6 +2455,7 @@ else:
                             <h3 style="margin:0; font-size:1.25rem; font-weight:600;">ADMET Pharmacokinetics & Dossier Export</h3>
                         </div>
                         """, unsafe_allow_html=True)
+                        trans_eng.render_step_transparency_guide('stage_05')
 
                         orig_adme = admet_eng.get_admet_profile(smiles)
                         adme_data_list = []
@@ -2657,6 +2687,7 @@ else:
                     ])
 
                     with tab_s6_targetome:
+                        trans_eng.render_step_transparency_guide('stage_06_targetome')
                         st.markdown("""
                         <div style="margin-bottom:12px;">
                             <h4 style="margin:0 0 4px 0; font-size:14px; color:#F5F5F7;">🎯 Reverse Molecular Target Fishing (Pan-Proteome Selectivity Panel)</h4>
@@ -2735,6 +2766,7 @@ else:
                             st.dataframe(pd.DataFrame(tf_df_data), use_container_width=True, hide_index=True)
 
                     with tab_s6_network:
+                        trans_eng.render_step_transparency_guide('stage_06_network')
                         st.markdown("""
                         <div style="margin-bottom:12px;">
                             <h4 style="margin:0 0 4px 0; font-size:14px; color:#F5F5F7;">🕸️ Systems Network Pharmacology & Topological Hub Centrality</h4>
@@ -2800,6 +2832,7 @@ else:
                         col_syn_left, col_syn_right = st.columns(2, gap="large")
                         
                         with col_syn_left:
+                            trans_eng.render_step_transparency_guide('stage_06_synergy')
                             st.markdown("""
                             <div style="margin-bottom:10px;">
                                 <span class="apple-badge apple-badge-green">Synergism Engine</span>
@@ -2838,6 +2871,7 @@ else:
                                 """, unsafe_allow_html=True)
 
                         with col_syn_right:
+                            trans_eng.render_step_transparency_guide('stage_06_microbiome')
                             st.markdown("""
                             <div style="margin-bottom:10px;">
                                 <span class="apple-badge apple-badge-gold">Microbiome Fate</span>
@@ -2890,6 +2924,7 @@ else:
                                 """, unsafe_allow_html=True)
 
                     with tab_s6_pop:
+                        trans_eng.render_step_transparency_guide('stage_06_population')
                         st.markdown("""
                         <div style="margin-bottom:12px;">
                             <div style="display:flex; align-items:center; gap:8px;">

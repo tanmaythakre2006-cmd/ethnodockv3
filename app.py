@@ -1782,7 +1782,7 @@ else:
                                 """, unsafe_allow_html=True)
 
                                 # Interactive 3D WebGL Trajectory Player
-                                st.markdown("#### 🎬 Live 3D Conformation Trajectory Player")
+                                st.markdown("#### 🎬 VMD / ChimeraX-Grade 3D MD Cinema Studio (`Flex-Pocket + TIP3P Waters + Live H-Bond Vectors`)")
                                 try:
                                     with open(receptor_pdbqt, 'r', encoding='utf-8', errors='ignore') as rf:
                                         rec_content = rf.read()
@@ -1792,9 +1792,9 @@ else:
                                         trajectory_pdb_str=md_res.get("trajectory_pdb_str", ""),
                                         df_trajectory=md_res["df_trajectory"],
                                         df_rmsf=md_res["df_rmsf"],
-                                        height=460
+                                        height=560
                                     )
-                                    components.html(player_html, height=470)
+                                    components.html(player_html, height=575)
                                 except Exception as e:
                                     st.info(f"3D Trajectory Player note: {e}")
 
@@ -2300,7 +2300,7 @@ else:
                                         """, unsafe_allow_html=True)
 
                                         # Interactive 3D WebGL Trajectory Player for Derivative
-                                        st.markdown("#### 🎬 Live Derivative 3D Conformation Trajectory Player")
+                                        st.markdown("#### 🎬 VMD / ChimeraX-Grade Derivative 3D MD Cinema Studio (`Flex-Pocket + TIP3P Waters + Live H-Bond Vectors`)")
                                         try:
                                             if 'receptor_str' not in locals() or not receptor_str:
                                                 with open(receptor_pdbqt, 'r', encoding='utf-8', errors='ignore') as rf:
@@ -2311,9 +2311,9 @@ else:
                                                 trajectory_pdb_str=var_md_res.get("trajectory_pdb_str", ""),
                                                 df_trajectory=var_md_res["df_trajectory"],
                                                 df_rmsf=var_md_res["df_rmsf"],
-                                                height=460
+                                                height=560
                                             )
-                                            components.html(var_player_html, height=470)
+                                            components.html(var_player_html, height=575)
                                         except Exception as e:
                                             st.info(f"Derivative 3D Trajectory Player note: {e}")
 

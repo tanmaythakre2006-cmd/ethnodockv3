@@ -51,7 +51,8 @@ def generate_tcm_dossier_html(
     network_results=None,
     synergy_results=None,
     microbiome_results=None,
-    population_results=None
+    population_results=None,
+    pathfold_results=None
 ):
     """
     Generates an executive, publication-grade scientific research monograph
@@ -670,7 +671,7 @@ def generate_tcm_dossier_html(
     # (Conditionally synthesized ONLY when optional discovery tools were run)
     # =================================================================
     systems_html = ""
-    if targetome_results or network_results or synergy_results or microbiome_results or population_results:
+    if targetome_results or network_results or synergy_results or microbiome_results or population_results or pathfold_results:
         sub_sections = []
         
         # 1. Targetome Profiling
@@ -988,15 +989,137 @@ def generate_tcm_dossier_html(
             """
             sub_sections.append(pop_block)
 
+        # 6. PathFold Kinetic Folding Pathway, Cryptic Pocket Discovery & Genetic Engineering Phi-Value Blueprint
+        if pathfold_results and pathfold_results.get("trajectory_states"):
+            pf = pathfold_results
+            p_prof = pf["parent_profile"]
+            v_prof = pf.get("derivative_profile")
+
+            pf_state_rows = []
+            for st_row in pf["trajectory_states"]:
+                var_cols_html = ""
+                if v_prof:
+                    ddg = st_row.get('var_vs_parent_ddg', 0.0)
+                    ddg_col = "#16A34A" if ddg < 0 else "#64748B"
+                    var_cols_html = f"""
+                    <td style="font-weight:700; color:#059669;">{st_row['var_bind_dg']} kcal/mol</td>
+                    <td style="font-weight:700; color:{ddg_col};"><code>{ddg:+.2f} kcal/mol</code></td>
+                    """
+                pf_state_rows.append(f"""
+                <tr>
+                    <td><strong>{html.escape(st_row['state_label'])}</strong><br><small style="color:#64748B;">{html.escape(st_row['diffusion_step'])}</small></td>
+                    <td><code>Q = {st_row['q_coord']:.2f}</code><br><small style="color:#64748B;">R<sub>g</sub> = {st_row['rg_angstrom']} &Aring;</small></td>
+                    <td><b>{int(st_row['pocket_vol'])} &Aring;&sup3;</b></td>
+                    <td style="font-weight:700; color:#2563EB;">{st_row['parent_bind_dg']} kcal/mol</td>
+                    {var_cols_html}
+                    <td style="font-size:11.5px; line-height:1.4;">{html.escape(st_row['structural_event'])}</td>
+                </tr>
+                """)
+
+            phi_rows = []
+            for r in pf.get("engineering_blueprint", []):
+                phi_rows.append(f"""
+                <tr>
+                    <td><strong>{html.escape(r['residue'])}</strong></td>
+                    <td>{html.escape(r['domain'])}</td>
+                    <td><code style="font-weight:700;">&Phi; = {r['phi_value']:.2f}</code></td>
+                    <td>{html.escape(r['role'])}</td>
+                    <td><span class="badge {r['badge_cls']}">{html.escape(r['safety_tier'])}</span></td>
+                    <td style="font-size:11.5px; line-height:1.4;">{html.escape(r['engineering_guidance'])}</td>
+                </tr>
+                """)
+
+            var_summary_card = f"""
+            <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:8px; padding:12px 16px;">
+                <div style="font-size:10.5px; color:#047857; text-transform:uppercase; font-weight:700;">Stage 04 Derivative Pathway Mechanism ({html.escape(v_prof['compound_name'])})</div>
+                <div style="font-size:13.5px; font-weight:800; color:#065F46; margin:4px 0;">{html.escape(v_prof['mechanism_class'])}</div>
+                <div style="font-size:11.5px; color:#064E3B; line-height:1.4;">{html.escape(v_prof['mechanism_summary'])}</div>
+                <div style="margin-top:6px; font-size:11px; color:#047857;">
+                    <b>Cryptic I<sub>2</sub> Affinity:</b> {v_prof['cryptic_i2_affinity']} kcal/mol &bull;
+                    <b>Native N Affinity:</b> {v_prof['native_n_affinity']} kcal/mol &bull;
+                    <b>Folding Barrier Shift (&Delta;&Delta;G<sup>&ddagger;</sup>):</b> {v_prof['folding_barrier_shift_kcal']:+.2f} kcal/mol
+                </div>
+            </div>
+            """ if v_prof else ""
+
+            pf_block = f"""
+            <div style="margin-bottom:14px; margin-top:20px; border-top:1px dashed #DDD6FE; padding-top:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <div>
+                        <h4 style="margin:0 0 4px 0; font-size:14px; color:#0F172A;">🧬 PathFold Kinetic Folding Pathway, Cryptic Pocket Discovery &amp; Genetic Engineering &Phi;-Value Blueprint</h4>
+                        <span style="font-size:12px; color:#6B21A8;">Target Trajectory: <b>{html.escape(pf['target_name'])}</b> &bull; Cryptic Cavity Expansion (State I<sub>2</sub>): <b>{int(pf['cryptic_pocket_vol'])} &Aring;&sup3; (+{pf['cryptic_expansion_pct']}% vs Native {int(pf['native_pocket_vol'])} &Aring;&sup3;)</b></span>
+                    </div>
+                    <span class="badge badge-blue" style="font-size:11.5px; padding:4px 10px;">PATHFOLD DIFFUSION TRAJECTORY</span>
+                </div>
+
+                <!-- Dual Parent vs Derivative Pathway Mechanism Cards -->
+                <div style="display:grid; grid-template-columns: {'1fr 1fr' if v_prof else '1fr'}; gap:12px; margin-bottom:14px;">
+                    <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:12px 16px;">
+                        <div style="font-size:10.5px; color:#1D4ED8; text-transform:uppercase; font-weight:700;">Natural Parent Pathway Mechanism ({html.escape(p_prof['compound_name'])})</div>
+                        <div style="font-size:13.5px; font-weight:800; color:#1E3A8A; margin:4px 0;">{html.escape(p_prof['mechanism_class'])}</div>
+                        <div style="font-size:11.5px; color:#1E40AF; line-height:1.4;">{html.escape(p_prof['mechanism_summary'])}</div>
+                        <div style="margin-top:6px; font-size:11px; color:#1D4ED8;">
+                            <b>Cryptic I<sub>2</sub> Affinity:</b> {p_prof['cryptic_i2_affinity']} kcal/mol &bull;
+                            <b>Native N Affinity:</b> {p_prof['native_n_affinity']} kcal/mol &bull;
+                            <b>Folding Barrier Shift (&Delta;&Delta;G<sup>&ddagger;</sup>):</b> {p_prof['folding_barrier_shift_kcal']:+.2f} kcal/mol
+                        </div>
+                    </div>
+                    {var_summary_card}
+                </div>
+
+                <!-- Multi-State Folding Trajectory Docking Matrix -->
+                <div class="table-container" style="margin-top:10px;">
+                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Multi-State Conformational Pathway Docking Matrix (Unfolded U &rarr; Molten Globule I<sub>1</sub> &rarr; Cryptic I<sub>2</sub> &rarr; Transition &ddagger; &rarr; Native N)</div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Conformational State</th>
+                                <th>Coord Q &amp; R<sub>g</sub></th>
+                                <th>Pocket Volume</th>
+                                <th>Parent &Delta;G<sub>bind</sub></th>
+                                {'<th>Derivative &Delta;G<sub>bind</sub></th><th>&Delta;&Delta;G Advantage</th>' if v_prof else ''}
+                                <th>Conformational &amp; Cryptic Pocket Mechanism</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {''.join(pf_state_rows)}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Genetic Engineering Phi-Value Blueprint Table -->
+                <div class="table-container" style="margin-top:12px;">
+                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Genetic Engineering &Phi;-Value &amp; Site-Directed Mutagenesis Safety Blueprint</div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Target Residue</th>
+                                <th>Structural Domain</th>
+                                <th>Transition &Phi;-Value</th>
+                                <th>Folding Pathway Role</th>
+                                <th>Mutagenesis Safety Tier</th>
+                                <th>Genetic Engineering Guidance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {''.join(phi_rows)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            """
+            sub_sections.append(pf_block)
+
         systems_html = f"""
         <div class="section-card" style="border:1px solid #DDD6FE; background:#FAF5FF;">
             <div class="section-title">
-                <span style="color:#6D28D9;">🌐 Section VI: Systems Network Pharmacology, Targetome & In-Vivo Discovery Profile</span>
+                <span style="color:#6D28D9;">🌐 Section VI: Systems Network Pharmacology, Targetome, PathFold &amp; In-Vivo Discovery Profile</span>
                 <span class="badge badge-purple">STAGE 06 EXTENSION</span>
             </div>
             <p style="margin:0 0 16px 0; font-size:13px; color:#6B21A8;">
                 Comprehensive multi-target discovery profiling assessing polypharmacological targetome selectivity,
-                interactome hub bottlenecks, multi-constituent combination synergism, and gut microbiome in-vivo activation.
+                interactome hub bottlenecks, multi-constituent combination synergism, gut microbiome in-vivo activation,
+                HGP population pharmacogenomics, and PathFold kinetic folding trajectory analysis.
             </p>
             {''.join(sub_sections)}
         </div>

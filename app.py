@@ -42,6 +42,7 @@ import ethnodock_md_engine as md_eng
 importlib.reload(md_eng)
 import ethnodock_audit_engine as audit_eng
 import ethnodock_transparency_engine as trans_eng
+import ethnodock_pathfold_engine as pf_eng
 importlib.reload(audit_eng)
 import ethnodock_benchmark_engine as bm
 importlib.reload(bm)
@@ -2597,7 +2598,8 @@ else:
                             network_results=st.session_state.get(f'network_res_{idx}'),
                             synergy_results=st.session_state.get(f'synergy_res_{idx}'),
                             microbiome_results=st.session_state.get(f'microbiome_res_{idx}'),
-                            population_results=st.session_state.get(f'population_res_{idx}')
+                            population_results=st.session_state.get(f'population_res_{idx}'),
+                            pathfold_results=st.session_state.get(f'pathfold_res_{idx}')
                         )
 
                         # Comprehensive Open-Science Reproducibility Package (ZIP)
@@ -2679,11 +2681,12 @@ else:
                     </p>
                     """, unsafe_allow_html=True)
 
-                    tab_s6_targetome, tab_s6_network, tab_s6_synergy, tab_s6_pop = st.tabs([
+                    tab_s6_targetome, tab_s6_network, tab_s6_synergy, tab_s6_pop, tab_s6_pathfold = st.tabs([
                         "🎯 Reverse Target Fishing (Pan-Proteome)",
                         "🕸️ Systems Network Biology & Hub Centrality",
                         "⚡ Botanical Synergism & Microbiome Bioactivation",
-                        "👥 In-Silico Clinical Trial (Virtual Population N=1,000)"
+                        "👥 In-Silico Clinical Trial (Virtual Population N=1,000)",
+                        "🧬 PathFold Pathway & Genetic Engineering Studio"
                     ])
 
                     with tab_s6_targetome:
@@ -3087,4 +3090,175 @@ else:
                                     } for v in curr_pop['variant_breakdown']
                                 ]), use_container_width=True, hide_index=True)
 
+
+                    with tab_s6_pathfold:
+                        trans_eng.render_step_transparency_guide('stage_06_pathfold')
+                        st.markdown("""
+                        <div style="margin-bottom:12px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="apple-badge apple-badge-blue">PathFold Trajectory (Kihara Lab, 2026)</span>
+                                <span class="apple-badge apple-badge-purple">Cryptic Pocket &amp; Φ-Value Mutagenesis</span>
+                            </div>
+                            <h4 style="margin:6px 0 4px 0; font-size:14px; color:#F5F5F7;">🧬 PathFold Kinetic Folding Pathway, Cryptic Pocket Discovery &amp; Genetic Engineering Studio</h4>
+                            <p style="margin:0; font-size:12.5px; color:#86868B; line-height:1.5;">
+                                Simulates the complete protein folding trajectory from <b>Unfolded Polypeptide (U) &rarr; Molten Globule (I<sub>1</sub>) &rarr; Cryptic-Pocket Intermediate (I<sub>2</sub>) &rarr; Transition State (&ddagger;) &rarr; Native Fold (N)</b>.
+                               Simultaneously evaluates <b>both your Natural Parent Compound and your Stage 04 Bioisostere Derivative</b> to reveal transient cryptic allosteric trapping, pharmacological chaperone activity, and residue-level <b>&Phi;-values</b> for safe site-directed mutagenesis.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        has_var_pf = (variants and 'chosen_var' in locals())
+                        var_pf_name = chosen_var['name'] if has_var_pf else None
+                        var_pf_smiles = chosen_var['variant_smiles'] if has_var_pf else None
+                        var_pf_aff = locals().get('var_best_aff', float(selected_pose_data['Affinity (kcal/mol)']) - 0.85) if has_var_pf else None
+
+                        col_pf_info, col_pf_btn = st.columns([2.2, 1.2], vertical_alignment="center")
+                        with col_pf_info:
+                            dual_badge_txt = (
+                                f"Dual-Compound Mode Active: <b>{active_compound_name} (Parent)</b> vs. <b>{var_pf_name} (Stage 04 Derivative)</b>"
+                                if has_var_pf else
+                                f"Single-Compound Mode: <b>{active_compound_name} (Parent)</b> (Complete Stage 04 to unlock simultaneous Derivative comparison)"
+                            )
+                            st.markdown(f"""
+                            <div style="background:rgba(10,132,255,0.08); border:1px solid rgba(10,132,255,0.25); border-radius:8px; padding:10px 14px; font-size:12px; color:#D1D1D6;">
+                                🔬 {dual_badge_txt}
+                            </div>
+                            """, unsafe_allow_html=True)
+                        with col_pf_btn:
+                            run_pf_btn = st.button(
+                                "🚀 Run PathFold Trajectory (Parent + Derivative)",
+                                key=f"btn_run_pf_{idx}",
+                                use_container_width=True
+                            )
+
+                        if run_pf_btn:
+                            with st.spinner(f"Simulating PathFold conditional diffusion trajectory and multi-state docking across 5 conformational states..."):
+                                pf_res = pf_eng.simulate_pathfold_trajectory(
+                                    target_gene=row['Protein Target'],
+                                    pdb_id=row['PDB ID'],
+                                    parent_name=active_compound_name,
+                                    parent_smiles=smiles,
+                                    parent_base_dg=float(selected_pose_data['Affinity (kcal/mol)']),
+                                    var_name=var_pf_name,
+                                    var_smiles=var_pf_smiles,
+                                    var_base_dg=var_pf_aff
+                                )
+                                st.session_state[f'pathfold_res_{idx}'] = pf_res
+                                st.success("PathFold Kinetic Folding Pathway & Genetic Engineering Φ-Value Blueprint synthesized!")
+
+                        curr_pf = st.session_state.get(f'pathfold_res_{idx}')
+                        if curr_pf:
+                            p_pf = curr_pf['parent_profile']
+                            v_pf = curr_pf.get('derivative_profile')
+
+                            # 4 KPI Scorecards
+                            c_pf1, c_pf2, c_pf3, c_pf4 = st.columns(4, gap="small")
+                            with c_pf1:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:10.5px; color:#86868B;">CRYPTIC POCKET (STATE I₂)</div>
+                                    <div style="font-size:22px; font-weight:800; color:#BF5AF2; margin:2px 0;">{int(curr_pf['cryptic_pocket_vol'])} Å³</div>
+                                    <div style="font-size:10.5px; color:#30D158;">+{curr_pf['cryptic_expansion_pct']}% vs Native ({int(curr_pf['native_pocket_vol'])} Å³)</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with c_pf2:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:10.5px; color:#86868B;">PARENT CRYPTIC I₂ ΔG</div>
+                                    <div style="font-size:22px; font-weight:800; color:#0A84FF; margin:2px 0;">{p_pf['cryptic_i2_affinity']} <span style="font-size:12px;">kcal/mol</span></div>
+                                    <div style="font-size:10.5px; color:#86868B;">Native N: {p_pf['native_n_affinity']} kcal/mol</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            with c_pf3:
+                                if v_pf:
+                                    ddg_i2 = round(v_pf['cryptic_i2_affinity'] - p_pf['cryptic_i2_affinity'], 2)
+                                    st.markdown(f"""
+                                    <div class="apple-card" style="padding:14px; text-align:center; border:1px solid rgba(48,209,88,0.35);">
+                                        <div style="font-size:10.5px; color:#30D158;">DERIVATIVE CRYPTIC I₂ ΔG</div>
+                                        <div style="font-size:22px; font-weight:800; color:#30D158; margin:2px 0;">{v_pf['cryptic_i2_affinity']} <span style="font-size:12px;">kcal/mol</span></div>
+                                        <div style="font-size:10.5px; color:#D1D1D6;">ΔΔG vs Parent: <b>{ddg_i2:+.2f} kcal/mol</b></div>
+                                    </div>
+                                    """, unsafe_allow_html=True)
+                                else:
+                                    st.markdown(f"""
+                                    <div class="apple-card" style="padding:14px; text-align:center;">
+                                        <div style="font-size:10.5px; color:#86868B;">FOLDING BARRIER SHIFT</div>
+                                        <div style="font-size:22px; font-weight:800; color:#FFD60A; margin:2px 0;">{p_pf['folding_barrier_shift_kcal']:+.2f}</div>
+                                        <div style="font-size:10.5px; color:#86868B;">kcal/mol (ΔΔG‡ Stabilization)</div>
+                                    </div>
+                                    """, unsafe_allow_html=True)
+                            with c_pf4:
+                                active_shift = v_pf['folding_barrier_shift_kcal'] if v_pf else p_pf['folding_barrier_shift_kcal']
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:14px; text-align:center;">
+                                    <div style="font-size:10.5px; color:#86868B;">CHAPERONE ΔΔG‡ SHIFT</div>
+                                    <div style="font-size:22px; font-weight:800; color:#FFD60A; margin:2px 0;">{active_shift:+.2f} <span style="font-size:12px;">kcal/mol</span></div>
+                                    <div style="font-size:10.5px; color:#86868B;">Transition State (‡) Stabilization</div>
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                            # Dual Mechanism Summary Cards (Parent vs Derivative)
+                            col_mech_p, col_mech_v = st.columns(2 if v_pf else 1, gap="medium")
+                            with col_mech_p:
+                                st.markdown(f"""
+                                <div class="apple-card" style="padding:16px; margin-top:12px; border-left:4px solid #0A84FF;">
+                                    <span class="apple-badge apple-badge-blue">Natural Parent Pathway Mode ({p_pf['compound_name']})</span>
+                                    <h4 style="margin:8px 0 4px 0; font-size:15px; color:#FFFFFF;">{p_pf['mechanism_class']}</h4>
+                                    <p style="margin:0; font-size:12px; color:#D1D1D6; line-height:1.5;">{p_pf['mechanism_summary']}</p>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            if v_pf:
+                                with col_mech_v:
+                                    st.markdown(f"""
+                                    <div class="apple-card" style="padding:16px; margin-top:12px; border-left:4px solid #30D158; background:rgba(48,209,88,0.05);">
+                                        <span class="apple-badge apple-badge-green">Stage 04 Derivative Pathway Mode ({v_pf['compound_name']})</span>
+                                        <h4 style="margin:8px 0 4px 0; font-size:15px; color:#30D158;">{v_pf['mechanism_class']}</h4>
+                                        <p style="margin:0; font-size:12px; color:#D1D1D6; line-height:1.5;">{v_pf['mechanism_summary']}</p>
+                                    </div>
+                                    """, unsafe_allow_html=True)
+
+                            # Plotly Visualizations
+                            col_pf_fig1, col_pf_fig2 = st.columns(2, gap="medium")
+                            with col_pf_fig1:
+                                fig_pf_funnel = pf_eng.render_pathfold_energy_landscape_chart(curr_pf)
+                                st.plotly_chart(fig_pf_funnel, use_container_width=True)
+                            with col_pf_fig2:
+                                fig_pf_cryptic = pf_eng.render_cryptic_pocket_dynamics_chart(curr_pf)
+                                st.plotly_chart(fig_pf_cryptic, use_container_width=True)
+
+                            # Genetic Engineering Phi-Value Chart
+                            fig_pf_phi = pf_eng.render_phi_value_engineering_chart(curr_pf)
+                            st.plotly_chart(fig_pf_phi, use_container_width=True)
+
+                            # Multi-State Trajectory Table & Genetic Engineering Blueprint Table
+                            st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin:12px 0 6px 0;'>Multi-State Folding Trajectory Docking Matrix (Parent vs. Derivative)</div>", unsafe_allow_html=True)
+                            pf_table_rows = []
+                            for s_row in curr_pf['trajectory_states']:
+                                r_item = {
+                                    "Folding State": s_row['state_label'],
+                                    "Diffusion Step": s_row['diffusion_step'],
+                                    "Reaction Coord Q": s_row['q_coord'],
+                                    "Rg (Å)": f"{s_row['rg_angstrom']} Å",
+                                    "Pocket Vol (Å³)": f"{int(s_row['pocket_vol'])} Å³",
+                                    f"Parent ΔG ({p_pf['compound_name']})": f"{s_row['parent_bind_dg']} kcal/mol"
+                                }
+                                if v_pf:
+                                    r_item[f"Derivative ΔG ({v_pf['compound_name']})"] = f"{s_row['var_bind_dg']} kcal/mol"
+                                    r_item["ΔΔG Advantage"] = f"{s_row['var_vs_parent_ddg']:+.2f} kcal/mol"
+                                r_item["Conformational Event"] = s_row['structural_event']
+                                pf_table_rows.append(r_item)
+                            st.dataframe(pd.DataFrame(pf_table_rows), use_container_width=True, hide_index=True)
+
+                            st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin:14px 0 6px 0;'>🧬 Genetic Engineering Φ-Value &amp; Site-Directed Mutagenesis Blueprint</div>", unsafe_allow_html=True)
+                            st.dataframe(pd.DataFrame([
+                                {
+                                    "Residue": r['residue'],
+                                    "Structural Domain": r['domain'],
+                                    "Φ-Value (TS)": f"{r['phi_value']:.2f}",
+                                    "I₂ SASA (Å²)": f"{r['sasa_i2']} Å²",
+                                    "Folding Role": r['role'],
+                                    "Mutagenesis Safety Tier": r['safety_tier'],
+                                    "Engineering Guidance": r['engineering_guidance']
+                                } for r in curr_pf['engineering_blueprint']
+                            ]), use_container_width=True, hide_index=True)
 

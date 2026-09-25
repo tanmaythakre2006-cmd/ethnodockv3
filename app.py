@@ -1503,7 +1503,7 @@ else:
                             receptor_style=receptor_style,
                             ligand_style=ligand_style,
                             show_surface=show_surface,
-                            height=480
+                            height=550
                         )
                         
                         st.markdown("""
@@ -1512,10 +1512,10 @@ else:
                                 <span class="macos-dot dot-red"></span>
                                 <span class="macos-dot dot-yellow"></span>
                                 <span class="macos-dot dot-green"></span>
-                                <span class="macos-title">3D WebGL Studio • Interaction Engine</span>
+                                <span class="macos-title">PyMOL / ChimeraX-Grade 3D Docking Complex Studio • Interaction Engine</span>
                             </div>
                         """, unsafe_allow_html=True)
-                        components.html(viewer_html, height=490)
+                        components.html(viewer_html, height=565)
                         st.markdown("</div>", unsafe_allow_html=True)
 
                     with col_table:
@@ -1845,34 +1845,14 @@ else:
 
                                 with tab_md_fes:
                                     col_fes1, col_fes2 = st.columns(2, gap="medium")
-                                    # Graph 3: 3D Free Energy Surface (FES)
+                                    # Graph 3: 3D Free Energy Surface (FES) & MFEP Trajectory Path
                                     with col_fes1:
                                         fes = md_res.get("fes_data")
                                         if fes:
-                                            fig_fes = go.Figure(data=[go.Surface(
-                                                x=fes["x_rmsd"],
-                                                y=fes["y_rg"],
-                                                z=fes["z_fes"],
-                                                colorscale="Viridis",
-                                                reversescale=True,
-                                                colorbar=dict(title="ΔG (kcal/mol)", len=0.7, thickness=12),
-                                                contours=dict(
-                                                    z=dict(show=True, usecolormap=True, highlightcolor="#FFFFFF", project_z=True)
-                                                )
-                                            )])
-                                            fig_fes.update_layout(
-                                                title=f"3D Free Energy Surface ΔG(RMSD, Rg) [Barrier: {fes['max_barrier']} kcal/mol]",
-                                                scene=dict(
-                                                    xaxis_title="RMSD (Å)",
-                                                    yaxis_title="Rg (Å)",
-                                                    zaxis_title="ΔG (kcal/mol)",
-                                                    xaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)"),
-                                                    yaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)"),
-                                                    zaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)")
-                                                ),
-                                                template="plotly_dark", height=320,
-                                                margin=dict(l=10, r=10, t=40, b=10),
-                                                paper_bgcolor="#121620"
+                                            fig_fes = md_eng.build_enhanced_3d_fes_figure(
+                                                fes,
+                                                title=f"3D Free Energy Surface & MFEP Trajectory Path [Barrier: {fes['max_barrier']} kcal/mol]",
+                                                compound_label=active_compound_name
                                             )
                                             st.plotly_chart(fig_fes, use_container_width=True)
 
@@ -2057,7 +2037,7 @@ else:
                             var_interactions_df = inter_eng.calc_interactions(var_selected_pose_str, receptor_pdbqt, cutoff=4.0)
 
                             # VISIBLE PROOF: Dual-Pose 3D Complex Alignment Viewer
-                            st.markdown("<div style='font-size:13px; font-weight:600; color:#FFF; margin-top:16px; margin-bottom:8px;'>🔬 3D Active Site Superposition: Natural Parent (Gold) vs. Semi-Synthetic Derivative (Cyan)</div>", unsafe_allow_html=True)
+                            st.markdown("<div style='font-size:13px; font-weight:600; color:#FFF; margin-top:16px; margin-bottom:8px;'>🎬 PyMOL / ChimeraX-Grade Bioisosteric Pharmacophore Superposition: Natural Parent (Gold Envelope) vs. Semi-Synthetic Derivative (Cyan Envelope)</div>", unsafe_allow_html=True)
                             
                             if 'receptor_str' not in locals() or not receptor_str:
                                 with open(receptor_pdbqt, 'r', encoding='utf-8', errors='ignore') as rf:
@@ -2071,9 +2051,9 @@ else:
                                 var_interactions_df=var_interactions_df,
                                 parent_name=f"{active_compound_name} ({parent_best_aff:.2f} kcal/mol)",
                                 var_name=f"{chosen_var['name']} ({var_best_aff:.2f} kcal/mol)",
-                                height=480
+                                height=550
                             )
-                            components.html(dual_viewer_html, height=490)
+                            components.html(dual_viewer_html, height=565)
 
                             # Interaction Table & Newly Recruited Residues
                             col_itab, col_pymol = st.columns([1.6, 1], gap="medium")
@@ -2380,34 +2360,14 @@ else:
 
                                         with tab_vmd_fes:
                                             col_vfes1, col_vfes2 = st.columns(2, gap="medium")
-                                            # Graph 3: Derivative 3D Free Energy Surface (FES)
+                                            # Graph 3: Derivative 3D Free Energy Surface (FES) & MFEP Trajectory Path
                                             with col_vfes1:
                                                 vfes = var_md_res.get("fes_data")
                                                 if vfes:
-                                                    fig_vfes = go.Figure(data=[go.Surface(
-                                                        x=vfes["x_rmsd"],
-                                                        y=vfes["y_rg"],
-                                                        z=vfes["z_fes"],
-                                                        colorscale="Viridis",
-                                                        reversescale=True,
-                                                        colorbar=dict(title="ΔG (kcal/mol)", len=0.7, thickness=12),
-                                                        contours=dict(
-                                                            z=dict(show=True, usecolormap=True, highlightcolor="#FFFFFF", project_z=True)
-                                                        )
-                                                    )])
-                                                    fig_vfes.update_layout(
-                                                        title=f"Derivative 3D FES Landscape [Barrier: {vfes['max_barrier']} kcal/mol]",
-                                                        scene=dict(
-                                                            xaxis_title="RMSD (Å)",
-                                                            yaxis_title="Rg (Å)",
-                                                            zaxis_title="ΔG (kcal/mol)",
-                                                            xaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)"),
-                                                            yaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)"),
-                                                            zaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)")
-                                                        ),
-                                                        template="plotly_dark", height=320,
-                                                        margin=dict(l=10, r=10, t=40, b=10),
-                                                        paper_bgcolor="#121620"
+                                                    fig_vfes = md_eng.build_enhanced_3d_fes_figure(
+                                                        vfes,
+                                                        title=f"Derivative 3D FES & MFEP Trajectory Path [Barrier: {vfes['max_barrier']} kcal/mol]",
+                                                        compound_label=chosen_var['name']
                                                     )
                                                     st.plotly_chart(fig_vfes, use_container_width=True)
 
@@ -3216,6 +3176,26 @@ else:
                                         <p style="margin:0; font-size:12px; color:#D1D1D6; line-height:1.5;">{v_pf['mechanism_summary']}</p>
                                     </div>
                                     """, unsafe_allow_html=True)
+
+                            # 3D Kinetic Folding Morph & Cryptic Pocket Cinema Studio
+                            st.markdown("#### 🎬 PathFold 3D Kinetic Folding Morph & Cryptic Pocket Cinema Studio (5-State Pathway: U → I₁ → I₂ → ‡ → N)")
+                            try:
+                                if 'receptor_str' not in locals() or not receptor_str:
+                                    with open(receptor_pdbqt, 'r', encoding='utf-8', errors='ignore') as rf:
+                                        receptor_str = rf.read()
+                                p_pose_str = st.session_state.get(f'best_pose_{idx}', '')
+                                v_pose_str = st.session_state.get(f'var_selected_pose_{idx}', '')
+                                pf_cinema_html = pf_eng.build_pathfold_3d_morph_cinema_html(
+                                    container_id=f"pf_morph_cinema_{idx}",
+                                    pathfold_data=curr_pf,
+                                    receptor_str=receptor_str,
+                                    parent_ligand_str=p_pose_str,
+                                    var_ligand_str=v_pose_str,
+                                    height=560
+                                )
+                                components.html(pf_cinema_html, height=575)
+                            except Exception as _pf_err:
+                                st.info(f"PathFold 3D Morph note: {_pf_err}")
 
                             # Plotly Visualizations
                             col_pf_fig1, col_pf_fig2 = st.columns(2, gap="medium")

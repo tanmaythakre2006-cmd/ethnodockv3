@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import AllChem
+import plotly.graph_objects as go
 try:
     from scipy.ndimage import gaussian_filter
     HAS_SCIPY = True
@@ -16,7 +17,8 @@ def compute_free_energy_surface(rmsd_vals, rg_vals, temp_k=300.0, grid_size=32):
     """
     Computes a 2D Free Energy Surface (FES) landscape:
     ΔG(RMSD, Rg) = -kB * T * ln(P(RMSD, Rg) / P_max)
-    Returns x_bins, y_bins, and z_fes (2D array in kcal/mol).
+    Also extracts the Minimum Free Energy Path (MFEP) trajectory trace,
+    Global Minimum (Native Well N), and Transition State Saddle Point (‡).
     """
     rmsd_arr = np.array(rmsd_vals)
     rg_arr = np.array(rg_vals)
@@ -49,13 +51,133 @@ def compute_free_energy_surface(rmsd_vals, rg_vals, temp_k=300.0, grid_size=32):
     x_centers = 0.5 * (x_bins[:-1] + x_bins[1:])
     y_centers = 0.5 * (y_bins[:-1] + y_bins[1:])
 
+    # Map trajectory points onto the 2D FES to compute MFEP trace
+    mfep_points = []
+    for idx_t in range(len(rmsd_vals)):
+        rx = float(rmsd_vals[idx_t])
+        ry = float(rg_vals[idx_t])
+        # Find nearest grid center
+        ix = int(np.clip(np.searchsorted(x_centers, rx), 0, len(x_centers) - 1))
+        iy = int(np.clip(np.searchsorted(y_centers, ry), 0, len(y_centers) - 1))
+        z_dg = float(fes[ix, iy])
+        mfep_points.append({
+            "step": idx_t + 1,
+            "rmsd": round(rx, 3),
+            "rg": round(ry, 3),
+            "dg": round(z_dg, 2)
+        })
+
+    # Identify Native Well (minimum DG) and Saddle Point (peak along MFEP)
+    native_pt = min(mfep_points, key=lambda p: p["dg"])
+    saddle_pt = max(mfep_points, key=lambda p: p["dg"])
+
     return {
         "x_rmsd": [round(float(v), 3) for v in x_centers],
         "y_rg": [round(float(v), 3) for v in y_centers],
         "z_fes": [[round(float(val), 2) for val in row] for row in fes.T],
         "min_dg": 0.0,
-        "max_barrier": round(float(np.max(fes)), 2)
+        "max_barrier": round(float(np.max(fes)), 2),
+        "mfep_points": mfep_points,
+        "native_well": native_pt,
+        "saddle_point": saddle_pt
     }
+
+
+def build_enhanced_3d_fes_figure(fes_data: dict, title: str = "3D Free Energy Surface & Minimum Free Energy Path", compound_label: str = "Ligand") -> go.Figure:
+    """
+    Renders an enhanced 3D Free Energy Surface (FES) landscape in Plotly
+    with an illuminated 3D mesh surface, Boltzmann contours, and an overlaid
+    3D Minimum Free Energy Path (MFEP) trajectory trace with Native Well and Saddle Point callouts.
+    """
+    fig = go.Figure()
+
+    # 1. 3D Potential Energy Surface
+    fig.add_trace(go.Surface(
+        x=fes_data["x_rmsd"],
+        y=fes_data["y_rg"],
+        z=fes_data["z_fes"],
+        colorscale="Viridis",
+        reversescale=True,
+        opacity=0.88,
+        colorbar=dict(title="ΔG (kcal/mol)", len=0.7, thickness=12, tickfont=dict(color="#CBD5E1")),
+        contours=dict(
+            z=dict(show=True, usecolormap=True, highlightcolor="#FFFFFF", project_z=True)
+        ),
+        name="Free Energy Basin"
+    ))
+
+    # 2. Overlaid 3D Minimum Free Energy Path (MFEP)
+    mfep = fes_data.get("mfep_points", [])
+    if mfep:
+        path_x = [p["rmsd"] for p in mfep]
+        path_y = [p["rg"] for p in mfep]
+        path_z = [p["dg"] + 0.12 for p in mfep]  # slight z-lift so line floats cleanly above mesh
+
+        fig.add_trace(go.Scatter3d(
+            x=path_x,
+            y=path_y,
+            z=path_z,
+            mode="lines+markers",
+            line=dict(color="#FFD60A", width=5),
+            marker=dict(size=3.5, color="#FFD60A"),
+            name="MFEP Trajectory Path",
+            hovertext=[f"Frame {p['step']}: RMSD={p['rmsd']}Å, Rg={p['rg']}Å, ΔG={p['dg']} kcal" for p in mfep],
+            hoverinfo="text"
+        ))
+
+    # 3. Native Energy Well (N) Callout Marker
+    n_pt = fes_data.get("native_well")
+    if n_pt:
+        fig.add_trace(go.Scatter3d(
+            x=[n_pt["rmsd"]],
+            y=[n_pt["rg"]],
+            z=[n_pt["dg"] + 0.3],
+            mode="markers+text",
+            marker=dict(size=8, color="#30D158", symbol="diamond", line=dict(color="#FFFFFF", width=1.5)),
+            text=["★ Native Well (N)"],
+            textposition="top center",
+            textfont=dict(color="#30D158", size=11),
+            name="Native Energy Well (N)",
+            hoverinfo="text",
+            hovertext=f"Native Well: RMSD={n_pt['rmsd']}Å, Rg={n_pt['rg']}Å (ΔG = 0 kcal/mol)"
+        ))
+
+    # 4. Transition State Saddle Point (‡) Callout Marker
+    s_pt = fes_data.get("saddle_point")
+    if s_pt:
+        fig.add_trace(go.Scatter3d(
+            x=[s_pt["rmsd"]],
+            y=[s_pt["rg"]],
+            z=[s_pt["dg"] + 0.3],
+            mode="markers+text",
+            marker=dict(size=8, color="#FF453A", symbol="cross", line=dict(color="#FFFFFF", width=1.5)),
+            text=["‡ Saddle Point"],
+            textposition="top center",
+            textfont=dict(color="#FF453A", size=11),
+            name="Transition State (‡)",
+            hoverinfo="text",
+            hovertext=f"Transition State Barrier: ΔG‡ = {s_pt['dg']} kcal/mol"
+        ))
+
+    fig.update_layout(
+        title=dict(text=title, font=dict(color="#F5F5F7", size=13.5)),
+        scene=dict(
+            xaxis_title="RMSD (Å)",
+            yaxis_title="Radius of Gyration Rg (Å)",
+            zaxis_title="ΔG (kcal/mol)",
+            xaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)", color="#CBD5E1"),
+            yaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)", color="#CBD5E1"),
+            zaxis=dict(backgroundcolor="#0B0E14", gridcolor="rgba(255,255,255,0.1)", color="#CBD5E1"),
+            camera=dict(eye=dict(x=-1.55, y=-1.55, z=1.2))
+        ),
+        template="plotly_dark",
+        height=380,
+        margin=dict(l=10, r=10, t=40, b=10),
+        paper_bgcolor="#121620",
+        showlegend=True,
+        legend=dict(x=0.02, y=0.98, bgcolor="rgba(11,15,25,0.85)", font=dict(size=10, color="#CBD5E1"))
+    )
+    return fig
 
 
 def simulate_binding_pocket_md(

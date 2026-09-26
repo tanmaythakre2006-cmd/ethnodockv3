@@ -52,7 +52,8 @@ def generate_tcm_dossier_html(
     synergy_results=None,
     microbiome_results=None,
     population_results=None,
-    pathfold_results=None
+    pathfold_results=None,
+    translational_results=None
 ):
     """
     Generates an executive, publication-grade scientific research monograph
@@ -671,7 +672,7 @@ def generate_tcm_dossier_html(
     # (Conditionally synthesized ONLY when optional discovery tools were run)
     # =================================================================
     systems_html = ""
-    if targetome_results or network_results or synergy_results or microbiome_results or population_results or pathfold_results:
+    if targetome_results or network_results or synergy_results or microbiome_results or population_results or pathfold_results or translational_results:
         sub_sections = []
         
         # 1. Targetome Profiling
@@ -1111,7 +1112,7 @@ def generate_tcm_dossier_html(
             sub_sections.append(pf_block)
 
         # 7. Big Pharma Clinical Translation, Copeland Residence Time, PROTAC Feasibility & CDx Stratification
-        trans_res = session_state.get('translational_results')
+        trans_res = translational_results
         if trans_res:
             kin = trans_res['kinetics']
             p_kin = kin['parent_kinetics']

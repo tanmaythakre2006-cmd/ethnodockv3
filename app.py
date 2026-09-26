@@ -2600,7 +2600,8 @@ else:
                             synergy_results=st.session_state.get(f'synergy_res_{idx}'),
                             microbiome_results=st.session_state.get(f'microbiome_res_{idx}'),
                             population_results=st.session_state.get(f'population_res_{idx}'),
-                            pathfold_results=st.session_state.get(f'pathfold_res_{idx}')
+                            pathfold_results=st.session_state.get(f'pathfold_res_{idx}'),
+                            translational_results=st.session_state.get(f'translational_results_{idx}') or st.session_state.get('translational_results')
                         )
 
                         # Comprehensive Open-Science Reproducibility Package (ZIP)

@@ -1110,6 +1110,109 @@ def generate_tcm_dossier_html(
             """
             sub_sections.append(pf_block)
 
+        # 7. Big Pharma Clinical Translation, Copeland Residence Time, PROTAC Feasibility & CDx Stratification
+        trans_res = session_state.get('translational_results')
+        if trans_res:
+            kin = trans_res['kinetics']
+            p_kin = kin['parent_kinetics']
+            v_kin = kin.get('derivative_kinetics')
+            protac = trans_res['protac']
+            resist = trans_res['resistance']
+            cdx = trans_res['cdx']
+
+            # Resistance table rows
+            res_rows = []
+            for r_item in resist['mutations_table']:
+                v_col = f"<td>{r_item.get('Derivative ΔG (' + (v_kin['compound_name'] if v_kin else 'Lead') + ')', '-')} <span style='font-size:10px; color:#10B981;'>({r_item.get('Derivative Resistance Loss', '-')})</span></td>" if v_kin else ""
+                res_rows.append(f"""
+                <tr>
+                    <td><b>{html.escape(r_item['Mutation'])}</b></td>
+                    <td style="font-size:11px;">{html.escape(r_item['Clinical Context'])}</td>
+                    <td>{r_item.get('Parent ΔG (' + p_kin['compound_name'] + ')', '-')} <span style="font-size:10px; color:#EF4444;">({r_item.get('Parent Resistance Loss', '-')})</span></td>
+                    {v_col}
+                    <td><span class="badge" style="background:{r_item['Status Color']}; color:white; font-size:10px;">{r_item['Resistance Evasion Status']}</span></td>
+                </tr>
+                """)
+
+            # CDx Synthetic Lethality rows
+            sl_rows = []
+            for sl in cdx.get('synthetic_lethal_partners', []):
+                sl_rows.append(f"<li><b>{html.escape(sl['gene'])}:</b> {html.escape(sl['relationship'])}</li>")
+
+            v_head = f"<th>Derivative Affinity (Loss)</th>" if v_kin else ""
+            trans_block = f"""
+            <div style="margin-bottom:14px; margin-top:20px; border-top:1px dashed #A7F3D0; padding-top:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <div>
+                        <h4 style="margin:0 0 4px 0; font-size:14px; color:#065F46;">🏥 Big Pharma Clinical Translation, Copeland Residence Time, PROTAC Feasibility &amp; CDx Blueprint</h4>
+                        <span style="font-size:12px; color:#047857;">IND-Enabling De-Risking Suite &bull; Target: <b>{html.escape(resist.get('target_name', 'Target'))}</b></span>
+                    </div>
+                    <span class="badge badge-green" style="font-size:11.5px; padding:4px 10px;">BIG PHARMA IND ASSET</span>
+                </div>
+
+                <!-- 4 KPI Translation Cards -->
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:10px; margin-bottom:14px;">
+                    <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10px; color:#047857; text-transform:uppercase; font-weight:700;">Parent Residence Time</div>
+                        <div style="font-size:18px; font-weight:800; color:#065F46; margin:2px 0;">{p_kin['residence_hours']:.2f} h</div>
+                        <div style="font-size:10px; color:#059669;">t<sub>1/2</sub> = {p_kin['residence_minutes']:.1f} min (k<sub>off</sub> = {p_kin['koff_s']:.1e} s<sup>-1</sup>)</div>
+                    </div>
+                    <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10px; color:#047857; text-transform:uppercase; font-weight:700;">Derivative Residence Time</div>
+                        <div style="font-size:18px; font-weight:800; color:#059669; margin:2px 0;">{(v_kin['residence_hours'] if v_kin else p_kin['residence_hours']):.2f} h</div>
+                        <div style="font-size:10px; color:#047857;"><b>{kin.get('residence_fold_gain', 1.0)}x</b> Longer Target Clamp</div>
+                    </div>
+                    <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10px; color:#166534; text-transform:uppercase; font-weight:700;">PROTAC Tractability</div>
+                        <div style="font-size:18px; font-weight:800; color:#15803D; margin:2px 0;">{protac['feasibility_score']}%</div>
+                        <div style="font-size:10px; color:#166534;">{html.escape(protac['recommended_e3'][:25])}</div>
+                    </div>
+                    <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:10px; text-align:center;">
+                        <div style="font-size:10px; color:#1D4ED8; text-transform:uppercase; font-weight:700;">Resistance Evasion</div>
+                        <div style="font-size:18px; font-weight:800; color:#1E40AF; margin:2px 0;">{resist['evasion_percentage']}%</div>
+                        <div style="font-size:10px; color:#2563EB;">Mean &Delta;&Delta;G Penalty: {resist['mean_derivative_penalty']:.2f} kcal/mol</div>
+                    </div>
+                </div>
+
+                <!-- CDx & Patient Stratification Box -->
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:12px 16px; margin-bottom:14px;">
+                    <div style="font-size:11px; font-weight:700; color:#0F172A; text-transform:uppercase; margin-bottom:6px;">🧬 FDA Companion Diagnostic (CDx) &amp; Patient Stratification Panel</div>
+                    <div style="font-size:12px; color:#334155; line-height:1.5;">
+                        <b>Indication:</b> {html.escape(cdx.get('disease_indication', 'Oncology / Chronic Disease'))}<br>
+                        <b>Predictive Responder Signature:</b> <span style="color:#059669; font-weight:600;">{html.escape(cdx.get('responder_signature', 'High target mRNA'))}</span><br>
+                        <b>Exclusionary Non-Responder Signature:</b> <span style="color:#DC2626; font-weight:600;">{html.escape(cdx.get('non_responder_signature', 'Bypass activation'))}</span><br>
+                        <b>Recommended Assay Platform:</b> {html.escape(cdx.get('companion_diagnostic_assay', 'NGS Liquid Biopsy'))}
+                    </div>
+                    <div style="margin-top:8px; font-size:11.5px; color:#475569;">
+                        <b>Synergistic Synthetic Lethality Co-Dependencies:</b>
+                        <ul style="margin:4px 0 0 16px; padding:0;">
+                            {''.join(sl_rows)}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Clinical Resistance Mutation Evasion Table -->
+                <div class="table-container">
+                    <div style="font-size:12px; font-weight:700; color:#1E293B; margin-bottom:4px;">Clinical Gatekeeper Resistance Mutation Landscape</div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Gatekeeper Mutation</th>
+                                <th>Clinical &amp; Resistance Context</th>
+                                <th>Parent Affinity (Loss)</th>
+                                {v_head}
+                                <th>Resistance Evasion Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {''.join(res_rows)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            """
+            sub_sections.append(trans_block)
+
         systems_html = f"""
         <div class="section-card" style="border:1px solid #DDD6FE; background:#FAF5FF;">
             <div class="section-title">

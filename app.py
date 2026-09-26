@@ -43,6 +43,7 @@ importlib.reload(md_eng)
 import ethnodock_audit_engine as audit_eng
 import ethnodock_transparency_engine as trans_eng
 import ethnodock_pathfold_engine as pf_eng
+import ethnodock_translational_engine as trans_pharma_eng
 importlib.reload(audit_eng)
 import ethnodock_benchmark_engine as bm
 importlib.reload(bm)
@@ -2681,12 +2682,13 @@ else:
                     </p>
                     """, unsafe_allow_html=True)
 
-                    tab_s6_targetome, tab_s6_network, tab_s6_synergy, tab_s6_pop, tab_s6_pathfold = st.tabs([
+                    tab_s6_targetome, tab_s6_network, tab_s6_synergy, tab_s6_pop, tab_s6_pathfold, tab_s6_translation = st.tabs([
                         "🎯 Reverse Target Fishing (Pan-Proteome)",
                         "🕸️ Systems Network Biology & Hub Centrality",
                         "⚡ Botanical Synergism & Microbiome Bioactivation",
                         "👥 In-Silico Clinical Trial (Virtual Population N=1,000)",
-                        "🧬 PathFold Pathway & Genetic Engineering Studio"
+                        "🧬 PathFold Pathway & Genetic Engineering Studio",
+                        "🏥 Big Pharma Translation & IND-Enabling Asset Suite"
                     ])
 
                     with tab_s6_targetome:
@@ -3261,4 +3263,220 @@ else:
                                     "Engineering Guidance": r['engineering_guidance']
                                 } for r in curr_pf['engineering_blueprint']
                             ]), use_container_width=True, hide_index=True)
+
+                    with tab_s6_translation:
+                        trans_eng.render_step_transparency_guide('stage_06_translation')
+                        st.markdown("""
+                        <div style="margin-bottom:14px;">
+                            <h4 style="margin:0 0 4px 0; font-size:15px; color:#F5F5F7;">🏥 Big Pharma Clinical Translation &amp; IND-Enabling Asset Suite</h4>
+                            <p style="margin:0; font-size:12.5px; color:#86868B; line-height:1.5;">
+                                Bridges the preclinical Phase II clinical attrition gap by modeling non-equilibrium <b>Copeland Drug-Target Residence Kinetics</b> ($t_{1/2} = \\frac{\\ln 2}{k_{\\text{off}}}$), evaluating <b>Targeted Protein Degradation (PROTAC)</b> exit vectors, formulating an FDA <b>Companion Diagnostic (CDx)</b> patient stratification panel, and stress-testing leads against clinical gatekeeper resistance mutations.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        # Auto-detect target gene and compounds
+                        def_gene = "PTGS2"
+                        if 'receptor_pdbqt' in locals() and receptor_pdbqt:
+                            r_base = os.path.basename(receptor_pdbqt).upper()
+                            if "EGFR" in r_base or "1M17" in r_base:
+                                def_gene = "EGFR"
+                            elif "3CL" in r_base or "MPRO" in r_base or "7C6U" in r_base:
+                                def_gene = "3CLpro"
+                            elif "COX" in r_base or "PTGS2" in r_base or "5IKR" in r_base:
+                                def_gene = "PTGS2"
+
+                        c_tr_p1, c_tr_p2, c_tr_p3, c_tr_p4 = st.columns([1.5, 1.2, 1.2, 1.1], gap="small")
+                        with c_tr_p1:
+                            target_gene_input = st.selectbox(
+                                "Target Gene for IND De-Risking:",
+                                ["PTGS2", "EGFR", "3CLpro"],
+                                index=["PTGS2", "EGFR", "3CLpro"].index(def_gene) if def_gene in ["PTGS2", "EGFR", "3CLpro"] else 0,
+                                key=f"tr_gene_{idx}"
+                            )
+                        with c_tr_p2:
+                            plasma_t12_input = st.number_input(
+                                "Systemic Plasma t½ (h):",
+                                min_value=0.5,
+                                max_value=24.0,
+                                value=2.5,
+                                step=0.5,
+                                key=f"tr_t12_{idx}"
+                            )
+                        with c_tr_p3:
+                            temp_phys_k = st.selectbox(
+                                "Ensemble Temp:",
+                                [310.15, 298.15],
+                                index=0,
+                                format_func=lambda x: f"{x} K (Core)" if x == 310.15 else f"{x} K (Room)",
+                                key=f"tr_temp_{idx}"
+                            )
+                        with c_tr_p4:
+                            st.write("")
+                            run_trans_btn = st.button("🚀 Run Translation", key=f"btn_run_trans_{idx}", use_container_width=True)
+
+                        # Auto-extract parent & derivative information
+                        p_name_tr = active_compound_name or "Parent Compound"
+                        p_smiles_tr = smiles or ""
+                        p_dg_tr = st.session_state.get(f'best_affinity_{idx}', -8.5)
+
+                        v_data_tr = st.session_state.get(f'chosen_variant_{idx}')
+                        v_name_tr = v_data_tr.get('name', 'Optimized Derivative') if v_data_tr else None
+                        v_smiles_tr = v_data_tr.get('variant_smiles') if v_data_tr else None
+                        v_dg_tr = st.session_state.get(f'var_best_affinity_{idx}', p_dg_tr - 1.2) if v_data_tr else None
+
+                        if run_trans_btn or st.session_state.get(f'trans_done_{idx}', False):
+                            if run_trans_btn or f'translational_results_{idx}' not in st.session_state:
+                                with st.spinner("Computing Copeland non-equilibrium kinetics, PROTAC exit vectors, CDx biomarker panels, and gatekeeper resistance landscapes..."):
+                                    tr_results = trans_pharma_eng.run_big_pharma_translational_analysis(
+                                        target_gene=target_gene_input,
+                                        pdb_id=st.session_state.get('selected_pdb_id', '5IKR'),
+                                        parent_name=p_name_tr,
+                                        parent_smiles=p_smiles_tr,
+                                        parent_dg=p_dg_tr,
+                                        var_name=v_name_tr,
+                                        var_smiles=v_smiles_tr,
+                                        var_dg=v_dg_tr
+                                    )
+                                    st.session_state[f'translational_results_{idx}'] = tr_results
+                                    st.session_state['translational_results'] = tr_results  # global for dossier
+                                    st.session_state[f'trans_done_{idx}'] = True
+
+                            curr_tr = st.session_state.get(f'translational_results_{idx}')
+                            if curr_tr:
+                                kin_d = curr_tr['kinetics']
+                                p_k = kin_d['parent_kinetics']
+                                v_k = kin_d.get('derivative_kinetics')
+                                prot_d = curr_tr['protac']
+                                res_d = curr_tr['resistance']
+                                cdx_d = curr_tr['cdx']
+
+                                # 4 Executive KPI Translation Cards
+                                c_kpi1, c_kpi2, c_kpi3, c_kpi4 = st.columns(4, gap="small")
+                                with c_kpi1:
+                                    st.markdown(f"""
+                                    <div class="apple-card" style="padding:14px; text-align:center;">
+                                        <div style="font-size:10px; color:#86868B;">COPELAND RESIDENCE TIME</div>
+                                        <div style="font-size:22px; font-weight:800; color:{p_k['residence_color']}; margin:2px 0;">{p_k['residence_hours']:.2f} <span style="font-size:12px;">hours</span></div>
+                                        <div style="font-size:10px; color:#CBD5E1;">t½ = {p_k['residence_minutes']:.1f} min &bull; k<sub>off</sub> = {p_k['koff_s']:.1e} s⁻¹</div>
+                                    </div>
+                                    """, unsafe_allow_html=True)
+                                with c_kpi2:
+                                    if v_k:
+                                        fold_gain = kin_d.get('residence_fold_gain', 1.0)
+                                        delta_bar = kin_d.get('delta_barrier_gain', 0.0)
+                                        st.markdown(f"""
+                                        <div class="apple-card" style="padding:14px; text-align:center; border:1px solid rgba(48,209,88,0.35);">
+                                            <div style="font-size:10px; color:#30D158;">DERIVATIVE CLAMP GAIN</div>
+                                            <div style="font-size:22px; font-weight:800; color:#30D158; margin:2px 0;">{v_k['residence_hours']:.2f} <span style="font-size:12px;">hours</span></div>
+                                            <div style="font-size:10px; color:#D1D1D6;"><b>+{fold_gain}x</b> Duration (ΔΔG‡ = {delta_bar:+.2f} kcal)</div>
+                                        </div>
+                                        """, unsafe_allow_html=True)
+                                    else:
+                                        st.markdown(f"""
+                                        <div class="apple-card" style="padding:14px; text-align:center;">
+                                            <div style="font-size:10px; color:#86868B;">UNBINDING BARRIER ΔG‡</div>
+                                            <div style="font-size:22px; font-weight:800; color:#0A84FF; margin:2px 0;">{p_k['dg_off_dagger_kcal']:.2f} <span style="font-size:12px;">kcal/mol</span></div>
+                                            <div style="font-size:10px; color:#86868B;">Eyring-Polanyi Transition State</div>
+                                        </div>
+                                        """, unsafe_allow_html=True)
+                                with c_kpi3:
+                                    st.markdown(f"""
+                                    <div class="apple-card" style="padding:14px; text-align:center;">
+                                        <div style="font-size:10px; color:#86868B;">PROTAC / TPD FEASIBILITY</div>
+                                        <div style="font-size:22px; font-weight:800; color:{prot_d['tier_color']}; margin:2px 0;">{prot_d['feasibility_score']}%</div>
+                                        <div style="font-size:10px; color:#CBD5E1;">{prot_d['recommended_e3'][:28]}</div>
+                                    </div>
+                                    """, unsafe_allow_html=True)
+                                with c_kpi4:
+                                    st.markdown(f"""
+                                    <div class="apple-card" style="padding:14px; text-align:center;">
+                                        <div style="font-size:10px; color:#86868B;">RESISTANCE EVASION</div>
+                                        <div style="font-size:22px; font-weight:800; color:#BF5AF2; margin:2px 0;">{res_d['evasion_percentage']}%</div>
+                                        <div style="font-size:10px; color:#CBD5E1;">vs. Gatekeeper Clonal Mutants</div>
+                                    </div>
+                                    """, unsafe_allow_html=True)
+
+                                # Comparative Mechanism Banners
+                                st.markdown(f"""
+                                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-left:4px solid {p_k['residence_color']}; border-radius:10px; padding:12px 16px; margin:14px 0 12px 0;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-weight:700; color:{p_k['residence_color']}; font-size:0.92rem;">Copeland Pharmacodynamic Classification: {p_k['residence_tier']}</span>
+                                        <span style="font-size:0.8rem; color:#86868B;">Kinetic k<sub>on</sub>: {p_k['kon_m_s']:.1e} M⁻¹s⁻¹ &bull; k<sub>off</sub>: {p_k['koff_s']:.1e} s⁻¹</span>
+                                    </div>
+                                    <div style="font-size:0.82rem; color:#CBD5E1; margin-top:5px; line-height:1.45;">
+                                        {p_k['residence_desc']}
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                                # Plotly Figures: Copeland Washout Decay & Resistance Radar Chart
+                                col_tr_fig1, col_tr_fig2 = st.columns(2, gap="medium")
+                                with col_tr_fig1:
+                                    fig_washout = trans_pharma_eng.render_copeland_washout_occupancy_chart(
+                                        kinetics_data=kin_d,
+                                        plasma_t12_hours=plasma_t12_input
+                                    )
+                                    st.plotly_chart(fig_washout, use_container_width=True)
+                                with col_tr_fig2:
+                                    fig_radar = trans_pharma_eng.render_resistance_evasion_radar_chart(
+                                        resistance_data=res_d,
+                                        parent_name=p_name_tr,
+                                        var_name=v_name_tr or "Optimized Lead"
+                                    )
+                                    st.plotly_chart(fig_radar, use_container_width=True)
+
+                                # Targeted Protein Degradation (PROTAC) Feasibility Matrix
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin:16px 0 6px 0;'>🧬 Targeted Protein Degradation (PROTAC / TPD) Chemical Architecture &amp; Exit Vector Map</div>", unsafe_allow_html=True)
+                                col_tpd_left, col_tpd_right = st.columns([1.6, 1], gap="medium")
+                                with col_tpd_left:
+                                    st.markdown(f"""
+                                    <div class="apple-card" style="padding:14px; border-left:4px solid {prot_d['tier_color']};">
+                                        <div style="font-size:11px; color:{prot_d['tier_color']}; font-weight:700;">{prot_d['tractability_tier'].upper()}</div>
+                                        <p style="margin:6px 0 10px 0; font-size:12px; color:#D1D1D6; line-height:1.5;">{prot_d['tpd_verdict']}</p>
+                                        <div style="font-size:11.5px; color:#CBD5E1;">
+                                            &bull; <b>Recommended E3 Ligase Recruiter:</b> <span style="color:#64D2FF;">{prot_d['recommended_e3']}</span><br>
+                                            &bull; <b>Optimal Linker Trajectory:</b> <span style="color:#30D158;">{prot_d['recommended_linker']}</span>
+                                        </div>
+                                    </div>
+                                    """, unsafe_allow_html=True)
+                                with col_tpd_right:
+                                    if prot_d['exit_vectors']:
+                                        df_ev = pd.DataFrame(prot_d['exit_vectors'])
+                                        st.dataframe(df_ev, use_container_width=True, hide_index=True)
+                                    else:
+                                        st.info("No primary solvent exit vectors identified.")
+
+                                # FDA Companion Diagnostic (CDx) & Patient Stratification Blueprint
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin:16px 0 6px 0;'>📋 FDA Companion Diagnostic (CDx) &amp; Clinical Trial Patient Stratification Blueprint</div>", unsafe_allow_html=True)
+                                st.markdown(f"""
+                                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:14px 18px; margin-bottom:12px;">
+                                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                                        <div>
+                                            <div style="font-size:11px; font-weight:700; color:#30D158; text-transform:uppercase;">Predictive Responder Biomarker Signature</div>
+                                            <div style="font-size:12.5px; color:#F5F5F7; margin-top:3px; line-height:1.45;">{cdx_d['responder_signature']}</div>
+                                            <div style="font-size:11px; color:#86868B; margin-top:8px;"><b>Target Indication:</b> {cdx_d['disease_indication']}</div>
+                                        </div>
+                                        <div>
+                                            <div style="font-size:11px; font-weight:700; color:#FF453A; text-transform:uppercase;">Exclusionary Non-Responder / Toxicity Signature</div>
+                                            <div style="font-size:12.5px; color:#F5F5F7; margin-top:3px; line-height:1.45;">{cdx_d['non_responder_signature']}</div>
+                                            <div style="font-size:11px; color:#86868B; margin-top:8px;"><b>Recommended Assay:</b> {cdx_d['companion_diagnostic_assay']}</div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
+                                        <div style="font-size:11.5px; font-weight:600; color:#CBD5E1; margin-bottom:6px;">Synergistic Synthetic Lethality &amp; Co-Dependency Partners (Broad DepMap / Project SCORE):</div>
+                                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                                            {' '.join([f"<span class='apple-badge apple-badge-purple' style='font-size:11px;'><b>{sl['gene']}:</b> {sl['relationship']}</span>" for sl in cdx_d['synthetic_lethal_partners']])}
+                                        </div>
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+
+                                # Clinical Gatekeeper Resistance Mutation Table
+                                st.markdown("<div style='font-size:13px; font-weight:600; color:#F5F5F7; margin:14px 0 6px 0;'>🛡️ Clinical Gatekeeper Resistance Mutation Evasion Matrix</div>", unsafe_allow_html=True)
+                                df_mut = pd.DataFrame(res_d['mutations_table'])
+                                if not df_mut.empty:
+                                    cols_show = [c for c in df_mut.columns if c != 'Status Color']
+                                    st.dataframe(df_mut[cols_show], use_container_width=True, hide_index=True)
+
 

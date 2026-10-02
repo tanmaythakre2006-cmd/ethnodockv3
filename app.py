@@ -10,61 +10,105 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import streamlit.components.v1 as components
-from rdkit import Chem
-from rdkit.Chem import Draw
-
-# Add root directory to sys.path
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(BASE_DIR)
-
-import importlib
-import ethnodock_docking_engine as dock_eng
-importlib.reload(dock_eng)
-import ethnodock_interaction_engine as inter_eng
-importlib.reload(inter_eng)
-import ethnodock_bioisostere_engine as bio_eng
-importlib.reload(bio_eng)
-import ethnodock_admet_engine as admet_eng
-importlib.reload(admet_eng)
-import ethnodock_dossier_engine as dossier_eng
-importlib.reload(dossier_eng)
-import ethnodock_paozhi_engine as paozhi_eng
-importlib.reload(paozhi_eng)
-import ethnodock_reproducibility_engine as repro_eng
-importlib.reload(repro_eng)
-import ethnodock_chembl_engine as chembl_eng
-importlib.reload(chembl_eng)
-import ethnodock_microbiome_engine as micro_eng
-importlib.reload(micro_eng)
-import ethnodock_energetics_engine as energ_eng
-importlib.reload(energ_eng)
-import ethnodock_figure_engine as fig_eng
-importlib.reload(fig_eng)
-import ethnodock_md_engine as md_eng
-importlib.reload(md_eng)
-import ethnodock_audit_engine as audit_eng
-import ethnodock_transparency_engine as trans_eng
-import ethnodock_pathfold_engine as pf_eng
-import ethnodock_translational_engine as trans_pharma_eng
-importlib.reload(audit_eng)
-import ethnodock_benchmark_engine as bm
-importlib.reload(bm)
-import ethnodock_targetome_engine as targetome_eng
-importlib.reload(targetome_eng)
-import ethnodock_network_engine as network_eng
-importlib.reload(network_eng)
-import ethnodock_population_engine as pop_eng
-import ethnodock_boltz_engine as boltz_eng
-importlib.reload(boltz_eng)
-import plotly.graph_objects as go
-
-# --- Page Configuration ---
+# --- Page Configuration (Must be first Streamlit call) ---
 st.set_page_config(
     page_title="EthnoDock Pro • Computational Pharmacognosy",
     page_icon="🌿",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+# --- Robust Import & Windows Smart App Control Diagnostics ---
+RDKIT_BLOCKED = False
+RDKIT_BLOCK_REASON = ""
+
+try:
+    from rdkit import Chem
+    from rdkit.Chem import Draw
+
+    # Add root directory to sys.path
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    if BASE_DIR not in sys.path:
+        sys.path.append(BASE_DIR)
+
+    import importlib
+    import ethnodock_docking_engine as dock_eng
+    importlib.reload(dock_eng)
+    import ethnodock_interaction_engine as inter_eng
+    importlib.reload(inter_eng)
+    import ethnodock_bioisostere_engine as bio_eng
+    importlib.reload(bio_eng)
+    import ethnodock_admet_engine as admet_eng
+    importlib.reload(admet_eng)
+    import ethnodock_dossier_engine as dossier_eng
+    importlib.reload(dossier_eng)
+    import ethnodock_paozhi_engine as paozhi_eng
+    importlib.reload(paozhi_eng)
+    import ethnodock_reproducibility_engine as repro_eng
+    importlib.reload(repro_eng)
+    import ethnodock_chembl_engine as chembl_eng
+    importlib.reload(chembl_eng)
+    import ethnodock_microbiome_engine as micro_eng
+    importlib.reload(micro_eng)
+    import ethnodock_energetics_engine as energ_eng
+    importlib.reload(energ_eng)
+    import ethnodock_figure_engine as fig_eng
+    importlib.reload(fig_eng)
+    import ethnodock_md_engine as md_eng
+    importlib.reload(md_eng)
+    import ethnodock_audit_engine as audit_eng
+    import ethnodock_transparency_engine as trans_eng
+    import ethnodock_pathfold_engine as pf_eng
+    import ethnodock_translational_engine as trans_pharma_eng
+    importlib.reload(audit_eng)
+    import ethnodock_benchmark_engine as bm
+    importlib.reload(bm)
+    import ethnodock_targetome_engine as targetome_eng
+    importlib.reload(targetome_eng)
+    import ethnodock_network_engine as network_eng
+    importlib.reload(network_eng)
+    import ethnodock_population_engine as pop_eng
+    import ethnodock_boltz_engine as boltz_eng
+    importlib.reload(boltz_eng)
+    import plotly.graph_objects as go
+except Exception as e:
+    RDKIT_BLOCKED = True
+    RDKIT_BLOCK_REASON = str(e)
+
+if RDKIT_BLOCKED:
+    st.markdown(
+        f"""
+        <div style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 16px; padding: 28px; margin: 30px auto; max-width: 850px; font-family: -apple-system, sans-serif;">
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+                <span style="font-size: 2rem;">🛡️</span>
+                <div>
+                    <h2 style="margin: 0; color: #F87171; font-size: 1.35rem; font-weight: 700;">Windows Smart App Control Blocked RDKit C++ DLLs</h2>
+                    <p style="margin: 4px 0 0 0; color: #94A3B8; font-size: 0.88rem;">Application Control policy code 0x800711C7</p>
+                </div>
+            </div>
+            <div style="background: rgba(15,23,42,0.6); border-radius: 10px; padding: 16px; margin-bottom: 20px; font-family: monospace; font-size: 0.82rem; color: #FCA5A5; word-break: break-all;">
+                {RDKIT_BLOCK_REASON}
+            </div>
+            <h4 style="color: #F1F5F9; margin: 16px 0 10px 0;">Why this happens:</h4>
+            <p style="color: #CBD5E1; font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+                Windows 11 <strong>Smart App Control (SAC)</strong> uses cloud AI heuristics that block open-source compiled C++ wheels (like RDKit's <code>rdmolfiles.pyd</code> and <code>RDKitRDGeometryLib...dll</code>) because community wheels lack a proprietary commercial Microsoft EV digital certificate.
+            </p>
+            <h4 style="color: #F1F5F9; margin: 16px 0 10px 0;">How to resolve in 3 steps:</h4>
+            <ol style="color: #CBD5E1; font-size: 0.92rem; line-height: 1.8; padding-left: 20px;">
+                <li>Open <strong>Windows Security</strong> from your Start Menu (or click the shield icon in your taskbar).</li>
+                <li>Go to <strong>App & browser control</strong> &rarr; click <strong>Smart App Control settings</strong>.</li>
+                <li>Set Smart App Control to <strong>Evaluation</strong> (or <strong>Off</strong>).</li>
+            </ol>
+            <div style="margin-top: 24px;">
+                <p style="color: #64748B; font-size: 0.82rem;">Once toggled, click the button below to reload EthnoDock:</p>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    if st.button("🔄 Check & Rerun EthnoDock"):
+        st.rerun()
+    st.stop()
 
 # --- Ultra-Premium Apple / Linear Glassmorphic Design System ---
 st.markdown(

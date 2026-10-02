@@ -1,5 +1,8 @@
 import os
 import sys
+import threading
+import uuid
+import tempfile
 import urllib.request
 import zipfile
 import subprocess
@@ -10,6 +13,10 @@ from rdkit.Chem import AllChem
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BIN_DIR = os.path.join(BASE_DIR, "bin")
 os.makedirs(BIN_DIR, exist_ok=True)
+
+# Concurrency guards for multi-user stability
+_RECEPTOR_LOCK = threading.Lock()
+_VINA_SEMAPHORE = threading.Semaphore(3)
 
 def get_vina_executable():
     """
@@ -126,24 +133,6 @@ def map_autodock_atom_type(element, res_name="", atom_name=""):
         
     return elem if elem in ['C', 'N', 'O', 'S', 'P', 'F', 'I'] else 'C'
 
-def fetch_receptor(pdb_id, output_pdb=None):
-    """
-    Downloads PDB file from RCSB PDB and converts it into a clean,
-    AutoDock-ready PDBQT file with assigned atom types and placeholder charges.
-    """
-    if output_pdb is None:
-        output_pdb = os.path.join(BASE_DIR, f"{pdb_id.upper()}.pdb")
-
-    url = f"https://files.rcsb.org/download/{pdb_id.upper()}.pdb"
-    try:
-        urllib.request.urlretrieve(url, output_pdb)
-    except Exception as e:
-        print(f"Error downloading PDB {pdb_id}: {e}")
-        return None
-
-    with open(output_pdb, 'r', encoding='utf-8', errors='ignore') as f:
-        pdb_str = f.read()
-
 # Standard protein residues (20 canonical amino acids + modified forms)
 STANDARD_PROTEIN_RESIDUES = {
     "ALA", "ARG", "ASN", "ASP", "CYS", "GLN", "GLU", "GLY", "HIS", "ILE",
@@ -163,44 +152,61 @@ def fetch_receptor(pdb_id, output_pdb=None):
     AutoDock-ready PDBQT file with assigned atom types and placeholder charges.
     Strips all bound crystallographic drug ligands, inhibitors, buffers, and solvents
     so the orthosteric binding cavity is pristine and ready for ligand docking.
+    Uses caching and thread locks to safely handle concurrent multi-user requests.
     """
     if output_pdb is None:
         output_pdb = os.path.join(BASE_DIR, f"{pdb_id.upper()}.pdb")
 
-    url = f"https://files.rcsb.org/download/{pdb_id.upper()}.pdb"
-    try:
-        urllib.request.urlretrieve(url, output_pdb)
-    except Exception as e:
-        print(f"Error downloading PDB {pdb_id}: {e}")
-        return None
-
-    with open(output_pdb, 'r', encoding='utf-8', errors='ignore') as f:
-        pdb_str = f.read()
-
-    lines = []
-    for line in pdb_str.split('\n'):
-        if line.startswith("ATOM") or line.startswith("HETATM"):
-            res_name = line[17:20].strip().upper()
-            
-            # For HETATM records, only retain recognized protein residues or essential catalytic cofactors/metals
-            # Exclude all bound inhibitors/drugs (e.g. AQ4, 010, SIM) and crystallization solvents (HOH, PEG, SO4)
-            if line.startswith("HETATM") and (res_name not in STANDARD_PROTEIN_RESIDUES and res_name not in CATALYTIC_COFACTORS_AND_METALS):
-                continue
-
-            element = line[76:78].strip()
-            atom_name = line[12:16].strip()
-            if not element:
-                element = atom_name[0] if atom_name else 'C'
-            
-            ad_type = map_autodock_atom_type(element, res_name, atom_name)
-
-            # AutoDock format: columns 1-66 preserved + 4 spaces + "+0.000" + space + atom type (2 chars)
-            new_line = line[:66].ljust(66) + "    +0.000 " + ad_type.ljust(2)
-            lines.append(new_line)
-
     pdbqt_output = output_pdb.replace('.pdb', '.pdbqt')
-    with open(pdbqt_output, 'w', encoding='utf-8') as f:
-        f.write("\n".join(lines))
+
+    # Fast path: If both PDB and PDBQT exist and are non-empty, use existing (thread-safe read)
+    if os.path.exists(output_pdb) and os.path.getsize(output_pdb) > 1000 and \
+       os.path.exists(pdbqt_output) and os.path.getsize(pdbqt_output) > 1000:
+        return pdbqt_output
+
+    with _RECEPTOR_LOCK:
+        # Re-check inside lock
+        if os.path.exists(output_pdb) and os.path.getsize(output_pdb) > 1000 and \
+           os.path.exists(pdbqt_output) and os.path.getsize(pdbqt_output) > 1000:
+            return pdbqt_output
+
+        url = f"https://files.rcsb.org/download/{pdb_id.upper()}.pdb"
+        try:
+            tmp_download = output_pdb + ".tmp"
+            urllib.request.urlretrieve(url, tmp_download)
+            if os.path.exists(output_pdb):
+                os.remove(output_pdb)
+            os.replace(tmp_download, output_pdb)
+        except Exception as e:
+            print(f"Error downloading PDB {pdb_id}: {e}")
+            if not os.path.exists(output_pdb):
+                return None
+
+        with open(output_pdb, 'r', encoding='utf-8', errors='ignore') as f:
+            pdb_str = f.read()
+
+        lines = []
+        for line in pdb_str.split('\n'):
+            if line.startswith("ATOM") or line.startswith("HETATM"):
+                res_name = line[17:20].strip().upper()
+                if line.startswith("HETATM") and (res_name not in STANDARD_PROTEIN_RESIDUES and res_name not in CATALYTIC_COFACTORS_AND_METALS):
+                    continue
+
+                element = line[76:78].strip()
+                atom_name = line[12:16].strip()
+                if not element:
+                    element = atom_name[0] if atom_name else 'C'
+                
+                ad_type = map_autodock_atom_type(element, res_name, atom_name)
+                new_line = line[:66].ljust(66) + "    +0.000 " + ad_type.ljust(2)
+                lines.append(new_line)
+
+        tmp_pdbqt = pdbqt_output + ".tmp"
+        with open(tmp_pdbqt, 'w', encoding='utf-8') as f:
+            f.write("\n".join(lines))
+        if os.path.exists(pdbqt_output):
+            os.remove(pdbqt_output)
+        os.replace(tmp_pdbqt, pdbqt_output)
 
     return pdbqt_output
 
@@ -211,7 +217,8 @@ def prepare_ligand(smiles, output_pdbqt=None):
     """
     uff_delta = 0.0
     if output_pdbqt is None:
-        output_pdbqt = os.path.join(BASE_DIR, "ligand.pdbqt")
+        temp_dir = tempfile.gettempdir()
+        output_pdbqt = os.path.join(temp_dir, f"ligand_{uuid.uuid4().hex[:8]}.pdbqt")
 
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
@@ -385,12 +392,13 @@ def run_vina_docking(receptor_pdbqt, ligand_pdbqt, center, dims, exhaustiveness=
         "--out", output_pdbqt
     ]
     
-    try:
-        res = subprocess.run(cmd, capture_output=True, text=True)
-        raw_output = res.stdout + "\n" + res.stderr
-        parsed_poses = parse_vina_output(raw_output)
-        return raw_output, parsed_poses, output_pdbqt
-    except Exception as e:
-        err_msg = f"Docking execution error: {e}"
-        print(err_msg)
-        return err_msg, [], output_pdbqt
+    with _VINA_SEMAPHORE:
+        try:
+            res = subprocess.run(cmd, capture_output=True, text=True)
+            raw_output = res.stdout + "\n" + res.stderr
+            parsed_poses = parse_vina_output(raw_output)
+            return raw_output, parsed_poses, output_pdbqt
+        except Exception as e:
+            err_msg = f"Docking execution error: {e}"
+            print(err_msg)
+            return err_msg, [], output_pdbqt

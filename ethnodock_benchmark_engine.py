@@ -148,7 +148,7 @@ def calculate_heavy_atom_rmsd(crystal_coords, docked_coords):
     # Also compute optimal translation/nearest neighbor RMSD for symmetrical molecules
     return round(float(direct_rmsd), 2)
 
-def run_native_redocking_benchmark(pdb_file, receptor_pdbqt, center, dims, exhaustiveness=8, cpu=1, seed=42):
+def run_native_redocking_benchmark(pdb_file, receptor_pdbqt, center, dims, exhaustiveness=8, cpu=1, seed=42, work_dir=None):
     """
     Performs full automated crystallographic redocking validation:
     1. Extracts native crystallographic co-crystal ligand.
@@ -171,12 +171,13 @@ def run_native_redocking_benchmark(pdb_file, receptor_pdbqt, center, dims, exhau
     if not crystal_pdb_str:
         return {"success": False, "message": f"Failed to extract coordinates for ligand {lig_res}."}
 
-    # Prepare PDBQT
-    crystal_pdbqt_path = os.path.join(BASE_DIR, f"native_crystal_{pdb_basename}_{lig_res}.pdbqt")
+    # Prepare PDBQT in isolated session work_dir or BASE_DIR
+    target_dir = work_dir if (work_dir and os.path.isdir(work_dir)) else BASE_DIR
+    crystal_pdbqt_path = os.path.join(target_dir, f"native_crystal_{pdb_basename}_{lig_res}.pdbqt")
     prepare_native_ligand_pdbqt(crystal_pdb_str, crystal_pdbqt_path)
 
     # Output redocked path
-    docked_out_pdbqt = os.path.join(BASE_DIR, f"native_redocked_{pdb_basename}_{lig_res}_out.pdbqt")
+    docked_out_pdbqt = os.path.join(target_dir, f"native_redocked_{pdb_basename}_{lig_res}_out.pdbqt")
 
     # Run AutoDock Vina redocking
     raw_output, modes, _ = dock_eng.run_vina_docking(

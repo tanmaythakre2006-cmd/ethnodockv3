@@ -8,6 +8,7 @@ from datetime import datetime
 from rdkit import Chem
 from rdkit.Chem import Draw
 import ethnodock_audit_engine as audit_eng
+import ethnodock_boltz_engine as boltz_eng
 
 def generate_tcm_dossier_html(
     species_name,
@@ -53,7 +54,8 @@ def generate_tcm_dossier_html(
     microbiome_results=None,
     population_results=None,
     pathfold_results=None,
-    translational_results=None
+    translational_results=None,
+    boltz_results=None
 ):
     """
     Generates an executive, publication-grade scientific research monograph
@@ -1229,6 +1231,14 @@ def generate_tcm_dossier_html(
         </div>
         """
 
+    boltz_html = ""
+    if boltz_results:
+        boltz_html = f"""
+        <div class="section-card" style="border:1px solid #C4B5FD; background:#FAF5FF;">
+            {boltz_eng.generate_boltz_dossier_section_html(boltz_results)}
+        </div>
+        """
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1648,6 +1658,9 @@ def generate_tcm_dossier_html(
 
         <!-- Systems Network Pharmacology & Targetome Profile (Optional Extension) -->
         {systems_html}
+
+        <!-- MIT Boltz-2 AI Biomolecular Co-Folding & Near-FEP Foundation Benchmark -->
+        {boltz_html}
 
         <!-- 7. ADMET Pharmacokinetics & PAINS -->
         <div class="section-card">

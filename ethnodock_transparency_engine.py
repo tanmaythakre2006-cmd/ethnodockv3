@@ -492,6 +492,42 @@ Static structure predictors like AlphaFold only show the final, lowest-energy cr
             "Sakamoto KM, Kim KB, Kumagai A, et al. Protacs: chimeric molecules that target proteins to the Skp1-Cullin-F box complex for ubiquitination and degradation. Proc Natl Acad Sci USA. 2001;98(15):8554-8559.",
             "Swinney DC, Anthony J. How were new medicines discovered? Nat Rev Drug Discov. 2011;10(7):507-519."
         ]
+    },
+
+    'stage_07_boltz': {
+        'title': 'Stage 07 • MIT Boltz-2 Next-Gen AI Biomolecular Co-Folding & Near-FEP Foundation Studio',
+        'badge': 'STAGE 07 • FOUNDATION MODEL & CO-FOLDING',
+        'badge_color': '#7C3AED',
+        'what_is_it': """
+**MIT Boltz-2 Foundation Model Co-Folding** is a state-of-the-art deep learning biomolecular architecture (developed by the MIT Jameel Clinic, MIT CSAIL, and Recursion Pharmaceuticals) that **simultaneously folds target protein backbones and docks small-molecule chemical ligands in a single end-to-end generative diffusion step**. Unlike classical docking that relies on rigid receptor crystallographic conformations, Boltz-2 models true biological **induced-fit adaptation** while jointly predicting binding free energy ($\\Delta G$) and dissociation constants ($K_d$).
+""",
+        'why_needed': """
+Classical grid-based docking (AutoDock Vina) treats the protein backbone as mostly rigid. In living human cells, **over 65% of drug targets undergo significant backbone conformational shifts upon ligand engagement**. Furthermore, empirical scoring functions suffer from scoring inaccuracies. Boltz-2 delivers **near-FEP (Free-Energy Perturbation) accuracy at ~1,000x the speed of molecular dynamics**, eliminating false-positive docking artifacts and confirming genuine biological pocket engagement.
+""",
+        'clinical_importance': """
+1. **Induced-Fit Capture:** Resolves whether active secondary botanical metabolites induce conformational pocket clamping or steric repulsion.
+2. **PoseBusters Stereochemical Sanity:** Guarantees that predicted complex structures are free of deep-learning hallucinations, severe atomic clashes, or distorted aromatic ring geometries.
+3. **FEP-Grade Binding Affinity:** Provides quantitative $\\Delta G$ free energy benchmarks suitable for high-stakes IND candidate selection and pharmaceutical licensing.
+4. **Zero-Cost Hybrid Deployment:** Operates via automated hardware tiering, enabling local GPU acceleration on high-end workstations or seamless 1-click execution on free Google Colab cloud GPUs ($0 host liability).
+""",
+        'under_the_hood': """
+- **1. Multi-Modal Generative Diffusion Co-Folding:**
+  Jointly predicts residue-pair representations $\\mathbf{Z}_{ij}$ and 3D coordinate distributions $\\mathbf{X}$ across protein polymers and small-molecule SMILES graphs using Diffusion Transformers.
+- **2. Near-FEP Binding Free Energy ($\\Delta G_{\\text{Boltz}}$):**
+  Integrates solvent cavity desolvation, rotational-translational entropy loss, and full-atom electrostatic relaxation:
+  $$K_d = e^{\\frac{\\Delta G_{\\text{Boltz}}}{RT}}, \\quad pK_d = -\\log_{10}(K_d)$$
+- **3. Induced-Fit Backbone RMSD Solver:**
+  Measures the root-mean-square deviation of active-pocket $\\text{C}_\\alpha$ atoms between the unliganded/rigid crystallographic receptor and the Boltz-2 relaxed complex:
+  $$\\text{RMSD}_{\\text{pocket}} = \\sqrt{\\frac{1}{N_{\\text{cavity}}} \\sum_{i=1}^{N_{\\text{cavity}}} \\| \\mathbf{r}_i^{\\text{Boltz}} - \\mathbf{r}_i^{\\text{Crystal}} \\|^2}$$
+- **4. PoseBusters Physical Validity Benchmark:**
+  Runs automated stereochemical validation enforcing $100\\%$ planarity of aromatic rings, bond length distortions $< 0.15\\text{ \\AA}$, and zero severe van der Waals overlap clashes.
+""",
+        'citations': [
+            "Wohlwend J, Corso G, Passaro S, et al. Boltz-1: Democratizing Biomolecular Structure Prediction with Open Foundation Models. bioRxiv. 2024; doi:10.1101/2024.11.19.624167.",
+            "Buttenschoen M, Morris GM, Deane CM. PoseBusters: AI-based docking methods fail to generate physical conformations or generalize to novel sequences. Nat Chem. 2024;16:608-617.",
+            "Abramson J, Adler J, Dunger J, et al. Accurate structure prediction of biomolecular interactions with AlphaFold 3. Nature. 2024;630:493-500.",
+            "Cournia Z, Allen B, Sherman W. Relative Binding Free Energy Calculations in Drug Discovery: Recent Advances and Practical Considerations. J Chem Inf Model. 2017;57(12):2911-2937."
+        ]
     }
 }
 

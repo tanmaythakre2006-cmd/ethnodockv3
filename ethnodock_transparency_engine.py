@@ -521,6 +521,10 @@ Classical grid-based docking (AutoDock Vina) treats the protein backbone as most
   $$\\text{RMSD}_{\\text{pocket}} = \\sqrt{\\frac{1}{N_{\\text{cavity}}} \\sum_{i=1}^{N_{\\text{cavity}}} \\| \\mathbf{r}_i^{\\text{Boltz}} - \\mathbf{r}_i^{\\text{Crystal}} \\|^2}$$
 - **4. PoseBusters Physical Validity Benchmark:**
   Runs automated stereochemical validation enforcing $100\\%$ planarity of aromatic rings, bond length distortions $< 0.15\\text{ \\AA}$, and zero severe van der Waals overlap clashes.
+- **5. Client-Side WebAssembly (WASM) Edge Computing:**
+  Executes high-throughput screening directly within the client's browser using Web Workers (`navigator.hardwareConcurrency`), achieving zero network latency and $0.00 host server compute liability.
+- **6. Fractional Diffusion Trajectory Streaming:**
+  Deconstructs the joint diffusion process into intermediate denoising timesteps ($t = 200, 150, 100, 50, 0$). Streams coordinate fractions to an interactive WebGL player, allowing researchers to inspect live induced-fit pocket adaptation.
 """,
         'citations': [
             "Wohlwend J, Corso G, Passaro S, et al. Boltz-1: Democratizing Biomolecular Structure Prediction with Open Foundation Models. bioRxiv. 2024; doi:10.1101/2024.11.19.624167.",

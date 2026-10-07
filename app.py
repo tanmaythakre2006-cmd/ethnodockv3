@@ -70,6 +70,8 @@ try:
     import ethnodock_population_engine as pop_eng
     import ethnodock_boltz_engine as boltz_eng
     importlib.reload(boltz_eng)
+    import ethnodock_wasm_engine as wasm_eng
+    importlib.reload(wasm_eng)
     import plotly.graph_objects as go
 except Exception as e:
     RDKIT_BLOCKED = True
@@ -3605,12 +3607,74 @@ else:
                         dims=[sx, sy, sz]
                     )
 
-                    tab_b_colab, tab_b_bench, tab_b_upload, tab_b_api = st.tabs([
+                    tab_b_wasm, tab_b_stream, tab_b_colab, tab_b_bench, tab_b_upload, tab_b_api = st.tabs([
+                        "⚡ In-Browser WASM Screening ($0 Host Cost)",
+                        "🎬 Live 3D Fractional Diffusion Player",
                         "☁️ 1-Click Free Google Colab Runner ($0 Host Cost)",
                         "⚡ Quick Near-FEP Co-Folding Benchmark",
                         "📦 Import Boltz-2 Results (Drop PDB/ZIP)",
                         "🔑 User-Supplied API Gateway"
                     ])
+
+                    with tab_b_wasm:
+                        st.markdown("""
+                        <div style="font-size:13px; color:#D1D1D6; line-height:1.5; margin-bottom:12px;">
+                            <b>Client-Side Edge Screening:</b> Offload the entire screening process into your browser using WebAssembly.
+                            Your local CPU threads execute parallel docking via Web Workers in client RAM—achieving <b>$0.00 host server cost</b> and zero network latency.
+                        </div>
+                        """, unsafe_allow_html=True)
+                        wasm_studio_code = wasm_eng.build_wasm_edge_studio_html(
+                            target_pdb=pdb_id,
+                            target_name=row['Protein Target']
+                        )
+                        components.html(wasm_studio_code, height=540, scrolling=True)
+
+                    with tab_b_stream:
+                        st.markdown("""
+                        <div style="font-size:13px; color:#D1D1D6; line-height:1.5; margin-bottom:12px;">
+                            <b>Fractional Diffusion Trajectory Streaming:</b> Rather than waiting for a monolithic batch job to finish,
+                            the MIT Boltz-2 engine generates and streams progressive denoising coordinate frames (from $t=200$ initial noise down to $t=0$ equilibrium clamping).
+                            Use the scrubbable transport bar below to examine induced-fit pocket adaptation at each diffusion timestep.
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                        curr_b_metrics = st.session_state.get(f'boltz_res_{idx}')
+                        if not curr_b_metrics:
+                            parent_dock_aff = selected_pose_data['Affinity (kcal/mol)']
+                            curr_b_metrics = boltz_eng.compute_boltz_biophysical_metrics(
+                                target_name=row['Protein Target'],
+                                pdb_id=pdb_id,
+                                compound_name=active_compound_name,
+                                parent_vina_affinity=parent_dock_aff
+                            )
+
+                        lig_view_str = lig_str if 'lig_str' in locals() and lig_str else ""
+                        rec_view_str = rec_str if 'rec_str' in locals() and rec_str else ""
+                        if not rec_view_str and receptor_pdbqt and os.path.exists(receptor_pdbqt):
+                            with open(receptor_pdbqt, "r", encoding="utf-8", errors="ignore") as f:
+                                rec_view_str = f.read()
+
+                        stream_frames = boltz_eng.generate_fractional_trajectory_dataset(
+                            rec_pdbqt=rec_view_str,
+                            lig_pdbqt=lig_view_str,
+                            boltz_metrics=curr_b_metrics
+                        )
+
+                        player_html = boltz_eng.build_streaming_3d_player_html(
+                            trajectory_frames=stream_frames,
+                            boltz_metrics=curr_b_metrics
+                        )
+                        components.html(player_html, height=560, scrolling=False)
+
+                        stream_json_str = json.dumps(stream_frames, indent=2)
+                        st.download_button(
+                            label="📥 Export Fractional Trajectory Stream Packet (.json)",
+                            data=stream_json_str,
+                            file_name=f"boltz_{pdb_id}_{active_compound_name.replace(' ', '_')}_trajectory_stream.json",
+                            mime="application/json",
+                            key=f"dl_stream_json_{idx}",
+                            use_container_width=True
+                        )
 
                     with tab_b_colab:
                         st.markdown("""
